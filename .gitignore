@@ -36,6 +36,7 @@ out/
 ### VS Code ###
 .vscode/
 
+
 ###설정파일들###
 /src/main/resources/application.yml
 
@@ -47,3 +48,4 @@ out/
 
 ###로그###
 *.log
+
