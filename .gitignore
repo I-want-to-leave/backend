@@ -35,3 +35,17 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+###설정파일들###
+/src/main/resources/application.yml
+
+###빌드 산출물###
+*.class
+*.jar
+*.war
+*.ear
+
+###로그###
+*.log
+
