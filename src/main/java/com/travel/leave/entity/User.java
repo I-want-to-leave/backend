@@ -1,5 +1,6 @@
 package com.travel.leave.entity;
 
+import com.travel.leave.join.dto.JoinRequestDTO;
 import com.travel.leave.login.oauth.service.response.OAuth2Response;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,12 +10,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Table(name = "user")
@@ -41,6 +45,7 @@ public class User {
     private String email;
 
     @Column(name = "create_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createDate;
 
     @Column(name = "deleted_date")
@@ -68,7 +73,19 @@ public class User {
         this.providerId = oAuth2Response.getProviderId();
     }
 
-    public static User of(OAuth2Response oAuth2Response) {
+    private User(JoinRequestDTO joinRequestDTO, String bCryptPassword) {
+        this.username = joinRequestDTO.username();
+        this.nickname = joinRequestDTO.nickname();
+        this.email = joinRequestDTO.email();
+        this.password = bCryptPassword;
+        this.role = UserRole.ROLE_USER;
+    }
+
+    public static User ofOAuth2Response(OAuth2Response oAuth2Response) {
         return new User(oAuth2Response);
+    }
+
+    public static User ofJoinRequestDTO(JoinRequestDTO joinRequestDTO, String bCryptPassword) {
+        return new User(joinRequestDTO, bCryptPassword);
     }
 }

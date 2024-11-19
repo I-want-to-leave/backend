@@ -40,7 +40,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         }
 
         //처음 로그인이면 자동으로 데이터베이스에 회원 정보 저장
-        User user = User.of(oAuth2Response);
+        User user = User.ofOAuth2Response(oAuth2Response);
         OAuth2AuthenticationDTO oAuth2AuthenticationDTO = OAuth2AuthenticationDTO.of(userRepository.save(user), oAuthCode);
         return CustomOAuth2User.of(oAuth2AuthenticationDTO, oAuth2User.getAttributes());
     }
