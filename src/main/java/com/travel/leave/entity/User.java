@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
@@ -44,12 +45,12 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp createDate;
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Timestamp createdAt;
 
-    @Column(name = "deleted_date")
-    private LocalDateTime deletedDate;
+    @Column(name = "deleted_at")
+    private Timestamp deletedAt;
 
     @Column(name = "tel_num")
     private String telNum;
@@ -63,6 +64,9 @@ public class User {
 
     @Column(name = "provider_id")
     private String providerId;
+
+    @Column(name = "profile_url")
+    private String profileUrl;
 
     private User(OAuth2Response oAuth2Response) {
         this.username = oAuth2Response.getUserId();
