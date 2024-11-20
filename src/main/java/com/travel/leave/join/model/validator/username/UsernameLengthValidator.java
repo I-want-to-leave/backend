@@ -7,6 +7,6 @@ import jakarta.validation.ConstraintValidatorContext;
 public class UsernameLengthValidator implements ConstraintValidator<UsernameLength, String> {
     @Override
     public boolean isValid(String username, ConstraintValidatorContext constraintValidatorContext) {
-        return username.length() < 8 || username.length() > 25;
+        return username.length() >= 8 && username.length() <= 25;
     }
 }

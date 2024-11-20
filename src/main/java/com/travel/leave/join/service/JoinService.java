@@ -14,13 +14,15 @@ import org.springframework.transaction.CannotCreateTransactionException;
 @Service
 public class JoinService {
     private final JoinRepository joinRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public JoinService(JoinRepository joinRepository) {
+    public JoinService(JoinRepository joinRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.joinRepository = joinRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public void join(JoinRequestDTO joinRequestDTO) {
-        String bCryptPassword = getBCryptPassword(joinRequestDTO.password());
+        String bCryptPassword = bCryptPasswordEncoder.encode(joinRequestDTO.password());
         User userForSave = User.ofJoinRequestDTO(joinRequestDTO, bCryptPassword);
         joinRepository.save(userForSave);
     }
