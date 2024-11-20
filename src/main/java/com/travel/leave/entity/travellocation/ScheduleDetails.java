@@ -7,14 +7,14 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Embeddable
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class ScheduleDetails {
     @Column(name = "travel_location_name")
     private String name;

@@ -8,13 +8,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "travel_preparation")
-@Data
-@RequiredArgsConstructor
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class TravelPreparation {

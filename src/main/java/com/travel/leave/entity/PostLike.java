@@ -8,19 +8,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@Table(name = "like")
-@Data
-@RequiredArgsConstructor
+@Table(name = "post_like")
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Like {
+public class PostLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "like_code")
+    @Column(name = "post_like_code")
     private Long code;
 
     @Column(name = "post_code")

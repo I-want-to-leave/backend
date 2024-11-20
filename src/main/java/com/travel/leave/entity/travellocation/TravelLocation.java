@@ -9,15 +9,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "travel_location")
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class TravelLocation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

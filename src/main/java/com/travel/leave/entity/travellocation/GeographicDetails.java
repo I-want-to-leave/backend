@@ -5,14 +5,14 @@ import jakarta.persistence.Embeddable;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Embeddable
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class GeographicDetails {
     @Column(name = "travel_location_longitude", precision = 9, scale = 6)
     private BigDecimal longitude;

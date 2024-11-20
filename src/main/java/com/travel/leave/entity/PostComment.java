@@ -9,30 +9,30 @@ import jakarta.persistence.Table;
 import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "comment")
-@Data
-@RequiredArgsConstructor
+@Table(name = "post_comment")
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comment {
+public class PostComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_code")
+    @Column(name = "post_comment_code")
     private Long code;
 
-    @Column(name = "comment_content")
+    @Column(name = "post_comment_content")
     private String content;
 
-    @Column(name = "created_at")
+    @Column(name = "post_created_at")
     @CreationTimestamp
     private Timestamp createdAt;
 
-    @Column(name = "deleted_at")
+    @Column(name = "post_deleted_at")
     private Timestamp deletedAt;
 
     @Column(name = "user_code")

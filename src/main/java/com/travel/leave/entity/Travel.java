@@ -6,15 +6,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "travel")
-@Data
-@RequiredArgsConstructor
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Travel {
@@ -28,6 +30,13 @@ public class Travel {
 
     @Column(name = "travel_content")
     private String content;
+
+    @Column(name = "travel_created_at")
+    @CreationTimestamp
+    private Timestamp created_at;
+
+    @Column(name = "travel_deleted_at")
+    private Timestamp deleted_at;
 }
 
 
