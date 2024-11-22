@@ -25,6 +25,10 @@ public class BasicAuthenticationUserDetails implements UserDetails {
         return authorities;
     }
 
+    public Long getCode(){
+        return basicAuthenticationDTO.getCode();
+    }
+
     @Override
     public String getPassword() {
         return basicAuthenticationDTO.getPassword();

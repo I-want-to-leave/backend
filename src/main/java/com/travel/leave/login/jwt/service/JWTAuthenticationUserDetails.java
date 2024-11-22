@@ -25,6 +25,10 @@ public class JWTAuthenticationUserDetails implements UserDetails {
         return authorities;
     }
 
+    public Long getCode(){
+        return jwtAuthenticationDTO.getCode();
+    }
+
     @Override
     public String getPassword() {
         return null;

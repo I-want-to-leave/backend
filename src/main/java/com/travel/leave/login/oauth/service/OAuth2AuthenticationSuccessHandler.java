@@ -26,10 +26,11 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
             CustomOAuth2User customOAuth2User = (CustomOAuth2User) authentication.getPrincipal();
 
+            Long code = customOAuth2User.getCode();
             String username = customOAuth2User.getUsername();
             String nickname = customOAuth2User.getName();
             String role = getRole(authentication);
-            String jwtToken = jwtUtil.createJWT(username, nickname, role, 60*60*60*10L);
+            String jwtToken = jwtUtil.createJWT(code, username, nickname, role, 60*60*60*10L);
             log.info("Bearer " + jwtToken);
             response.addHeader("Authorization", "Bearer " + jwtToken);
     }

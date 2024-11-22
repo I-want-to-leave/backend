@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class BasicAuthenticationDTO {
+    private Long code;
     private String username;
     private String password;
     private String nickname;
@@ -13,6 +14,7 @@ public class BasicAuthenticationDTO {
 
 
     private BasicAuthenticationDTO(User user) {
+        this.code = user.getCode();
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.nickname = user.getNickname();
