@@ -35,6 +35,10 @@ public class CustomOAuth2User implements OAuth2User, UserDetails {
         return collet;
     }
 
+    public Long getCode(){
+        return oAuth2AuthenticationDTO.getCode();
+    }
+
     @Override
     public String getPassword() {
         return null;

@@ -7,11 +7,13 @@ import org.springframework.security.core.GrantedAuthority;
 
 @Getter
 public class OAuth2AuthenticationDTO {
+    private Long code;
     private String username;
     private String nickname;
     private UserRole userRole;
 
     private OAuth2AuthenticationDTO(User user, String username) {
+        this.code = user.getCode();
         this.username = username;
         this.nickname = user.getNickname();
         this.userRole = user.getRole();

@@ -21,8 +21,9 @@ public class JWTUtil {
         this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
     }
 
-    public String createJWT(String username, String nickName, String role, Long expiredMs){
+    public String createJWT(Long code, String username, String nickName, String role, Long expiredMs){
         return Jwts.builder()
+                .claim("code", code)
                 .claim("username", username)
                 .claim("nickname", nickName)
                 .claim("role", role)
@@ -30,6 +31,10 @@ public class JWTUtil {
                 .expiration(new Date(System.currentTimeMillis() + expiredMs))
                 .signWith(secretKey)
                 .compact();
+    }
+
+    public static Long getCode(String jwtToken){
+        return getInfo(jwtToken).get("code", Long.class);
     }
 
     public static String getUsername(String jwtToken) {

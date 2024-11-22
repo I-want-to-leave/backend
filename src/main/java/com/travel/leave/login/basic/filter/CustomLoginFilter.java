@@ -43,10 +43,11 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
 
         BasicAuthenticationUserDetails basicAuthenticationUserDetails = (BasicAuthenticationUserDetails) authentication.getPrincipal();
 
+        Long code = basicAuthenticationUserDetails.getCode();
         String username = basicAuthenticationUserDetails.getUsername();
         String nickname = basicAuthenticationUserDetails.getNickname();
         String role = getRole(authentication);
-        String jwtToken = jwtUtil.createJWT(username, nickname, role, 60*60*60*10L);
+        String jwtToken = jwtUtil.createJWT(code, username, nickname, role, 60*60*60*10L);
 
         response.addHeader("Authorization", "Bearer " + jwtToken);
     }
