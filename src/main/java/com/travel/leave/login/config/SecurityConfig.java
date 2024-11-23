@@ -59,7 +59,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/favicon.ico", "/join").permitAll()
+                        .requestMatchers("/login", "/", "/favicon.ico", "/join", "/oauth2/authorization/**").permitAll()
                         .anyRequest().authenticated());
 
 
@@ -69,7 +69,6 @@ public class SecurityConfig {
 
         http        // OAuth2 로그인 설정
                 .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/login")  // 커스텀 로그인 페이지
                         .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService(userRepository)))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
                 );
