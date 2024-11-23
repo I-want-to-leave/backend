@@ -8,10 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
