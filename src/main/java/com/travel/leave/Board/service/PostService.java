@@ -27,10 +27,13 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional(readOnly = true)
-    public Page<ResponsePostListDTO> getPostList(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        return postRepository.findAllActivePosts(pageable)
-                .map(ResponsePostListDTO::fromEntity);
+    public List<ResponsePostListDTO> getPostList(int page) {
+        Pageable pageable = PageRequest.of(page, 15, Sort.by(Sort.Direction.DESC, "createdAt"));
+        List<Post> posts = postRepository.findAllActivePosts(pageable);
+
+        return posts.stream()
+                .map(ResponsePostListDTO::fromEntity)
+                .toList();
     }
 
     public void createPost(Long userCode, CreatePostDTO createPostDTO) {
@@ -78,5 +81,17 @@ public class PostService {
         }
 
         post.deactivate();
+    }
+
+    public List<ResponsePostListDTO> getPopularPosts(int page) {
+        Pageable pageable = PageRequest.of(page, 15);
+        List<Object[]> results = postRepository.findPostsByLikesDesc(pageable);
+
+        return results.stream()
+                .map(row -> {
+                    Post post = (Post) row[0];
+                    return ResponsePostListDTO.fromEntity(post);
+                })
+                .toList();
     }
 }

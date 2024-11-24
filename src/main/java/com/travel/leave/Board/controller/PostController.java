@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/posts")
 @RequiredArgsConstructor
@@ -27,10 +29,9 @@ public class PostController {
     } // 게시글 생성
 
     @GetMapping
-    public ResponseEntity<Page<ResponsePostListDTO>> getPostList(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "15") int size) {
-        Page<ResponsePostListDTO> response = postService.getPostList(page, size);
+    public ResponseEntity<List<ResponsePostListDTO>> getPostList(
+            @RequestParam(defaultValue = "0") int page) {
+        List<ResponsePostListDTO> response = postService.getPostList(page);
         return ResponseEntity.ok(response);
     } // 게시글 목록 호출
 
@@ -56,6 +57,11 @@ public class PostController {
         postService.deletePost(postCode, userCode);
         return ResponseEntity.noContent().build();
     } // 게시글 논리삭제
+
+    @GetMapping("/popular")
+    public ResponseEntity<List<ResponsePostListDTO>> getPopularPosts(
+            @RequestParam(defaultValue = "0") int page) {
+        List<ResponsePostListDTO> popularPosts = postService.getPopularPosts(page);
+        return ResponseEntity.ok(popularPosts);
+    }
 }
-
-

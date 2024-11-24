@@ -1,7 +1,6 @@
 package com.travel.leave.Board.repository;
 
 import com.travel.leave.Board.entity.Post;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -29,11 +28,19 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Object[]> findPostWithLikeCountAndComments(@Param("postCode") Long postCode);
     // 조인작업을 통해 트랜잭션 1번을 최소화
 
+    @Query("SELECT p, COUNT(pl) AS likeCount " +
+            "FROM Post p " +
+            "LEFT JOIN p.likes pl " +
+            "GROUP BY p " +
+            "ORDER BY likeCount DESC")
+    List<Object[]> findPostsByLikesDesc(Pageable pageable);
+    // 좋아요 많은 순으로 게시물 정렬
+
     @Query("SELECT p FROM Post p WHERE p.deletedAt IS NULL AND p.postCode = :postCode")
     Optional<Post> findActivePostById(@Param("postCode") Long postCode);
     // 글로벌 필터링을 적용
 
     @Query("SELECT p FROM Post p WHERE p.deletedAt IS NULL ORDER BY p.createdAt DESC")
-    Page<Post> findAllActivePosts(Pageable pageable);
+    List<Post> findAllActivePosts(Pageable pageable);
     // 논리 삭제된 게시글 제외한 조회
 }
