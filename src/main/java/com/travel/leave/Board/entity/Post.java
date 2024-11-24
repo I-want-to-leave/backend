@@ -1,21 +1,12 @@
-package com.travel.leave.entity;
+package com.travel.leave.Board.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
+
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
+
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -30,13 +21,13 @@ public class Post {
     @Column(name = "post_code")
     private Long postCode;
 
-    @Column(name = "post_title")
+    @Column(name = "post_title", nullable = false)
     private String postTitle;
 
-    @Column(name = "post_content")
+    @Column(name = "post_content", nullable = false)
     private String postContent;
 
-    @Column(name = "post_created_at")
+    @Column(name = "post_created_at", nullable = false)
     @CreationTimestamp
     private Timestamp createdAt;
 
@@ -50,6 +41,18 @@ public class Post {
     @Column(name = "post_views")
     private Long views;
 
-    @Column(name = "user_code")
+    @Column(name = "user_code", nullable = false)
     private Long userCode;
+
+    @OneToMany(mappedBy = "post")
+    private List<PostLike> likes = new ArrayList<>();
+
+    public void updatePost(String title, String content) {
+        this.postTitle = title;
+        this.postContent = content;
+    }
+
+    public void deactivate() {
+        this.deletedAt = new Timestamp(System.currentTimeMillis());
+    }
 }

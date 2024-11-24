@@ -1,16 +1,9 @@
-package com.travel.leave.entity;
+package com.travel.leave.Board.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "post_like")
@@ -23,8 +16,9 @@ public class PostLike {
     @Column(name = "post_like_code")
     private Long code;
 
-    @Column(name = "post_code")
-    private Long postCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_code", nullable = false)
+    private Post post;
 
     @Column(name = "user_code")
     private Long userCode;
