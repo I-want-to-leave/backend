@@ -36,4 +36,9 @@ public class ExceptionHandler {
     public ResponseEntity<?> handleDataAccessException(DataAccessException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ExceptionMessage.DATABASE_ACCESS_EXCEPTION.getMessage());
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionMessage.SEARCH_KEYWORD_EXCEPTION.getMessage());
+    }
 }
