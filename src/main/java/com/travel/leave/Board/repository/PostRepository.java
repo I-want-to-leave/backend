@@ -43,4 +43,12 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p WHERE p.deletedAt IS NULL ORDER BY p.createdAt DESC")
     List<Post> findAllActivePosts(Pageable pageable);
     // 논리 삭제된 게시글 제외한 조회
+
+    @Query("SELECT p FROM Post p " +
+            "WHERE p.deletedAt IS NULL " +
+            "AND LOWER(p.postTitle) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "ORDER BY p.createdAt DESC")
+    List<Post> searchPosts(@Param("keyword") String keyword, Pageable pageable);
+    // 게시글 검색 기능 처리 -> 페이징 처리로 무한 스크롤
+    // 대소문자 구분 X, 키워드가 포함된 데이터를 검색
 }

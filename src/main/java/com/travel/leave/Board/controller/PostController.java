@@ -5,7 +5,6 @@ import com.travel.leave.Board.dto.ResponseDetailPostDTO;
 import com.travel.leave.Board.dto.ResponsePostListDTO;
 import com.travel.leave.Board.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -63,5 +62,13 @@ public class PostController {
             @RequestParam(defaultValue = "0") int page) {
         List<ResponsePostListDTO> popularPosts = postService.getPopularPosts(page);
         return ResponseEntity.ok(popularPosts);
-    }
+    } // 좋아요 많이 받은 순으로 목록 호출
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ResponsePostListDTO>> searchPosts(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page) {
+        List<ResponsePostListDTO> response = postService.searchPosts(keyword, page);
+        return ResponseEntity.ok(response);
+    } // 게시글 검색 기능
 }
