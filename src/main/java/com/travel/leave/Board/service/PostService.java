@@ -24,14 +24,15 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public List<ResponsePostListDTO> getPostList(int page) {
-        Pageable pageable = PageRequest.of(page, 15, Sort.by(Sort.Direction.DESC, "createdAt"));
+    public List<ResponsePostListDTO> getPostList(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
         List<Post> posts = postRepository.findAllActivePosts(pageable);
 
         return posts.stream()
                 .map(ResponsePostListDTO::fromEntity)
                 .toList();
     }
+
 
     public List<ResponsePostListDTO> searchPosts(String keyword, int page) {
         if (keyword == null) {
@@ -87,8 +88,8 @@ public class PostService {
         post.deactivate();
     }
 
-    public List<ResponsePostListDTO> getPopularPosts(int page) {
-        Pageable pageable = PageRequest.of(page, 15);
+    public List<ResponsePostListDTO> getPopularPosts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
         List<Object[]> results = postRepository.findPostsByLikesDesc(pageable);
         return results.stream()
                 .map(row -> {

@@ -29,8 +29,9 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<List<ResponsePostListDTO>> getPostList(
-            @RequestParam(defaultValue = "0") int page) {
-        List<ResponsePostListDTO> response = postService.getPostList(page);
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        List<ResponsePostListDTO> response = postService.getPostList(page, size);
         return ResponseEntity.ok(response);
     } // 게시글 목록 호출
 
@@ -59,8 +60,9 @@ public class PostController {
 
     @GetMapping("/popular")
     public ResponseEntity<List<ResponsePostListDTO>> getPopularPosts(
-            @RequestParam(defaultValue = "0") int page) {
-        List<ResponsePostListDTO> popularPosts = postService.getPopularPosts(page);
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) { // 기본값으로 10개 반환
+        List<ResponsePostListDTO> popularPosts = postService.getPopularPosts(page, size);
         return ResponseEntity.ok(popularPosts);
     } // 좋아요 많이 받은 순으로 목록 호출
 
