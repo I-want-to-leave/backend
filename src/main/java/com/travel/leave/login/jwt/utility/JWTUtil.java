@@ -1,5 +1,6 @@
 package com.travel.leave.login.jwt.utility;
 
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -21,11 +22,12 @@ public class JWTUtil {
         this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
     }
 
-    public String createJWT(Long code, String username, String nickName, String role, Long expiredMs){
+    public String createJWT(Long code, String username, String nickName, String email, String role, Long expiredMs){
         return Jwts.builder()
                 .claim("code", code)
                 .claim("username", username)
                 .claim("nickname", nickName)
+                .claim("email", email)
                 .claim("role", role)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expiredMs))
@@ -45,19 +47,20 @@ public class JWTUtil {
         return getInfo(jwtToken).get("nickname", String.class);
     }
 
+    public static String getEmail(String jwtToken) {
+        return getInfo(jwtToken).get("email", String.class);
+    }
+
     public static String getRole(String jwtToken) {
         return getInfo(jwtToken).get("role", String.class);
     }
 
     public Boolean isExpired(String token){
         try{
-            Boolean test = getInfo(token).getExpiration().before(new Date());
-            return test;
+            return getInfo(token).getExpiration().before(new Date());
         } catch (ExpiredJwtException e){
             return true;
         }
-
-
     }
 
     private static Claims getInfo(String jwtToken){
