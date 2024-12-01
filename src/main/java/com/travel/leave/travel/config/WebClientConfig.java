@@ -16,9 +16,7 @@ import java.time.Duration;
 public class WebClientConfig {
 
     @Bean
-    public WebClient googleGeocodingWebClient(
-            @Value("${google.maps.url}") String googleUrl,
-            @Value("${google.maps.api-key}") String googleApiKey) {
+    public WebClient googleGeocodingWebClient(@Value("${google.maps.url}") String googleUrl) {
         return WebClient.builder()
                 .baseUrl(googleUrl)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

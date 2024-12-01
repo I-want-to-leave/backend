@@ -34,7 +34,7 @@ public class GPTService {
                 .bodyValue(gptRequest)
                 .retrieve()
                 .bodyToMono(GPTResponse.class)
-                .doOnNext(response -> System.out.println("GPT Response: " + response))
+                .doOnNext(response -> System.out.println("GPT 응답: " + response))
                 .toFuture()
                 .thenApply(ResponseEntity::ok)
                 .exceptionally(ex -> {

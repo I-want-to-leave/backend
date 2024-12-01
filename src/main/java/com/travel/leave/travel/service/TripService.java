@@ -27,7 +27,7 @@ public class TripService {
     private final GoogleMapsService googleMapsService;
     private final TripCacheService tripCacheService;
 
-    @Async("Executor")
+    @Async("AI_Executor")
     public CompletableFuture<RecommendDTO> createTripPlan(TripRequestDTO tripRequestDTO) {
 
         CompletableFuture<GPTResponse> gptResponseFuture = gptService.getRecommendation(tripRequestDTO)

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.travel.leave.travel.TransportType;
 import com.travel.leave.travel.dto.ai.LatLngDTO;
 import com.travel.leave.travel.mapper.GoogleMapsMapper;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -12,16 +12,24 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class GoogleMapsService {
 
+    private final Executor executor;
     private final WebClient googleGeocodingWebClient;
+    private final String apikey;
 
-    @Value("${google.maps.api-key}")
-    private String apikey;
+    public GoogleMapsService(
+            @Qualifier("AI_Executor") Executor executor,
+            WebClient googleGeocodingWebClient,
+            @Value("${google.maps.api-key}") String apikey) {
+        this.executor = executor;
+        this.googleGeocodingWebClient = googleGeocodingWebClient;
+        this.apikey = apikey;
+    }
 
     // 특정 장소의 좌표 데이터를 가져온다.
     public CompletableFuture<JsonNode> fetchCoordinatesResponse(String placeName) {
@@ -32,13 +40,13 @@ public class GoogleMapsService {
                         .build())
                 .retrieve()
                 .bodyToMono(JsonNode.class)
-                .doOnNext(response -> System.out.println("Google Map " + placeName + ": " + response))
+                .doOnNext(response -> System.out.println("Google Map 응답" + placeName + ": " + response))
                 .toFuture();
     }
 
     // 응답 데이터를 LatLngDTO 매핑
     private CompletableFuture<LatLngDTO> mapToLatLngDTO(JsonNode response, String placeName, TransportType transportType) {
-        return CompletableFuture.supplyAsync(() -> GoogleMapsMapper.ofLatLngDTO(response, placeName, transportType));
+        return CompletableFuture.supplyAsync(() -> GoogleMapsMapper.ofLatLngDTO(response, placeName, transportType), executor);
     }
 
     // 매핑된 데이터를 가져오고 전체 흐름을 제어

@@ -17,6 +17,6 @@ public class GoogleMapsMapper {
                     transportType
             );
         }
-        throw new GoogleMapsResponseException("파악할 수 없는 장소 {}" + placeName);
+        throw new GoogleMapsResponseException("파악할 수 없는 장소");
     }
 }
