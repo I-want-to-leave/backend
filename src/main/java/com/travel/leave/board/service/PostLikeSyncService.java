@@ -18,6 +18,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Transactional
 public class PostLikeSyncService {
+    /*
 
     private final RedisTemplate<String, Object> redisTemplate;
     private final PostLikeRepository postLikeRepository;
@@ -55,5 +56,6 @@ public class PostLikeSyncService {
             }
         }
     }
+    */
 }
 

@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "travel_expenses")
 @Getter
@@ -20,6 +22,9 @@ public class TravelExpenses {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "travel_expenses_code")
     private Long code;
+
+    @Column(name = "travel_expeness_total_amount")
+    private Long totalAmount;
 
     @Column(name = "travel_expenses_name")
     private String name;

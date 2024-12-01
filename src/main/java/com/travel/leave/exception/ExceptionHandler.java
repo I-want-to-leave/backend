@@ -1,8 +1,11 @@
 package com.travel.leave.exception;
 
+import com.travel.leave.exception.BadReqeust.BadRequest;
+import com.travel.leave.exception.BadReqeust.GPTResponseParsingException;
 import com.travel.leave.exception.message.ExceptionMessage;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,21 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 
 @ControllerAdvice
 public class ExceptionHandler {
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(BadRequest.class)
+    public ResponseEntity<Object> handleBadRequestExceptions(BadRequest ex) {
+        Map<String, Object> errorResponse = new HashMap<>();
+        errorResponse.put("error", HttpStatus.BAD_REQUEST);
+        errorResponse.put("message", ex.getMessage());
+
+        if (ex instanceof GPTResponseParsingException) {
+            errorResponse.put("cause", ex.getCause().getMessage());
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+
     @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -39,6 +57,6 @@ public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionMessage.SEARCH_KEYWORD_EXCEPTION.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }

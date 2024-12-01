@@ -33,8 +33,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	// 2024 - 11- 25 일 내부적인 API 통신을 위해 의존성 추가
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	// 2024 - 11 - 23 일 게시글 좋아요, 조회수 증가 로직에 사용하기 위해 redis 추가
+
+	implementation 'io.projectreactor.netty:reactor-netty:1.1.6'
+	// 2024 - 11 - 30일 비동기 처리 타임아웃 기능 추가
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
@@ -46,6 +52,12 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	implementation 'com.querydsl:querydsl-sql:5.0.0'
+	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
 }
 

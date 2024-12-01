@@ -13,6 +13,7 @@ public class PostLikeController {
 
     private final PostLikeService postLikeService;
 
+    /*
     @PostMapping
     public ResponseEntity<Integer> toggleLike(
             @PathVariable Long postCode,
@@ -20,4 +21,5 @@ public class PostLikeController {
         Integer likeCount = postLikeService.toggleLike(postCode, userCode);
         return ResponseEntity.ok(likeCount);
     } // 좋아요 토글 방식 API -> 추후 서비스 수정 필요할 것
+    */
 }

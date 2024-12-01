@@ -27,7 +27,7 @@ public class Travel {
     private String name;
 
     @Column(name = "travel_content")
-    private String content;
+    private String memo;
 
     @Column(name = "travel_created_at")
     @CreationTimestamp

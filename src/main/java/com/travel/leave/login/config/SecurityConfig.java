@@ -1,11 +1,9 @@
 package com.travel.leave.login.config;
 
 
-import com.travel.leave.login.basic.filter.CustomLoginFilter;
-import com.travel.leave.login.jwt.filter.JWTFilter;
+import com.travel.leave.login.jwt.filter.JWTAuthenticationFilter;
+import com.travel.leave.login.jwt.service.AuthenticationService;
 import com.travel.leave.login.jwt.utility.JWTUtil;
-import com.travel.leave.login.oauth.service.CustomOAuth2UserService;
-import com.travel.leave.login.oauth.service.OAuth2AuthenticationSuccessHandler;
 import com.travel.leave.login.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Collections;
@@ -26,11 +24,9 @@ import org.springframework.web.cors.CorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
 
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil) {
-        this.authenticationConfiguration = authenticationConfiguration;
+    public SecurityConfig(JWTUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
 
@@ -40,58 +36,23 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CustomOAuth2UserService customOAuth2UserService(UserRepository userRepository) {
-        return new CustomOAuth2UserService(userRepository);
-    }
-
-    @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, UserRepository userRepository, OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler) throws Exception {
-        http        //csrf, formLogin, httpBasic 모두 안 쓴다 선언
-                .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable)
-                .httpBasic(AbstractHttpConfigurer::disable);
-
-
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/favicon.ico", "/join").permitAll()
-                        .anyRequest().authenticated());
-
-
-        http        //httpSession안 쓴다 선언 => stateless
-                .sessionManagement((session)->session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-        http        // OAuth2 로그인 설정
-                .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/login")  // 커스텀 로그인 페이지
-                        .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService(userRepository)))
-                        .successHandler(oAuth2AuthenticationSuccessHandler)
-                );
-
-
-        http        //cors 설정
-                .cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
-                    @Override
-                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                        CorsConfiguration configuration = new CorsConfiguration();
-                        configuration.setAllowCredentials(true);
-                        configuration.addAllowedOrigin("*");
-                        configuration.addAllowedHeader("*");
-                        configuration.addAllowedMethod("*");
-                        configuration.setMaxAge(3600L);
-                        configuration.setExposedHeaders(Collections.singletonList("Authorization"));
-                        return configuration;
-                    }
-                }));
-
-        http.addFilterAt(new CustomLoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
+                .csrf(AbstractHttpConfigurer::disable)  // CSRF 비활성화
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll()       // 모든 요청 허용
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .cors(AbstractHttpConfigurer::disable)  // CORS 비활성화
+                .httpBasic(AbstractHttpConfigurer::disable) // HTTP Basic 인증 비활성화
+                .formLogin(AbstractHttpConfigurer::disable); // Form Login 비활성화
 
         return http.build();
     }

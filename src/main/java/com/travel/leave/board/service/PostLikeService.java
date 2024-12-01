@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PostLikeService {
+    /*
     private final RedisTemplate<String, Object> redisTemplate;
     private final PostLikeRepository postLikeRepository;
 
@@ -36,4 +37,5 @@ public class PostLikeService {
         Long likeCount = redisTemplate.opsForSet().size(redisKey);
         return likeCount != null ? likeCount.intValue() : 0;
     }
+     */
 }

@@ -1,7 +1,5 @@
 package com.travel.leave.entity;
 
-import com.travel.leave.join.dto.JoinRequestDTO;
-import com.travel.leave.login.oauth.service.response.OAuth2Response;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,17 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Table(name = "user")
@@ -36,9 +29,6 @@ public class User {
 
     @Column(name = "username")
     private String username;
-
-    @Column(name = "password")
-    private String password;
 
     @Column(name = "nickname")
     private String nickname;
@@ -68,29 +58,4 @@ public class User {
 
     @Column(name = "profile_url")
     private String profileUrl;
-
-    private User(OAuth2Response oAuth2Response) {
-        this.username = oAuth2Response.getUserId();
-        this.nickname = oAuth2Response.getNickname();
-        this.email = oAuth2Response.getEmail();
-        this.role = UserRole.ROLE_USER;
-        this.provider = oAuth2Response.getProvider();
-        this.providerId = oAuth2Response.getProviderId();
-    }
-
-    private User(JoinRequestDTO joinRequestDTO, String bCryptPassword) {
-        this.username = joinRequestDTO.username();
-        this.nickname = joinRequestDTO.nickname();
-        this.email = joinRequestDTO.email();
-        this.password = bCryptPassword;
-        this.role = UserRole.ROLE_USER;
-    }
-
-    public static User ofOAuth2Response(OAuth2Response oAuth2Response) {
-        return new User(oAuth2Response);
-    }
-
-    public static User ofJoinRequestDTO(JoinRequestDTO joinRequestDTO, String bCryptPassword) {
-        return new User(joinRequestDTO, bCryptPassword);
-    }
 }
