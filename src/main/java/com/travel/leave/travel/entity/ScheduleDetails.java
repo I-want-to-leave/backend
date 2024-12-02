@@ -1,15 +1,13 @@
-package com.travel.leave.entity.travellocation;
+package com.travel.leave.travel.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Embeddable
 @Getter

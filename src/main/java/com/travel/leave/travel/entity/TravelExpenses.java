@@ -1,4 +1,4 @@
-package com.travel.leave.entity;
+package com.travel.leave.travel.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,24 +7,33 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "post_like")
+@Table(name = "travel_expenses")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostLike {
+public class TravelExpenses {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_like_code")
+    @Column(name = "travel_expenses_code")
     private Long code;
 
-    @Column(name = "post_code")
-    private Long postCode;
+    @Column(name = "travel_expeness_total_amount")
+    private Long totalAmount;
+
+    @Column(name = "travel_expenses_name")
+    private String name;
+
+    @Column(name = "travel_expenses_amount")
+    private Long amount;
+
+    @Column(name = "travel_location_code")
+    private Long travelLocationCode;
 
     @Column(name = "user_code")
     private Long userCode;

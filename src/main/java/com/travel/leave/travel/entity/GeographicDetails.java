@@ -1,13 +1,11 @@
-package com.travel.leave.entity.travellocation;
+package com.travel.leave.travel.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Embeddable
 @Getter

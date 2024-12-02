@@ -1,4 +1,4 @@
-package com.travel.leave.entity;
+package com.travel.leave.board.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,10 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -19,6 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PostComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,4 +40,20 @@ public class PostComment {
 
     @Column(name = "post_code")
     private Long postCode;
+
+    public void setterContent(String content) {
+        this.content = content;
+    }
+
+    public void deactivate() {
+        this.deletedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    public static PostComment of(Long postCode, Long userCode, String content) {
+        return PostComment.builder()
+                .postCode(postCode)
+                .userCode(userCode)
+                .content(content)
+                .build();
+    }
 }

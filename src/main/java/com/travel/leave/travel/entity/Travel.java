@@ -1,4 +1,4 @@
-package com.travel.leave.entity;
+package com.travel.leave.travel.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,5 +36,3 @@ public class Travel {
     @Column(name = "travel_deleted_at")
     private Timestamp deleted_at;
 }
-
-
