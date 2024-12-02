@@ -14,6 +14,7 @@ import java.util.List;
 public class RecommendDTO {
     private String tripName;
     private String tripExplanation;
+    private String imageUrl;
     private int totalCost;
     private List<RecommendedItemDTO> recommendedItems;
     private List<List<LatLngDTO>> dailyRoutes;

@@ -11,6 +11,7 @@ import com.travel.leave.travel.mapper.GPTResponseMapper;
 import com.travel.leave.travel.mapper.TripMapper;
 import com.travel.leave.travel.service.gpt.GPTService;
 import com.travel.leave.travel.service.gpt.GoogleMapsService;
+import com.travel.leave.travel.service.gpt.UnsplashService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -26,6 +27,7 @@ public class TripService {
     private final GPTService gptService;
     private final GoogleMapsService googleMapsService;
     private final TripCacheService tripCacheService;
+    private final UnsplashService unsplashService;
 
     @Async("AI_Executor")
     public CompletableFuture<RecommendDTO> createTripPlan(TripRequestDTO tripRequestDTO) {
@@ -36,13 +38,16 @@ public class TripService {
         CompletableFuture<List<List<LatLngDTO>>> dailyCoordinatesFuture = gptResponseFuture.thenCompose(gptResponse ->
                 googleMapsService.processDailyRoutes(gptService.extractDailyRoutes(gptResponse)));
 
-        return CompletableFuture.allOf(gptResponseFuture, dailyCoordinatesFuture)
+        CompletableFuture<String> imageFuture = unsplashService.fetchImageUrl(tripRequestDTO.getKeywords());
+
+        return CompletableFuture.allOf(gptResponseFuture, dailyCoordinatesFuture, imageFuture)
                 .thenApply(v -> {
                     GPTResponse gptResponse = gptResponseFuture.join();
+                    String imageUrl = imageFuture.join();
                     List<List<LatLngDTO>> dailyCoordinates = dailyCoordinatesFuture.join();
                     List<RecommendedItemDTO> recommendedItems = gptService.extractRecommendedItems(gptResponse);
                     JsonNode rootNode = GPTResponseMapper.parseResponseContent(gptResponse);
-                    return TripMapper.toRecommendDTO(rootNode, dailyCoordinates, recommendedItems, tripRequestDTO);
+                    return TripMapper.toRecommendDTO(rootNode, dailyCoordinates, recommendedItems, tripRequestDTO, imageUrl);
                 });
     }
 
@@ -53,6 +58,7 @@ public class TripService {
                         tripCacheService.saveTripPlan(userCode, tripPlan);
                         return tripPlan;
                     } catch (Exception ex) {
+                        System.out.println("캐시에 저장 실패");
                         throw new TripCacheSaveException("캐시에 저장 실패");
                     }
                 });

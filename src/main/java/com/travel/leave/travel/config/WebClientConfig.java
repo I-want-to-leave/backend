@@ -22,8 +22,8 @@ public class WebClientConfig {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .clientConnector(new ReactorClientHttpConnector(
                         HttpClient.create()
-                                .responseTimeout(Duration.ofSeconds(25))
-                                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 25000)
+                                .responseTimeout(Duration.ofSeconds(10))
+                                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
                 ))
                 .build();
     }
@@ -38,9 +38,23 @@ public class WebClientConfig {
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + gptApiKey)
                 .clientConnector(new ReactorClientHttpConnector(
                         HttpClient.create()
-                                .responseTimeout(Duration.ofSeconds(25))
-                                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 25000)
+                                .responseTimeout(Duration.ofSeconds(20))
+                                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 20000)
                 ))
                 .build();
     }
+
+    @Bean
+    public WebClient unsplashWebClient(@Value("${unsplash.api.url}") String unsplashApiUrl) {
+        return WebClient.builder()
+                .baseUrl(unsplashApiUrl)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .clientConnector(new ReactorClientHttpConnector(
+                        HttpClient.create()
+                                .responseTimeout(Duration.ofSeconds(5))
+                                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+                ))
+                .build();
+    }
+
 }

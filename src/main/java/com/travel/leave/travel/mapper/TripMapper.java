@@ -14,7 +14,8 @@ public class TripMapper {
             JsonNode rootNode,
             List<List<LatLngDTO>> dailyCoordinates,
             List<RecommendedItemDTO> recommendedItems,
-            TripRequestDTO tripRequest
+            TripRequestDTO tripRequest,
+            String imageUrl
     ) {
 
         String tripName = rootNode.get("tripName").asText();
@@ -24,6 +25,7 @@ public class TripMapper {
         RecommendDTO recommendDTO = new RecommendDTO();
         recommendDTO.setTripName(tripName);
         recommendDTO.setTripExplanation(tripExplanation);
+        recommendDTO.setImageUrl(imageUrl);
         recommendDTO.setTotalCost(totalCost);
         recommendDTO.setDailyRoutes(dailyCoordinates);
         recommendDTO.setRecommendedItems(recommendedItems);
