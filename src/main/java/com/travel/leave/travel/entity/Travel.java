@@ -27,7 +27,7 @@ public class Travel {
     private String name;
 
     @Column(name = "travel_content")
-    private String memo;
+    private String content;
 
     @Column(name = "travel_created_at")
     @CreationTimestamp
@@ -36,5 +36,3 @@ public class Travel {
     @Column(name = "travel_deleted_at")
     private Timestamp deleted_at;
 }
-
-

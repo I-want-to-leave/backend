@@ -41,18 +41,41 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, UserRepository userRepository,
+                                           AuthenticationService authenticationService) throws Exception {
+        http        //csrf, formLogin, httpBasic 모두 안 쓴다 선언
+                .csrf(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable);
+
+
         http
-                .csrf(AbstractHttpConfigurer::disable)  // CSRF 비활성화
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()       // 모든 요청 허용
-                )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .cors(AbstractHttpConfigurer::disable)  // CORS 비활성화
-                .httpBasic(AbstractHttpConfigurer::disable) // HTTP Basic 인증 비활성화
-                .formLogin(AbstractHttpConfigurer::disable); // Form Login 비활성화
+                .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/login", "/favicon.ico", "/join", "/oauth2/authorization/**").permitAll()
+                        .anyRequest().authenticated());
+
+
+        http        //httpSession안 쓴다 선언 => stateless
+                .sessionManagement((session)->session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+
+        http        //cors 설정
+                .cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                        CorsConfiguration configuration = new CorsConfiguration();
+                        configuration.setAllowCredentials(true);
+                        configuration.addAllowedOrigin("*");
+                        configuration.addAllowedHeader("*");
+                        configuration.addAllowedMethod("*");
+                        configuration.setMaxAge(3600L);
+                        configuration.setExposedHeaders(Collections.singletonList("Authorization"));
+                        return configuration;
+                    }
+                }));
+
+        http.addFilterBefore(new JWTAuthenticationFilter(jwtUtil, authenticationService), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
