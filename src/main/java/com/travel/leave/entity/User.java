@@ -1,7 +1,5 @@
 package com.travel.leave.entity;
 
-import com.travel.leave.join.dto.JoinRequestDTO;
-import com.travel.leave.login.oauth.service.response.OAuth2Response;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
