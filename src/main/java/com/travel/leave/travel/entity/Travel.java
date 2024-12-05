@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -31,8 +32,14 @@ public class Travel {
 
     @Column(name = "travel_created_at")
     @CreationTimestamp
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     @Column(name = "travel_deleted_at")
-    private Timestamp deleted_at;
+    private Timestamp deletedAt;
+
+    @Column(name = "travel_start_date")
+    private Timestamp startDate;
+
+    @Column(name = "travel_end_date")
+    private Timestamp endDate;
 }

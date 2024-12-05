@@ -1,6 +1,8 @@
 package com.travel.leave.mypage.dto;
 
-public record MyPageCommentInfosResponseDTO(
+import java.util.List;
 
+public record MyPageCommentInfosResponseDTO(
+        List<MyPageCommentInfoResponseDTO> myPageCommentInfoResponseDTOs
 ) {
 }

@@ -1,8 +1,8 @@
 package com.travel.leave.mypage.dto;
 
+import java.util.List;
+
 public record MyPagePostInfosResponseDTO(
-        Long postCode,
-        String title,
-        String
+        List<MyPagePostInfoResponseDTO> myPagePostInfoResponseDTOs
 ) {
 }

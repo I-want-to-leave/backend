@@ -14,8 +14,22 @@ public class MyPageController {
     private final MyPageServiceImpl myPageServiceImpl;
 
     @GetMapping("/user-info")
-    public ResponseEntity<?> getUserInfo(@AuthenticationPrincipal Long userCode){
-        return ResponseEntity.ok(myPageServiceImpl.getUserInfo(userCode));
+    public ResponseEntity<?> getInfosCount(@AuthenticationPrincipal Long userCode){
+        return ResponseEntity.ok(myPageServiceImpl.getInfoCounts(userCode));
+    }
+
+    @GetMapping("/comment-info")
+    public ResponseEntity<?> getCommentInfo(@AuthenticationPrincipal Long userCode,
+                                           @RequestParam int page,
+                                           @RequestParam int size){
+        return ResponseEntity.ok(myPageServiceImpl.getCommentInfo(userCode, page, size));
+    }
+
+    @GetMapping("/post-info")
+    public ResponseEntity<?> getPostInfo(@AuthenticationPrincipal Long userCode,
+                                         @RequestParam int page,
+                                         @RequestParam int size){
+        return ResponseEntity.ok(myPageServiceImpl.getPostInfo(userCode, page, size));
     }
 
     @GetMapping("/travel-info")
