@@ -26,4 +26,8 @@ public class UserTravel {
 
     @Column(name = "user_code")
     private Long userCode;
+
+    public static UserTravel of(Long travelCode, Long userCode) {
+        return new UserTravel(null, travelCode, userCode);
+    }
 }
