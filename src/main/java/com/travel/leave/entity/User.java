@@ -35,9 +35,6 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "nickname")
     private String nickname;
 
@@ -50,9 +47,6 @@ public class User {
 
     @Column(name = "deleted_at")
     private Timestamp deletedAt;
-
-    @Column(name = "tel_num")
-    private String telNum;
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)

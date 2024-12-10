@@ -1,13 +1,10 @@
 package com.travel.leave.mypage.service;
 
-import com.travel.leave.mypage.dto.MyPageCommentInfoResponseDTO;
 import com.travel.leave.mypage.dto.MyPageCommentInfosResponseDTO;
 import com.travel.leave.mypage.dto.MyPageInfoCountsResponseDTO;
-import com.travel.leave.mypage.dto.MyPagePostInfoResponseDTO;
 import com.travel.leave.mypage.dto.MyPagePostInfosResponseDTO;
 import com.travel.leave.mypage.dto.MyPageTravelsResponseDTO;
 import com.travel.leave.mypage.repository.MyPageRepository;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
