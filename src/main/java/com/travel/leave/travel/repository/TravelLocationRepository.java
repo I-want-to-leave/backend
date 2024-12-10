@@ -1,4 +1,7 @@
 package com.travel.leave.travel.repository;
 
-public interface TravelLocationRepository {
+import com.travel.leave.travel.entity.TravelLocation;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TravelLocationRepository extends JpaRepository<TravelLocation, Long> {
 }

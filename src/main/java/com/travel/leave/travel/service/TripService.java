@@ -31,10 +31,10 @@ public class TripService {
 
     @Async("AI_Executor")
     public CompletableFuture<RecommendDTO> createTripPlan(TripRequestDTO tripRequestDTO) {
-
+        //gpt 응답 비동기로 받아옴
         CompletableFuture<GPTResponse> gptResponseFuture = gptService.getRecommendation(tripRequestDTO)
                 .thenApply(ResponseEntity::getBody);
-
+        //gpt 응답이
         CompletableFuture<List<List<LatLngDTO>>> dailyCoordinatesFuture = gptResponseFuture.thenCompose(gptResponse ->
                 googleMapsService.processDailyRoutes(gptService.extractDailyRoutes(gptResponse)));
 
