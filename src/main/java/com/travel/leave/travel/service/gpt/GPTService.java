@@ -1,11 +1,11 @@
 package com.travel.leave.travel.service.gpt;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.travel.leave.travel.dto.ai.*;
+import com.travel.leave.travel.dto.ai_recommend.*;
 import com.travel.leave.travel.dto.gpt.GPTRequest;
 import com.travel.leave.travel.dto.gpt.GPTResponse;
-import com.travel.leave.travel.mapper.GPTResponseMapper;
-import com.travel.leave.travel.mapper.PromptMapper;
+import com.travel.leave.travel.mapper.AI_Mapper.GPTResponseMapper;
+import com.travel.leave.travel.mapper.AI_Mapper.PromptMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;

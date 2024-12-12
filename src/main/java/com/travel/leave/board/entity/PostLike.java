@@ -2,6 +2,7 @@ package com.travel.leave.board.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,16 +11,17 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PostLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_like_code")
     private Long code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "post_code", nullable = false)
     private Post post;
 
-    @Column(name = "user_code")
+    @Column(name = "user_code", nullable = false)
     private Long userCode;
 }

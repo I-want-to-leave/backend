@@ -51,7 +51,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/favicon.ico", "/join", "/oauth2/authorization/**").permitAll()
+                        .requestMatchers("/login", "/favicon.ico", "/join", "/oauth2/authorization/**", "/posts/{postCode}/share").permitAll()
                         .anyRequest().authenticated());
 
 

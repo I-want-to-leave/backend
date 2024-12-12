@@ -6,11 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import java.sql.Timestamp;
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -18,6 +21,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Travel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,8 +42,11 @@ public class Travel {
     private Timestamp deletedAt;
 
     @Column(name = "travel_start_date")
-    private Timestamp startDate;
+    private Date startDate;
 
     @Column(name = "travel_end_date")
-    private Timestamp endDate;
+    private Date endDate;
+
+    @Column(name = "travel_image_url")
+    private String imageUrl;
 }

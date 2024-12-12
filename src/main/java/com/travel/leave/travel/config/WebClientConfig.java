@@ -38,7 +38,7 @@ public class WebClientConfig {
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + gptApiKey)
                 .clientConnector(new ReactorClientHttpConnector(
                         HttpClient.create()
-                                .responseTimeout(Duration.ofSeconds(20))
+                                .responseTimeout(Duration.ofSeconds(30))
                                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 20000)
                 ))
                 .build();

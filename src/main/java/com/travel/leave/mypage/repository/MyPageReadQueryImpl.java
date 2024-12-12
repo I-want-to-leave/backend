@@ -70,7 +70,7 @@ public class MyPageReadQueryImpl implements MyPageReadQuery{
                 qPost.postTitle.as("postTitle")))
                 .from(qPost)
                 .where(qPost.userCode.eq(userCode))
-                .leftJoin(qPostComment).on(qPostComment.postCode.eq(qPost.postCode))
+                // .leftJoin(qPostComment).on(qPostComment.postCode.eq(qPost.postCode))
                 .orderBy(QueryDslUtils.getOrderSpecifiers(pageable, qPostComment))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -136,7 +136,7 @@ public class MyPageReadQueryImpl implements MyPageReadQuery{
         return JPAExpressions
                 .select(qPostComment.count())
                 .from(qPostComment)
-                .join(qPost).on(qPostComment.postCode.eq(qPost.postCode))
+                // .join(qPost).on(qPostComment.postCode.eq(qPost.postCode))
                 .where(qPost.userCode.eq(qUser.code));
     }
 
@@ -153,5 +153,4 @@ public class MyPageReadQueryImpl implements MyPageReadQuery{
                 .from(qUserTravel)
                 .where(qUserTravel.code.eq(qUser.code));
     }
-
 }

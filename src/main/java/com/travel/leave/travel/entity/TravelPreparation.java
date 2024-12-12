@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class TravelPreparation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +32,6 @@ public class TravelPreparation {
     @Column(name = "travel_preparation_quantity")
     private Integer quantity;
 
-    @Column(name = "travel_location_code")
-    private Long locationCode;
-
-    @Column(name = "user_code")
-    private Long userCode;
+    @Column(name = "travel_code")
+    private Long travelCode;
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.Embedded;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ScheduleDetails {
     @Column(name = "travel_location_name")
     private String name;
@@ -21,7 +23,7 @@ public class ScheduleDetails {
     private String content;
 
     @Column(name = "travel_location_start_at")
-    private Timestamp startAt;
+    private Timestamp startTime;
 
     @Column(name = "travel_location_end_at")
     private Timestamp endTime;

@@ -1,11 +1,7 @@
 package com.travel.leave.board.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,21 +21,22 @@ public class PostComment {
     @Column(name = "post_comment_code")
     private Long code;
 
-    @Column(name = "post_comment_content")
+    @Column(name = "post_comment_content", nullable = false)
     private String content;
 
-    @Column(name = "post_created_at")
+    @Column(name = "post_created_at", nullable = false)
     @CreationTimestamp
     private Timestamp createdAt;
 
     @Column(name = "post_deleted_at")
     private Timestamp deletedAt;
 
-    @Column(name = "user_code")
+    @Column(name = "user_code", nullable = false)
     private Long userCode;
 
-    @Column(name = "post_code")
-    private Long postCode;
+    @ManyToOne
+    @JoinColumn(name = "post_code", nullable = false)
+    private Post post;
 
     public void setterContent(String content) {
         this.content = content;
@@ -47,13 +44,5 @@ public class PostComment {
 
     public void deactivate() {
         this.deletedAt = new Timestamp(System.currentTimeMillis());
-    }
-
-    public static PostComment of(Long postCode, Long userCode, String content) {
-        return PostComment.builder()
-                .postCode(postCode)
-                .userCode(userCode)
-                .content(content)
-                .build();
     }
 }

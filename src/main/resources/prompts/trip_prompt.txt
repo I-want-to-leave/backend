@@ -34,9 +34,12 @@ Daily course structure:
 Recommend major attractions that can be reasonably covered in one day. All recommended attractions must have clear and valid names on Google Maps.
 Exclude latitude and longitude; include only place names.
 Add stopover points (e.g., tollgates, train stations) but do not count them toward the main course count.
+
 Include the following details for each place:
 stepName: Name of the place.
 transportType: Transportation method used (DRIVING, WALKING, BICYCLING, TRANSIT, FERRY).
+startAt: The expected arrival time at the location (format: YYYY-MM-DD HH:mm:ss).
+endAt: The expected departure time from the location (format: YYYY-MM-DD HH:mm:ss).
 
 Transportation Settings:
 Car Ownership (carOwned):
@@ -74,13 +77,13 @@ JSON Output Format:
   ],
   "dailyRoutes": [
     [
-      { "stepOrder": 1, "stepName": "{Departure location}", "dayNumber": 1, "transportType": "{Transportation type}" },
-      { "stepOrder": 2, "stepName": "{Attraction name}", "dayNumber": 1, "transportType": "{Transportation type}" },
-      { "stepOrder": 3, "stepName": "{Attraction name}", "dayNumber": 1, "transportType": "{Transportation type}" }
+      { "stepOrder": 1, "stepName": "{Departure location}", "dayNumber": 1, "transportType": "{Transportation type}", "startAt": "{2024-12-01 07:00:00}", "endAt": "{2024-12-01 09:00:00}"},
+      { "stepOrder": 2, "stepName": "{Attraction name}", "dayNumber": 1, "transportType": "{Transportation type}" "startAt": "{2024-12-01 09:00:00}", "endAt": "{2024-12-01 11:00:00}"},
+      { "stepOrder": 3, "stepName": "{Attraction name}", "dayNumber": 1, "transportType": "{Transportation type}" "startAt": "{2024-12-01 11:00:00}", "endAt": "{2024-12-01 13:00:00}"}
     ],
     [
-      { "stepOrder": 1, "stepName": "{Connecting landmark}", "dayNumber": 2, "transportType": "{Transportation type}" },
-      { "stepOrder": 2, "stepName": "{Attraction name}", "dayNumber": 2, "transportType": "{Transportation type}" }
+      { "stepOrder": 1, "stepName": "{Connecting landmark}", "dayNumber": 2, "transportType": "{Transportation type}" "startAt": "{"2024-12-02 07:00:00}", "endAt": "{2024-12-02 09:00:00}"},
+      { "stepOrder": 2, "stepName": "{Attraction name}", "dayNumber": 2, "transportType": "{Transportation type}" "startAt": "{2024-12-02 09:00:00}", "endAt": "{2024-12-02 11:00:00}"}
     ]
   ]
 }

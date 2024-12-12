@@ -1,6 +1,6 @@
 package com.travel.leave.travel.service;
 
-import com.travel.leave.travel.dto.ai.RecommendDTO;
+import com.travel.leave.travel.dto.ai_recommend.RecommendDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

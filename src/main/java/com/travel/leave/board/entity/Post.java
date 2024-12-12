@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -28,7 +28,13 @@ public class Post {
     @Column(name = "post_content", nullable = false)
     private String postContent;
 
-    @Column(name = "post_created_at", nullable = false)
+    @Column(name = "post_start_date", nullable = false)
+    private Date startDate;
+
+    @Column(name = "post_end_date", nullable = false)
+    private Date endDate;
+
+    @Column(name = "post_created_at", nullable = false, updatable = false)
     @CreationTimestamp
     private Timestamp createdAt;
 
@@ -39,19 +45,29 @@ public class Post {
     @Column(name = "post_deleted_at")
     private Timestamp deletedAt;
 
-    @Column(name = "post_views")
+    @Column(name = "post_views", nullable = false)
     private Long views;
 
     @Column(name = "user_code", nullable = false)
     private Long userCode;
 
-    @OneToMany(mappedBy = "post")
+    @Column(name = "travel_code", nullable = false)
+    private Long travelCode;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<PostComment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<PostImage> images = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<PostLike> likes = new ArrayList<>();
 
-    public void updatePost(String title, String content) {
-        this.postTitle = title;
-        this.postContent = content;
-    }
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<PostPreparation> preparations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<PostTravelRoute> travelRoutes = new ArrayList<>();
 
     public void deactivate(Timestamp timestamp) {
         this.deletedAt = timestamp;

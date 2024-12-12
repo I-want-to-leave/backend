@@ -1,30 +1,32 @@
 package com.travel.leave.travel.controller;
 
-import com.travel.leave.travel.dto.ai.RecommendDTO;
-import com.travel.leave.travel.dto.ai.TripRequestDTO;
+import com.travel.leave.travel.dto.ai_recommend.RecommendDTO;
+import com.travel.leave.travel.dto.ai_recommend.TripRequestDTO;
 import com.travel.leave.travel.service.TripCacheService;
-import com.travel.leave.travel.service.TripService;
+import com.travel.leave.travel.service.AiTripService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/trip")
 @RequiredArgsConstructor
 public class TripController {
 
-    private final TripService tripService;
+    private final AiTripService AITripService;
     private final TripCacheService tripCacheService;
 
     @PostMapping("/recommend")
-    public CompletableFuture<ResponseEntity<RecommendDTO>> createTrip(@RequestBody TripRequestDTO tripRequest, @AuthenticationPrincipal Long userCode) {
-        return tripService.createTripPlanWithCache(userCode, tripRequest)
-                .thenApply(ResponseEntity::ok)
-                .exceptionally(ex -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null));
+    public ResponseEntity<RecommendDTO> createTrip(@RequestBody TripRequestDTO tripRequest, @AuthenticationPrincipal Long userCode) {
+        RecommendDTO tripPlan = AITripService.createTripPlanWithCache(userCode, tripRequest);
+        return ResponseEntity.ok(tripPlan);
+    }
+
+    @PostMapping("/accept")
+    public ResponseEntity<Long> acceptTripRecommendation(@AuthenticationPrincipal Long userCode) {
+        Long travelId = AITripService.saveTripPlan(userCode);
+        return ResponseEntity.ok(travelId);
     }
 
     @DeleteMapping("/reject")

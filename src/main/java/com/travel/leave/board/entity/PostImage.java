@@ -1,26 +1,25 @@
 package com.travel.leave.board.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "POST_IMAGE")
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
+@Getter
+@Builder
 public class PostImage {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_image_code")
     private Long code;
 
-    @Column(name = "POST_IMAGE_POSITION", nullable = false)
-    private String position;
+    @Column(name = "POST_IMAGE_PATH", nullable = false)
+    private String filePath;
 
-    @Column(name = "POST_IAMGE_URL", nullable = false)
-    private String url;
+    @Column(name = "post_image_order", nullable = false)
+    private Long order;
 
     @ManyToOne
     @JoinColumn(name = "post_code", nullable = false)
