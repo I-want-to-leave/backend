@@ -9,6 +9,7 @@ import com.travel.leave.travel.dto.ai_recommend.TripRequestDTO;
 import com.travel.leave.travel.entity.*;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -46,8 +47,8 @@ public class AI_TripMapper {
                 recommendDTO.getTripExplanation(),
                 new Timestamp(System.currentTimeMillis()),
                 null,
-                recommendDTO.getStartDate(),
-                recommendDTO.getStartDate(),
+                Date.valueOf(recommendDTO.getStartDate()),
+                Date.valueOf(recommendDTO.getEndDate()),
                 recommendDTO.getImageUrl()
         );
     }

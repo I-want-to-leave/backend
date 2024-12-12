@@ -49,11 +49,13 @@ public class GPTResponseMapper {
             List<LatLngDTO> daySteps = new ArrayList<>();
             for (JsonNode stepNode : dayNode) {
                 String placeName = stepNode.get("stepName").asText();
+
                 TransportType transportType = TransportType.valueOf(stepNode.get("transportType").asText().toUpperCase());
                 ZonedDateTime startZoned = ZonedDateTime.of(LocalDateTime.parse(stepNode.get("startAt").asText(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), ZoneId.of("UTC"));
                 ZonedDateTime endZoned = ZonedDateTime.of(LocalDateTime.parse(stepNode.get("endAt").asText(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), ZoneId.of("UTC"));
                 Timestamp startAt = Timestamp.from(startZoned.toInstant());
                 Timestamp endAt = Timestamp.from(endZoned.toInstant());
+
                 int stepOrder = stepNode.get("stepOrder").asInt();
                 daySteps.add(new LatLngDTO(placeName, 0.0, 0.0, stepOrder, startAt, endAt, transportType));
             }

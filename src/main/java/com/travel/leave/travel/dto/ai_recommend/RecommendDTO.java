@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -19,6 +19,6 @@ public class RecommendDTO {
     private int totalCost;
     private List<RecommendedItemDTO> recommendedItems;
     private List<List<LatLngDTO>> dailyRoutes;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 }
