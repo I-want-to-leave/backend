@@ -1,7 +1,7 @@
 package com.travel.leave.travel.mapper.AI_Mapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.travel.leave.entity.UserTravel;
+import com.travel.leave.login.entity.UserTravel;
 import com.travel.leave.travel.dto.ai_recommend.LatLngDTO;
 import com.travel.leave.travel.dto.ai_recommend.RecommendDTO;
 import com.travel.leave.travel.dto.ai_recommend.RecommendedItemDTO;

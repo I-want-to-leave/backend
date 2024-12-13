@@ -1,7 +1,7 @@
 package com.travel.leave.login.jwt.service;
 
-import com.travel.leave.entity.User;
-import com.travel.leave.entity.UserRole;
+import com.travel.leave.login.entity.User;
+import com.travel.leave.login.entity.UserRole;
 import com.travel.leave.login.jwt.dto.RequestUserDetailsDTO;
 import com.travel.leave.login.jwt.utility.JWTUtil;
 import com.travel.leave.login.repository.UserRepository;

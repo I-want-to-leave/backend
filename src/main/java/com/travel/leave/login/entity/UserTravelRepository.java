@@ -1,4 +1,4 @@
-package com.travel.leave.entity;
+package com.travel.leave.login.entity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -15,7 +15,7 @@ public class CachePostImageService {
 
     private final ConcurrentHashMap<Long, List<PostImageDTO>> postImageCache = new ConcurrentHashMap<>();
 
-    public synchronized void putImages(Long postCode, List<PostImageDTO> imageList) {
+    public void putImages(Long postCode, List<PostImageDTO> imageList) {
         postImageCache.put(postCode, imageList);
     }
 

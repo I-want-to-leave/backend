@@ -1,7 +1,6 @@
 package com.travel.leave.login.jwt.dto;
 
-import com.travel.leave.entity.UserRole;
-import jakarta.servlet.http.HttpServletRequest;
+import com.travel.leave.login.entity.UserRole;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

@@ -21,81 +21,50 @@ public class PostImageService {
 
     private final PostImageRepository postImageRepository;
     private final PostImageOrderRepository postImageOrderRepository;
-    private final CachePostImageService cachePostImageService;
+    private final CachePostImageManager cachePostImageManager;
 
-    @Transactional @SuppressWarnings("unused")
+    @Transactional
     public List<PostImageDTO> uploadPostImages(Long postCode, Long userCode, List<String> rawImages) {
         Long maxOrder = postImageRepository.findMaxOrderByPostCode(postCode).orElse(0L);
         List<PostImage> postImages = PostImageMapper.toPostImageEntitiesForUpdate(rawImages, postCode, maxOrder);
         postImageRepository.saveAll(postImages);
+
         List<PostImageDTO> cacheImages = postImages.stream().map(PostImageMapper::toPostImageDTO).collect(Collectors.toList());
+        cachePostImageManager.addImages(postCode, cacheImages);
+        return cachePostImageManager.getOrLoadImages(postCode);
+    }
 
-        if (cachePostImageService.getImages(postCode) == null) {
-            List<PostImageDTO> images = loadImagesFromDB(postCode);
-            cachePostImageService.putImages(postCode, images);
-        } else {
-            cachePostImageService.addImages(postCode, cacheImages);
-        }
-        return cachePostImageService.getImages(postCode);
-    } // userCode 는 AOP 에서 사용
-
-    @Transactional @SuppressWarnings("unused")
+    @Transactional
     public List<PostImageDTO> deleteImage(Long postCode, Long userCode, String filePath) {
         PostImage imageToDelete = postImageRepository.findFilePath(postCode, filePath)
                 .orElseThrow(() -> new EntityNotFoundException("이미지를 찾을 수 없습니다."));
-
         Long deletedOrder = imageToDelete.getOrder();
-        ImageProcessor.deleteImage(filePath); // 실제 파일 삭제
-        postImageRepository.deleteFilePath(postCode, filePath); // 파일 경로 삭제
-        postImageOrderRepository.updateOrderAfterDelete(postCode, deletedOrder); // 파일 순서 조정
+        ImageProcessor.deleteImage(filePath);
+        postImageRepository.deleteFilePath(postCode, filePath);
+        postImageOrderRepository.updateOrderAfterDelete(postCode, deletedOrder);
 
-        if (cachePostImageService.getImages(postCode) == null) {
-            cachePostImageService.putImages(postCode, loadImagesFromDB(postCode));
-        } else {
-            cachePostImageService.removeImageAndReorder(postCode, filePath, deletedOrder);
-        }
-        return cachePostImageService.getImages(postCode);
-    } // userCode 는 AOP 에서 사용
+        cachePostImageManager.removeImageAndReorder(postCode, filePath, deletedOrder);
+        return cachePostImageManager.getOrLoadImages(postCode);
+    }
 
-    @Transactional @SuppressWarnings("unused")
+    @Transactional
     public List<PostImageDTO> updateImage(Long postCode, Long userCode, PostImageUpdateRequestDTO updateRequestDTO) {
         String newFilePath = ImageProcessor.updateImage(updateRequestDTO.getOldFilePath(), updateRequestDTO.getNewFilePath());
         postImageOrderRepository.updateImageUrl(postCode, updateRequestDTO.getOldFilePath(), newFilePath);
 
-        if (cachePostImageService.getImages(postCode) == null) {
-            cachePostImageService.putImages(postCode, loadImagesFromDB(postCode));
-        } else {
-            cachePostImageService.updateImagePath(postCode, updateRequestDTO.getOldFilePath(), newFilePath);
-        }
-        return cachePostImageService.getImages(postCode);
-    } // userCode 는 AOP 에서 사용
+        cachePostImageManager.updateImagePath(postCode, updateRequestDTO.getOldFilePath(), newFilePath);
+        return cachePostImageManager.getOrLoadImages(postCode);
+    }
 
-    @Transactional @SuppressWarnings("unused")
+    @Transactional
     public List<PostImageDTO> setMainImage(Long postCode, Long userCode, Long targetOrder) {
         postImageOrderRepository.swapZeroImageOrder(postCode, 0L, targetOrder);
-
-        if (cachePostImageService.getImages(postCode) == null) {
-            cachePostImageService.putImages(postCode, loadImagesFromDB(postCode));
-        } else {
-            cachePostImageService.swapMainImage(postCode, 0L, targetOrder);
-        }
-
-        return cachePostImageService.getImages(postCode);
-    } // userCode 는 AOP 에서 사용
+        cachePostImageManager.swapMainImage(postCode, 0L, targetOrder);
+        return cachePostImageManager.getOrLoadImages(postCode);
+    }
 
     @Transactional(readOnly = true)
     public List<PostImageDTO> getImagesByPostCode(Long postCode) {
-        List<PostImageDTO> cachedList = cachePostImageService.getImages(postCode);
-        if (cachedList == null) {
-            cachedList = loadImagesFromDB(postCode);
-            cachePostImageService.putImages(postCode, cachedList);
-        }
-        return cachedList;
-    } // userCode 는 AOP 에서 사용
-
-    private List<PostImageDTO> loadImagesFromDB(Long postCode) {
-        return postImageRepository.findImagesByPostCode(postCode).stream()
-                .map(PostImageMapper::toPostImageDTO)
-                .collect(Collectors.toList());
+        return cachePostImageManager.getOrLoadImages(postCode);
     }
 }

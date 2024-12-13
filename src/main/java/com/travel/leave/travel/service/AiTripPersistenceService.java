@@ -1,7 +1,7 @@
 package com.travel.leave.travel.service;
 
-import com.travel.leave.entity.UserTravel;
-import com.travel.leave.entity.UserTravelRepository;
+import com.travel.leave.login.entity.UserTravel;
+import com.travel.leave.login.entity.UserTravelRepository;
 import com.travel.leave.travel.dto.ai_recommend.RecommendDTO;
 import com.travel.leave.travel.entity.Travel;
 import com.travel.leave.travel.entity.TravelLocation;

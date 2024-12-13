@@ -1,6 +1,6 @@
 package com.travel.leave.login.jwt.dto;
 
-import com.travel.leave.entity.UserRole;
+import com.travel.leave.login.entity.UserRole;
 import com.travel.leave.login.jwt.utility.JWTUtil;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.travel.leave.entity;
+package com.travel.leave.login.entity;
 
 public enum UserRole {
     ROLE_ADMIN,
