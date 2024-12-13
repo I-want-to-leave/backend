@@ -46,7 +46,7 @@ public class PostImageMapper {
     public static PostImageDTO toPostImageDTO(PostImage postImage) {
         return PostImageDTO.builder()
                 .code(postImage.getCode())
-                .url(postImage.getFilePath())
+                .filePath(postImage.getFilePath())
                 .order(postImage.getOrder())
                 .build();
     }

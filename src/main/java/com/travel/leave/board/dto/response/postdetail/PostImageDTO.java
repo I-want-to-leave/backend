@@ -9,6 +9,6 @@ import lombok.*;
 @Builder
 public class PostImageDTO {
     private Long code;
-    private String url;
+    private String filePath;
     private Long order;
 }
