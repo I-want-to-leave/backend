@@ -24,15 +24,16 @@ public class TravelPreparation {
     @Column(name = "travel_preparation_name")
     private String name;
 
-    @Column(name = "travel_preparation_content")
-    private String content;
-
     @Column(name = "travel_preparation_quantity")
     private Integer quantity;
 
-    @Column(name = "travel_location_code")
-    private Long locationCode;
+    @Column(name = "travel_preparation_is_deleted")
+    private Boolean isDeleted;
 
-    @Column(name = "user_code")
-    private Long userCode;
+    @Column(name = "travel_code")
+    private Long travelCode;
+
+    public static TravelPreparation of(Long code, String name, Integer quantity, Boolean isDeleted, Long travelCode) {
+        return new TravelPreparation(code, name, quantity, isDeleted, travelCode);
+    }
 }

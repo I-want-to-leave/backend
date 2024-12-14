@@ -1,6 +1,6 @@
 package com.travel.leave.travel.entity;
 
-import com.travel.leave.schedule.dto.request.initialize.ScheduleTravelLocationRequestDTO;
+import com.travel.leave.schedule.dto.get.TravelLocationRequestDTOs;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -8,8 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,12 +29,7 @@ public class TravelLocation {
     @Column(name = "travel_code")
     private Long travelCode;
 
-    public static TravelLocation of(ScheduleTravelLocationRequestDTO travelLocationRequestDTO, Long travelCode) {
-        Timestamp travelLocationStartTime = Timestamp.valueOf(
-                LocalDateTime.of(travelLocationRequestDTO.travelDate(), travelLocationRequestDTO.startTime()));
-        Timestamp travelLocationEndTime = Timestamp.valueOf(
-                LocalDateTime.of(travelLocationRequestDTO.travelDate(), travelLocationRequestDTO.endTime()));
-        ScheduleDetails scheduleDetails = ScheduleDetails.of(travelLocationRequestDTO, travelLocationStartTime, travelLocationEndTime);
+    public static TravelLocation of(Long travelCode, ScheduleDetails scheduleDetails) {
         return new TravelLocation(null, scheduleDetails, travelCode);
     }
 }

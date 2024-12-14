@@ -1,6 +1,5 @@
 package com.travel.leave.travel.entity;
 
-import com.travel.leave.schedule.dto.request.initialize.ScheduleInitializeRequestDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,16 +46,7 @@ public class Travel {
     @Column(name = "travel_image_url")
     private String imageUrl;
 
-    public static Travel of(ScheduleInitializeRequestDTO scheduleInitializeRequestDTO){
-        return new Travel(
-                null,
-                scheduleInitializeRequestDTO.travelName(),
-                scheduleInitializeRequestDTO.travelContent(),
-                null,
-                null,
-                scheduleInitializeRequestDTO.travelStartDate(),
-                scheduleInitializeRequestDTO.travelEndDate(),
-                scheduleInitializeRequestDTO.travelImageUrl()
-        );
+    public static Travel of(Long code, String name, String content, LocalDate startDate, LocalDate endDate, Timestamp createdAt, Timestamp deletedAt, String imageUrl) {
+        return new Travel(code, name, content, createdAt, deletedAt, startDate, endDate, imageUrl);
     }
 }

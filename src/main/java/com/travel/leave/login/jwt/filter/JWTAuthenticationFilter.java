@@ -45,7 +45,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             Authentication authentication = new AuthenticationResult(responseUserDetailsDTO);
             authentication.setAuthenticated(true);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            log.info("SecurityContext at start of request: {}", SecurityContextHolder.getContext());
+            log.info("SecurityContext at start createTravelCache request: {}", SecurityContextHolder.getContext());
             return;
         }
         filterChain.doFilter(request, response);

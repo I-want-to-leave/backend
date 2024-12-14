@@ -17,4 +17,8 @@ public class GeographicDetails {
 
     @Column(name = "travel_location_latitude", precision = 9, scale = 6)
     private BigDecimal latitude;
+
+    public static GeographicDetails of(BigDecimal longitude, BigDecimal latitude){
+        return new GeographicDetails(longitude, latitude);
+    }
 }
