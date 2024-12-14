@@ -18,6 +18,8 @@ public interface TravelCacheHandler {
     boolean hasTravel(Long travelCode);
 
     TravelCache loadTravel(Long travelCode, boolean hasTravelCache);
+
+    void triggerUpdate();
 }
 
 /**

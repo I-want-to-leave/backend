@@ -42,9 +42,4 @@ public class MessageFormatMapper {
     public UpdateTravelLocationMessage mapToUpdateTravelLocationMessage(String message){
         return objectMapper.convertValue(message, UpdateTravelLocationMessage.class);
     }
-
-    @Bean
-    public ObjectMapper getObjectMapper(){
-        return new ObjectMapper();
-    }
 }

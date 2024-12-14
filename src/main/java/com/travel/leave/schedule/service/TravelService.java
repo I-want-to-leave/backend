@@ -1,10 +1,10 @@
 package com.travel.leave.schedule.service;
 
 import com.travel.leave.schedule.dto.get.TravelRequestDTO;
-import com.travel.leave.schedule.repository.schedule.TravelRepository;
 import com.travel.leave.schedule.service.model.mapper.TravelFactory;
 import com.travel.leave.travel.entity.Travel;
 
+import com.travel.leave.travel.repository.TravelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

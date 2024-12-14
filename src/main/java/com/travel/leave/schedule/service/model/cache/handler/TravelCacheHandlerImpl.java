@@ -5,14 +5,14 @@ import com.travel.leave.schedule.controller.socket.messageFormat.timeline.Update
 import com.travel.leave.schedule.controller.socket.messageFormat.travel.UpdateTravelContentMessage;
 import com.travel.leave.schedule.controller.socket.messageFormat.travel.UpdateTravelNameMessage;
 import com.travel.leave.schedule.repository.TravelPreparationRepository;
-import com.travel.leave.schedule.repository.schedule.TravelLocationRepository;
-import com.travel.leave.schedule.repository.schedule.TravelRepository;
 
 import com.travel.leave.schedule.service.model.cache.TravelCache;
 import com.travel.leave.schedule.service.model.cache.factory.TravelCacheFactory;
 import com.travel.leave.travel.entity.Travel;
 import com.travel.leave.travel.entity.TravelLocation;
 import com.travel.leave.travel.entity.TravelPreparation;
+import com.travel.leave.travel.repository.TravelLocationRepository;
+import com.travel.leave.travel.repository.TravelRepository;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class TravelCacheHandlerImpl implements TravelCacheHandler {
-    private static ConcurrentHashMap<Long, TravelCache> travelCaches;
+    private static final ConcurrentHashMap<Long, TravelCache> travelCaches = new ConcurrentHashMap<>();
     private final TravelRepository travelRepository;
     private final TravelLocationRepository travelLocationRepository;
     private final TravelPreparationRepository travelPreparationRepository;
