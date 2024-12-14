@@ -5,6 +5,8 @@ import com.travel.leave.schedule.controller.socket.SocketMessageHandler;
 import com.travel.leave.schedule.dto.get.TravelRequestDTO;
 import com.travel.leave.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class ScheduleController {
+    private static final Logger log = LoggerFactory.getLogger(ScheduleController.class);
     private final ScheduleService scheduleService;
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final SocketMessageHandler socketMessageHandler;
@@ -29,6 +32,7 @@ public class ScheduleController {
 
     @PostMapping("/schedule/initialize")
     public ResponseEntity<?> initializeSchedule(@AuthenticationPrincipal Long userCode, TravelRequestDTO travelRequestDTO) {
+        log.info(travelRequestDTO.toString());
         return ResponseEntity.ok(scheduleService.initializeTravel(userCode, travelRequestDTO));
     }
 
