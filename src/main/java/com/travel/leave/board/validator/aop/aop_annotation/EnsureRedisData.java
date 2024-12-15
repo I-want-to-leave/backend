@@ -1,4 +1,4 @@
-package com.travel.leave.board.service.like.like_aop;
+package com.travel.leave.board.validator.aop.aop_annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

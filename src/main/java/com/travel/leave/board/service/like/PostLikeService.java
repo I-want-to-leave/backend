@@ -1,7 +1,7 @@
 package com.travel.leave.board.service.like;
 
 import com.travel.leave.board.repository.post_like.PostLikeRepository;
-import com.travel.leave.board.service.like.like_aop.EnsureRedisData;
+import com.travel.leave.board.validator.aop.aop_annotation.EnsureRedisData;
 import com.travel.leave.board.service.like.redis_like.RedisKeyManager;
 import com.travel.leave.board.service.like.redis_like.RedisPostLikeManager;
 import lombok.RequiredArgsConstructor;

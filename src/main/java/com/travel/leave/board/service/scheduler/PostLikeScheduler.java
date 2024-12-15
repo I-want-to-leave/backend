@@ -1,9 +1,10 @@
-package com.travel.leave.board.service.like_scheduler;
+package com.travel.leave.board.service.scheduler;
 
-import com.travel.leave.board.service.like_scheduler.redis_scheduler.RedisPostLikeSyncManager;
-import com.travel.leave.board.service.like_scheduler.util.PostRecentCheckerUtils;
-import lombok.RequiredArgsConstructor;
+import com.travel.leave.board.service.like_sync.SyncLikesToDBManager;
+import com.travel.leave.board.service.like_sync.redis_sync.RedisPostLikeSyncManager;
+import com.travel.leave.board.service.like_sync.util.PostRecentCheckerUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Set;
 
 @Component
-@RequiredArgsConstructor
 @Slf4j
 public class PostLikeScheduler {
 
@@ -20,6 +20,17 @@ public class PostLikeScheduler {
     private final SyncLikesToDBManager syncLikesToDBManager;
     private final RedisTemplate<String, Object> redisTemplate;
     private final PostRecentCheckerUtils postRecentCheckerUtils;
+
+    public PostLikeScheduler(
+            RedisPostLikeSyncManager redisPostLikeSyncManager,
+            SyncLikesToDBManager syncLikesToDBManager,
+            @Qualifier("HashRedisTemplate") RedisTemplate<String, Object> redisTemplate,
+            PostRecentCheckerUtils postRecentCheckerUtils) {
+        this.redisPostLikeSyncManager = redisPostLikeSyncManager;
+        this.syncLikesToDBManager = syncLikesToDBManager;
+        this.redisTemplate = redisTemplate;
+        this.postRecentCheckerUtils = postRecentCheckerUtils;
+    }
 
     @Scheduled(fixedRate = 300000)
     @Transactional

@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class PostTravelRouteDTO {
     private String placeName;
@@ -17,4 +16,13 @@ public class PostTravelRouteDTO {
     private Integer stepOrder;
     private BigDecimal latitude;
     private BigDecimal longitude;
+
+    public PostTravelRouteDTO(String placeName, Timestamp startAt, Timestamp endAt, Integer stepOrder, BigDecimal latitude, BigDecimal longitude) {
+        this.placeName = placeName;
+        this.startAt = startAt;
+        this.endAt = endAt;
+        this.stepOrder = stepOrder;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 }

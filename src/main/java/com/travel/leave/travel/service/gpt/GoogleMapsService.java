@@ -1,7 +1,8 @@
 package com.travel.leave.travel.service.gpt;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.travel.leave.travel.service.TransportType;
+import com.travel.leave.travel.service.trip_enum.GOOGLE_MSG_ENUM;
+import com.travel.leave.travel.service.trip_enum.TransportType;
 import com.travel.leave.travel.dto.ai_recommend.LatLngDTO;
 import com.travel.leave.travel.mapper.AI_Mapper.GoogleMapsMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,8 +37,8 @@ public class GoogleMapsService {
     public CompletableFuture<JsonNode> fetchCoordinatesResponse(String placeName) {
         return googleGeocodingWebClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .queryParam("address", placeName)
-                        .queryParam("key", apikey)
+                        .queryParam(GOOGLE_MSG_ENUM.GEOCODING_PARAM_ADDRESS.getMessage(), placeName)
+                        .queryParam(GOOGLE_MSG_ENUM.GEOCODING_PARAM_KEY.getMessage(), apikey)
                         .build())
                 .retrieve()
                 .bodyToMono(JsonNode.class)

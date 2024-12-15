@@ -1,4 +1,4 @@
-package com.travel.leave.board.validator.aop;
+package com.travel.leave.board.validator.aop.aop_service;
 
 import com.travel.leave.board.validator.PostValidator;
 import lombok.RequiredArgsConstructor;

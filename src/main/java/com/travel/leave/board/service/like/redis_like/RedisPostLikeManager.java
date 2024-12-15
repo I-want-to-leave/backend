@@ -5,9 +5,9 @@ import com.travel.leave.board.entity.PostLike;
 import com.travel.leave.board.mapper.PostLikeMapper;
 import com.travel.leave.board.repository.post_like.PostLikeRepository;
 import com.travel.leave.board.service.enums.RedisField;
-import com.travel.leave.board.service.like_scheduler.util.PostRecentCheckerUtils;
+import com.travel.leave.board.service.like_sync.util.PostRecentCheckerUtils;
 import com.travel.leave.board.validator.PostValidator;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -15,13 +15,23 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 
 @Service
-@RequiredArgsConstructor
 public class RedisPostLikeManager {
 
     private final PostLikeRepository postLikeRepository;
     private final PostValidator postValidator;
     private final PostRecentCheckerUtils postRecentCheckerUtils;
     private final RedisTemplate<String, Object> redisTemplate;
+
+    public RedisPostLikeManager(
+            PostLikeRepository postLikeRepository,
+            PostValidator postValidator,
+            PostRecentCheckerUtils postRecentCheckerUtils,
+            @Qualifier("HashRedisTemplate") RedisTemplate<String, Object> redisTemplate) {
+        this.postLikeRepository = postLikeRepository;
+        this.postValidator = postValidator;
+        this.postRecentCheckerUtils = postRecentCheckerUtils;
+        this.redisTemplate = redisTemplate;
+    }
 
     public void unlikePost(String redisKey, Long userCode, Long postCode) {
         if (postRecentCheckerUtils.isPostOld(postCode)) {

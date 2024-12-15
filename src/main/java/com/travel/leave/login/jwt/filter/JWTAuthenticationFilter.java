@@ -17,7 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * 모든 요청에서 JWT를 검사한다.
+ * 모든 요청에서 JWT 를 검사한다.
  */
 @Slf4j
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
@@ -45,7 +45,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             Authentication authentication = new AuthenticationResult(responseUserDetailsDTO);
             authentication.setAuthenticated(true);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            log.info("SecurityContext at start of request: {}", SecurityContextHolder.getContext());
+            log.info("SecurityContext at start createTravelCache request: {}", SecurityContextHolder.getContext());
             return;
         }
         filterChain.doFilter(request, response);

@@ -1,15 +1,12 @@
 package com.travel.leave.login.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.travel.leave.chat.entity.ChatMessage;
+import com.travel.leave.chat.entity.ChatReadStatus;
+import com.travel.leave.chat.entity.ChatRoomUser;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,9 +29,6 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "nickname")
     private String nickname;
 
@@ -48,9 +42,6 @@ public class User {
     @Column(name = "deleted_at")
     private Timestamp deletedAt;
 
-    @Column(name = "tel_num")
-    private String telNum;
-
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private UserRole role;
@@ -63,4 +54,13 @@ public class User {
 
     @Column(name = "profile_url")
     private String profileUrl;
+
+    @OneToMany(mappedBy = "userCode", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ChatRoomUser> chatRoomUsers;
+
+    @OneToMany(mappedBy = "userCode", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ChatMessage> messages;
+
+    @OneToMany(mappedBy = "userCode", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ChatReadStatus> readStatuses;
 }

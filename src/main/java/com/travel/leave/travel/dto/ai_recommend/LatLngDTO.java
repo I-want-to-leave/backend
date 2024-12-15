@@ -1,7 +1,7 @@
 package com.travel.leave.travel.dto.ai_recommend;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.travel.leave.travel.service.TransportType;
+import com.travel.leave.travel.service.trip_enum.TransportType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

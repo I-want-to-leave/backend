@@ -22,8 +22,8 @@ public class MyPageController {
 
     @GetMapping("/comment-info")
     public ResponseEntity<?> getCommentInfo(@AuthenticationPrincipal Long userCode,
-                                           @RequestParam int page,
-                                           @RequestParam int size){
+                                            @RequestParam int page,
+                                            @RequestParam int size){
         return ResponseEntity.ok(myPageServiceImpl.getCommentInfo(userCode, page, size));
     }
 

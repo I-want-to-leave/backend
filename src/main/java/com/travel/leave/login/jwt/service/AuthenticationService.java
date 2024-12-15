@@ -28,7 +28,6 @@ public class AuthenticationService {
                     .username(username)
                     .nickname(requestUserDetailsDTO.getNickname())
                     .email(requestUserDetailsDTO.getEmail())
-                    .telNum(requestUserDetailsDTO.getTelNum())
                     .role(UserRole.ROLE_USER)
                     .build();
             savedUser = userRepository.save(saveUser);

@@ -1,5 +1,6 @@
 package com.travel.leave.board.repository.comment;
 
+import com.travel.leave.board.dto.response.postdetail.PostCommentDTO;
 import com.travel.leave.board.entity.PostComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,8 +13,19 @@ import java.util.Optional;
 @Repository
 public interface PostCommentRepository extends JpaRepository<PostComment, Long> {
 
-    @Query("SELECT pc FROM PostComment pc WHERE pc.post.postCode = :postCode AND pc.deletedAt IS NULL")
-    List<PostComment> findCommentsByPostCode(@Param("postCode") Long postCode);
+    @Query("""
+    SELECT new com.travel.leave.board.dto.response.postdetail.PostCommentDTO(
+        pc.code,
+        pc.content,
+        pc.createdAt,
+        pc.userCode,
+        pc.post.postCode
+    )
+    FROM PostComment pc
+    WHERE pc.post.postCode = :postCode
+      AND pc.deletedAt IS NULL
+    """)
+    List<PostCommentDTO> findCommentsByPostCode(@Param("postCode") Long postCode);
 
     @Query("SELECT pc FROM PostComment pc WHERE pc.code = :commentCode AND pc.deletedAt IS NULL")
     Optional<PostComment> findActiveCommentById(@Param("commentCode") Long commentCode);

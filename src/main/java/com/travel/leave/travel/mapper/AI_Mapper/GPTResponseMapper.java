@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.leave.exception.BadReqeust.GPTResponseParsingException;
-import com.travel.leave.travel.service.TransportType;
+import com.travel.leave.travel.service.trip_enum.TransportType;
 import com.travel.leave.travel.dto.ai_recommend.LatLngDTO;
 import com.travel.leave.travel.dto.ai_recommend.RecommendedItemDTO;
 import com.travel.leave.travel.dto.gpt.GPTResponse;

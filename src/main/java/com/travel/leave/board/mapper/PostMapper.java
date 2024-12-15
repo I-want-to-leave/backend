@@ -1,21 +1,21 @@
 package com.travel.leave.board.mapper;
 
-import com.travel.leave.board.dto.request.create.CreatePostRequestDTO;
 import com.travel.leave.board.dto.response.postdetail.*;
 import com.travel.leave.board.entity.Post;
+import com.travel.leave.travel.entity.Travel;
 
 import java.util.List;
 
 public class PostMapper {
 
-    public static Post toPostEntity(CreatePostRequestDTO createPostRequestDTO, Long userCode, Long travelCode) {
+    public static Post toPostEntity(Travel travel, Long userCode) {
         return Post.builder()
-                .postTitle(createPostRequestDTO.getTitle())
-                .postContent(createPostRequestDTO.getContent())
-                .startDate(createPostRequestDTO.getStartDate())
-                .endDate(createPostRequestDTO.getEndDate())
+                .postTitle(travel.getName())
+                .postContent(travel.getContent())
+                .startDate(travel.getStartDate())
+                .endDate(travel.getEndDate())
                 .userCode(userCode)
-                .travelCode(travelCode)
+                .travelCode(travel.getCode())
                 .views(0L)
                 .build();
     }

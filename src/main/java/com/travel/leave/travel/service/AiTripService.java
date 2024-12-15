@@ -12,6 +12,7 @@ import com.travel.leave.travel.mapper.AI_Mapper.AI_TripMapper;
 import com.travel.leave.travel.service.gpt.GPTService;
 import com.travel.leave.travel.service.gpt.GoogleMapsService;
 import com.travel.leave.travel.service.gpt.UnsplashService;
+import com.travel.leave.travel.service.trip_enum.AI_ERR_MSG;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -64,7 +65,7 @@ public class AiTripService {
             tripCacheService.saveTripPlan(userCode, tripPlan);
             return tripPlan;
         } catch (Exception e) {
-            throw new TripCacheSaveException("캐시 저장 실패");
+            throw new TripCacheSaveException(AI_ERR_MSG.REDIS_CACHE_FAIL.getMessage());
         }
     }
 
@@ -72,7 +73,7 @@ public class AiTripService {
     public Long saveTripPlan(Long userCode) {
         RecommendDTO recommendDTO = tripCacheService.getTripPlan(userCode);
         if (recommendDTO == null) {
-            throw new IllegalStateException("캐시 데이터가 소실 되었습니다. 다시 시도 하십시오");
+            throw new IllegalStateException(AI_ERR_MSG.REDIS_CACHE_FAIL.getMessage());
         }
         return AITripPersistenceService.saveAllTripData(recommendDTO, userCode);
     }

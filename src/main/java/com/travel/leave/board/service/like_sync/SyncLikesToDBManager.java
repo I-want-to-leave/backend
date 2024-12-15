@@ -1,9 +1,9 @@
-package com.travel.leave.board.service.like_scheduler;
+package com.travel.leave.board.service.like_sync;
 
 import com.travel.leave.board.entity.PostLike;
 import com.travel.leave.board.mapper.PostLikeMapper;
 import com.travel.leave.board.repository.post_like.PostLikeRepository;
-import com.travel.leave.board.service.like_scheduler.redis_scheduler.RedisUserFieldParser;
+import com.travel.leave.board.service.like_sync.redis_sync.RedisUserFieldParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

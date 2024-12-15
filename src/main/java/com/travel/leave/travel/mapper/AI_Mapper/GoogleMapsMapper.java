@@ -2,7 +2,7 @@ package com.travel.leave.travel.mapper.AI_Mapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.travel.leave.exception.BadReqeust.GoogleMapsResponseException;
-import com.travel.leave.travel.service.TransportType;
+import com.travel.leave.travel.service.trip_enum.TransportType;
 import com.travel.leave.travel.dto.ai_recommend.LatLngDTO;
 
 import java.sql.Timestamp;

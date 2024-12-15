@@ -2,7 +2,7 @@ package com.travel.leave.board.service.like.redis_like;
 
 import com.travel.leave.board.entity.PostLike;
 import com.travel.leave.board.service.enums.RedisField;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +10,13 @@ import java.time.Duration;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class RedisCacheManager {
 
     private final RedisTemplate<String, Object> redisTemplate;
+
+    public RedisCacheManager(@Qualifier("HashRedisTemplate") RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     public void cachePostLikes(String redisKey, Long likeCount, List<PostLike> postLikes) {
         for (PostLike postLike : postLikes) {

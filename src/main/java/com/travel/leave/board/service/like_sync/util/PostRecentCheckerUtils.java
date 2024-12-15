@@ -1,4 +1,4 @@
-package com.travel.leave.board.service.like_scheduler.util;
+package com.travel.leave.board.service.like_sync.util;
 
 import com.travel.leave.board.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;

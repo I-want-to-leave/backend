@@ -1,6 +1,5 @@
 package com.travel.leave.board.controller;
 
-import com.travel.leave.board.dto.request.create.CreatePostRequestDTO;
 import com.travel.leave.board.dto.response.postdetail.PostResponseDTO;
 import com.travel.leave.board.service.post.PostService;
 import com.travel.leave.board.service.post.TravelSyncService;
@@ -20,16 +19,14 @@ public class PostController {
 
     @PostMapping("/{postCode}/share")
     public ResponseEntity<Long> sharePostToTravel(@PathVariable Long postCode,
-                                                      @AuthenticationPrincipal Long userCode) {
+                                                  @AuthenticationPrincipal Long userCode) {
         Long travelCode = travelSyncService.syncTravelFromPost(postCode, userCode);
         return ResponseEntity.status(HttpStatus.CREATED).body(travelCode);
     }
 
     @PostMapping("{travelCode}/create")
-    public ResponseEntity<Void> createPost(@RequestBody CreatePostRequestDTO createPostRequestDTO,
-                                           @PathVariable Long travelCode,
-                                           @AuthenticationPrincipal Long userCode) {
-        postService.createPost(createPostRequestDTO, userCode, travelCode);
+    public ResponseEntity<Void> createPost(@PathVariable Long travelCode, @AuthenticationPrincipal Long userCode) {
+        postService.createPost(userCode, travelCode);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

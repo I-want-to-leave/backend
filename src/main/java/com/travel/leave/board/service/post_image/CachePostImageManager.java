@@ -1,66 +1,63 @@
 package com.travel.leave.board.service.post_image;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.leave.board.dto.response.postdetail.PostImageDTO;
-import com.travel.leave.board.mapper.PostImageMapper;
-import com.travel.leave.board.repository.post_iamge.PostImageRepository;
-import lombok.RequiredArgsConstructor;
+import com.travel.leave.board.service.enums.BOARD_EX_MSG;
+import com.travel.leave.board.service.enums.RedisField;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.TimeUnit;
 
 @Service
-@RequiredArgsConstructor
 public class CachePostImageManager {
 
-    private final CachePostImageService cachePostImageService;
-    private final PostImageRepository postImageRepository;
+    private final RedisTemplate<String, String> redisTemplate;
+    private static final long TTL = 10 * 60;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public List<PostImageDTO> getOrLoadImages(Long postCode) {
-        List<PostImageDTO> cachedList = cachePostImageService.getImages(postCode);
-        if (cachedList == null) {
-            cachedList = loadImagesFromDB(postCode);
-            cachePostImageService.putImages(postCode, cachedList);
+    public CachePostImageManager(@Qualifier("dtoRedisTemplate") RedisTemplate<String, String> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
+
+    private String getCacheKey(Long postCode) {
+        return RedisField.REDIS_POST_IMAGE_KEY.getValue() + postCode;
+    }
+
+    public List<PostImageDTO> getImages(Long postCode) {
+        String key = getCacheKey(postCode);
+        String cachedData = redisTemplate.opsForValue().get(key);
+
+        if (cachedData != null) {
+            redisTemplate.expire(key, TTL, TimeUnit.SECONDS);
+            return deserialize(cachedData);
         }
-        return cachedList;
+        return null;
     }
 
-    private List<PostImageDTO> loadImagesFromDB(Long postCode) {
-        return postImageRepository.findImagesByPostCode(postCode).stream()
-                .map(PostImageMapper::toPostImageDTO)
-                .collect(Collectors.toList());
+    public void putImages(Long postCode, List<PostImageDTO> listPostImageDTO) {
+        String key = getCacheKey(postCode);
+        String serializedData = serialize(listPostImageDTO);
+        redisTemplate.opsForValue().set(key, serializedData, TTL, TimeUnit.SECONDS);
     }
 
-    public void addImages(Long postCode, List<PostImageDTO> cacheImages) {
-        if (cachePostImageService.getImages(postCode) == null) {
-            List<PostImageDTO> images = loadImagesFromDB(postCode);
-            cachePostImageService.putImages(postCode, images);
-        } else {
-            cachePostImageService.addImages(postCode, cacheImages);
-        }
-    }
-
-    public void removeImageAndReorder(Long postCode, String filePath, Long deletedOrder) {
-        if (cachePostImageService.getImages(postCode) == null) {
-            cachePostImageService.putImages(postCode, loadImagesFromDB(postCode));
-        } else {
-            cachePostImageService.removeImageAndReorder(postCode, filePath, deletedOrder);
-        }
-    }
-
-    public void updateImagePath(Long postCode, String oldFilePath, String newFilePath) {
-        if (cachePostImageService.getImages(postCode) == null) {
-            cachePostImageService.putImages(postCode, loadImagesFromDB(postCode));
-        } else {
-            cachePostImageService.updateImagePath(postCode, oldFilePath, newFilePath);
+    private String serialize(List<PostImageDTO> images) {
+        try {
+            return objectMapper.writeValueAsString(images);
+        } catch (JsonProcessingException e) {
+            throw new IllegalArgumentException(BOARD_EX_MSG.REDIS_SERIALIZATION_ERROR.getMessage(), e);
         }
     }
 
-    public void swapMainImage(Long postCode, Long currentOrder, Long newOrder) {
-        if (cachePostImageService.getImages(postCode) == null) {
-            cachePostImageService.putImages(postCode, loadImagesFromDB(postCode));
-        } else {
-            cachePostImageService.swapMainImage(postCode, currentOrder, newOrder);
+    private List<PostImageDTO> deserialize(String data) {
+        try {
+            return objectMapper.readValue(data, new TypeReference<>() {});
+        } catch (JsonProcessingException e) {
+            throw new IllegalArgumentException(BOARD_EX_MSG.REDIS_DESERIALIZATION_ERROR.getMessage(), e);
         }
     }
 }

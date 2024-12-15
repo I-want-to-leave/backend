@@ -1,4 +1,4 @@
-package com.travel.leave.travel.service;
+package com.travel.leave.travel.service.trip_enum;
 
 import lombok.Getter;
 

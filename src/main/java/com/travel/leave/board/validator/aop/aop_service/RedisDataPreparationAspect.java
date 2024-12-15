@@ -1,4 +1,4 @@
-package com.travel.leave.board.service.like.like_aop;
+package com.travel.leave.board.validator.aop.aop_service;
 
 import com.travel.leave.board.entity.PostLike;
 import com.travel.leave.board.repository.post_like.PostLikeRepository;
@@ -20,7 +20,7 @@ public class RedisDataPreparationAspect {
     private final RedisCacheManager redisCacheManager;
     private final PostLikeRepository postLikeRepository;
 
-    @Before("@annotation(com.travel.leave.board.service.like.like_aop.EnsureRedisData) && args(postCode,..)")
+    @Before("@annotation(com.travel.leave.board.validator.aop.aop_annotation.EnsureRedisData) && args(postCode,..)")
     public void ensureRedisDataExists(Long postCode) {
         String redisKey = redisKeyManager.generateRedisKey(postCode);
 
