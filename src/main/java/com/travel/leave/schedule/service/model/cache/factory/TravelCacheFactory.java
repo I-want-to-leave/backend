@@ -49,7 +49,8 @@ public class TravelCacheFactory {
     //엔티티를 캐시로 바꾸는 로직================================================================================
     public TravelCache createTravelCache(Travel travel,
                                          List<TravelLocation> travelLocations,
-                                         List<TravelPreparation> travelPreparations) {
+                                         List<TravelPreparation> travelPreparations,
+                                         List<String> userNickNames) {
         return TravelCache.of(
                 travel.getCode(),
                 travel.getName(),
@@ -60,7 +61,8 @@ public class TravelCacheFactory {
                 travel.getDeletedAt(),
                 getSchedule(travelLocations),
                 getPreparation(travelPreparations),
-                travel.getImageUrl());
+                travel.getImageUrl(),
+                userNickNames);
     }
 
     private List<PreparationMessage> getPreparation(List<TravelPreparation> travelPreparations) {

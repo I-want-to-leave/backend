@@ -22,6 +22,7 @@ public class TravelCache {
     private List<PreparationMessage> preparation;
     private List<String> imageUrl;
     private Boolean isDeleted;
+    private List<String> usernames;
 
     public static TravelCache of(Long travelCode,
                                  String title,
@@ -31,7 +32,9 @@ public class TravelCache {
                                  Timestamp createdAt,
                                  Timestamp deletedAt,
                                  List<ScheduleMessage> schedule,
-                                 List<PreparationMessage> preparation, String imageUrl){
-        return new TravelCache(travelCode, title, information, startDate, endDate, createdAt, deletedAt, schedule, preparation, List.of(imageUrl), false);
+                                 List<PreparationMessage> preparation,
+                                 String imageUrl,
+                                 List<String> usernames){
+        return new TravelCache(travelCode, title, information, startDate, endDate, createdAt, deletedAt, schedule, preparation, List.of(imageUrl), false, usernames);
     }
 }

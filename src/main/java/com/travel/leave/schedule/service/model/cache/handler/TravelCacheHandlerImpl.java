@@ -1,11 +1,13 @@
 package com.travel.leave.schedule.service.model.cache.handler;
 
+import com.travel.leave.entity.UserTravel;
 import com.travel.leave.schedule.controller.socket.messageFormat.preparation.UpdateTravelPreparationMessage;
 import com.travel.leave.schedule.controller.socket.messageFormat.timeline.UpdateTravelLocationMessage;
 import com.travel.leave.schedule.controller.socket.messageFormat.travel.UpdateTravelContentMessage;
 import com.travel.leave.schedule.controller.socket.messageFormat.travel.UpdateTravelNameMessage;
 import com.travel.leave.schedule.repository.TravelPreparationRepository;
 
+import com.travel.leave.schedule.repository.invite.UserTravelRepository;
 import com.travel.leave.schedule.service.model.cache.TravelCache;
 import com.travel.leave.schedule.service.model.cache.factory.TravelCacheFactory;
 import com.travel.leave.travel.entity.Travel;
@@ -31,6 +33,7 @@ public class TravelCacheHandlerImpl implements TravelCacheHandler {
     private final TravelRepository travelRepository;
     private final TravelLocationRepository travelLocationRepository;
     private final TravelPreparationRepository travelPreparationRepository;
+    private final UserTravelRepository userTravelRepository;
     private final TravelCacheFactory travelCacheFactory;
     private final CacheToEntityMapper cacheToEntityMapper;
 
@@ -112,7 +115,12 @@ public class TravelCacheHandlerImpl implements TravelCacheHandler {
         return travelCacheFactory.createTravelCache(
                 getTravelEntity(travelCode),
                 getTravelLocationEntities(travelCode),
-                getTravelPreparationEntities(travelCode));
+                getTravelPreparationEntities(travelCode),
+                getUserNickNames(travelCode));
+    }
+
+    private List<String> getUserNickNames(Long travelCode) {
+        return userTravelRepository.findUsersInTravel(travelCode);
     }
 
     private List<TravelPreparation> getTravelPreparationEntities(Long travelCode) {
