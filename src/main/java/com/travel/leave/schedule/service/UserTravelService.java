@@ -8,9 +8,11 @@ import com.travel.leave.schedule.service.model.mapper.UserTravelFactory;
 import com.travel.leave.travel.entity.Travel;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserTravelService {
     private final static int FIND_USER_LIMIT = 7;
@@ -24,6 +26,7 @@ public class UserTravelService {
 
     public List<UserTravel> save(Long travelCode, Long userCode, List<MemberRequestDTO> member) {
         List<UserTravel> userTravels = userTravelFactory.generateUserTravels(travelCode, userCode, member);
+        log.info("save");
         return userTravelRepository.saveAll(userTravels);
     }
 

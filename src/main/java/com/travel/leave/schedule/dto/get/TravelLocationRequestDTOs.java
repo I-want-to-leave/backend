@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record TravelLocationRequestDTOs(
-    LocalDate travelDate,
-    List<TravelLocationRequestDTO> timeLines
+    LocalDate date,
+    List<TravelLocationRequestDTO> timelines
 ) {
 
 }

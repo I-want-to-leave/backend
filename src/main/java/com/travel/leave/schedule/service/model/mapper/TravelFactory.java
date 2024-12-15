@@ -17,8 +17,8 @@ public class TravelFactory {
                     null,
                     travelRequestDTO.title(),
                     travelRequestDTO.information(),
-                    travelRequestDTO.startDate().toLocalDateTime().toLocalDate(),
-                    travelRequestDTO.endDate().toLocalDateTime().toLocalDate(),
+                    travelRequestDTO.startDate().toLocalDate(),
+                    travelRequestDTO.endDate().toLocalDate(),
                     null,
                     null,
                     ImageProcessor.saveImage(rawImage)
@@ -28,8 +28,8 @@ public class TravelFactory {
                 null,
             travelRequestDTO.title(),
             travelRequestDTO.information(),
-            travelRequestDTO.startDate().toLocalDateTime().toLocalDate(),
-            travelRequestDTO.endDate().toLocalDateTime().toLocalDate(),
+            travelRequestDTO.startDate().toLocalDate(),
+            travelRequestDTO.endDate().toLocalDate(),
             null,
             null,
             rawImage

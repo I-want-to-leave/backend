@@ -11,11 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,9 +27,10 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedule/initialize")
-    public ResponseEntity<?> initializeSchedule(@AuthenticationPrincipal Long userCode, TravelRequestDTO travelRequestDTO) {
+    public ResponseEntity<?> initializeSchedule(@AuthenticationPrincipal Long userCode,
+                                                @RequestBody TravelRequestDTO travelRequestDTO) {
         System.out.println(userCode);
-        System.out.println(travelRequestDTO.toString());
+        log.info(travelRequestDTO.image().get(0) + "dldldldld");
         return ResponseEntity.ok(scheduleService.initializeTravel(userCode, travelRequestDTO));
     }
 

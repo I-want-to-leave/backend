@@ -80,7 +80,15 @@ public class TravelCacheFactory {
                 schedule.add(new ScheduleMessage(tempDate, timeLines));
                 timeLines = new ArrayList<>();
                 tempDate = travelLocation.getScheduleDetails().getStartTime().toLocalDateTime().toLocalDate();
+                if(travelLocation.getScheduleDetails().getGeographicDetails() == null){
+                    timeLines.add(new TimeLineMessage(travelLocation.getTravelCode(), travelLocation.getScheduleDetails().getStartTime(), travelLocation.getScheduleDetails().getName(), travelLocation.getScheduleDetails().getContent(), null, null));
+                    continue;
+                }
                 timeLines.add(new TimeLineMessage(travelLocation.getTravelCode(), travelLocation.getScheduleDetails().getStartTime(), travelLocation.getScheduleDetails().getName(), travelLocation.getScheduleDetails().getContent(), travelLocation.getScheduleDetails().getGeographicDetails().getLongitude(), travelLocation.getScheduleDetails().getGeographicDetails().getLatitude()));
+                continue;
+            }
+            if(travelLocation.getScheduleDetails().getGeographicDetails() == null){
+                timeLines.add(new TimeLineMessage(travelLocation.getTravelCode(), travelLocation.getScheduleDetails().getStartTime(), travelLocation.getScheduleDetails().getName(), travelLocation.getScheduleDetails().getContent(), null, null));
                 continue;
             }
             timeLines.add(new TimeLineMessage(travelLocation.getTravelCode(), travelLocation.getScheduleDetails().getStartTime(), travelLocation.getScheduleDetails().getName(), travelLocation.getScheduleDetails().getContent(), travelLocation.getScheduleDetails().getGeographicDetails().getLongitude(), travelLocation.getScheduleDetails().getGeographicDetails().getLatitude()));

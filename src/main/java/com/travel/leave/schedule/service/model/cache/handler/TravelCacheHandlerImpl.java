@@ -18,11 +18,13 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 @RequiredArgsConstructor
 public class TravelCacheHandlerImpl implements TravelCacheHandler {
     private static final ConcurrentHashMap<Long, TravelCache> travelCaches = new ConcurrentHashMap<>();
@@ -35,6 +37,7 @@ public class TravelCacheHandlerImpl implements TravelCacheHandler {
 
     @Override
     public TravelCache loadTravel(Long travelCode, boolean hasTravelCache) {
+        log.info("loadTravel");
         if(hasTravelCache){
             return travelCaches.get(travelCode);
         }

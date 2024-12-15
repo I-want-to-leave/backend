@@ -7,6 +7,7 @@ import com.travel.leave.travel.entity.TravelLocation;
 import com.travel.leave.travel.repository.TravelLocationRepository;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -28,15 +29,15 @@ public class TravelLocationFactory {
 
     private List<TravelLocation> getOneDayTravelLocations(Long travelCode, TravelLocationRequestDTOs schedule) {
         List<TravelLocation> oneDayTravelLocations = new ArrayList<>();
-        LocalDate tempDate = schedule.travelDate();
+        LocalDate tempDate = schedule.date();
 
-        for(int i = 0; i < schedule.timeLines().size(); i++){
-            TravelLocationRequestDTO tempTimeLine = schedule.timeLines().get(i);
-            if(isLastTimeLine(i+1, schedule.timeLines().size())){
+        for(int i = 0; i < schedule.timelines().size(); i++){
+            TravelLocationRequestDTO tempTimeLine = schedule.timelines().get(i);
+            if(isLastTimeLine(i+1, schedule.timelines().size())){
                 oneDayTravelLocations.add(getOneDayOneTravelLocation(travelCode, tempTimeLine, tempTimeLine.time(),i+1));
                 continue;
             }
-            TravelLocationRequestDTO nextTimeLine = schedule.timeLines().get(i+1);
+            TravelLocationRequestDTO nextTimeLine = schedule.timelines().get(i+1);
             oneDayTravelLocations.add(getOneDayOneTravelLocation(travelCode, tempTimeLine, nextTimeLine.time(), i+1));
         }
 
@@ -45,13 +46,13 @@ public class TravelLocationFactory {
 
     private TravelLocation getOneDayOneTravelLocation(Long travelCode,
                                                       TravelLocationRequestDTO tempTimeLine,
-                                                      Timestamp nextTime,
+                                                      LocalDateTime nextTime,
                                                       int step) {
-        return TravelLocation.of(travelCode, getScheduleDetails(tempTimeLine, nextTime, step));
+        return TravelLocation.of(travelCode, getScheduleDetails(tempTimeLine, Timestamp.valueOf(nextTime), step));
     }
 
     private ScheduleDetails getScheduleDetails(TravelLocationRequestDTO tempTimeLine, Timestamp nextTime, int step) {
-        return ScheduleDetails.of(tempTimeLine.title(), tempTimeLine.content(), tempTimeLine.time(), nextTime, step, null);
+        return ScheduleDetails.of(tempTimeLine.title(), tempTimeLine.content(), Timestamp.valueOf(tempTimeLine.time()), nextTime, step, null);
     }
 
     private boolean isLastTimeLine(int step, int size){

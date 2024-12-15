@@ -1,10 +1,11 @@
 package com.travel.leave.schedule.dto.get;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public record TravelLocationRequestDTO(
         Long code,
-        Timestamp time,
+        LocalDateTime time,
         String title,
         String content
 ) {

@@ -1,11 +1,13 @@
 package com.travel.leave.schedule.dto.get;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record TravelRequestDTO(
-        Timestamp startDate,
-        Timestamp endDate,
+        LocalDateTime startDate,
+        LocalDateTime endDate,
         String title,
         String information,
         List<String> image,

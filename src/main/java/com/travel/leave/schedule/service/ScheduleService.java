@@ -9,10 +9,12 @@ import com.travel.leave.travel.entity.Travel;
 import com.travel.leave.travel.entity.TravelLocation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ScheduleService {
     private final TravelCacheHandler travelCacheHandler;
@@ -36,7 +38,7 @@ public class ScheduleService {
         Travel savedTravel = travelService.save(travelRequestDTO);  //여행 저장
         List<TravelLocation> savedTravelLocations = travelLocationService.save(savedTravel.getCode(), travelRequestDTO.schedule()); //여행 스케쥴 저장
         List<UserTravel> savedUserTravels = userTravelService.save(savedTravel.getCode(), userCode, travelRequestDTO.member()); //여행에 포함된 멤버 저장
-
+        log.info("ddd");
         return travelCacheHandler.loadTravel(savedTravel.getCode(), false);
     }
 
