@@ -5,8 +5,10 @@ import com.travel.leave.board.entity.Post;
 import com.travel.leave.board.entity.PostComment;
 import com.travel.leave.board.mapper.PostCommentMapper;
 import com.travel.leave.board.repository.comment.PostCommentRepository;
+import com.travel.leave.board.service.enums.BOARD_EX_MSG;
 import com.travel.leave.board.validator.PostCommentValidator;
 import com.travel.leave.board.validator.PostValidator;
+import com.travel.leave.login.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,13 +20,18 @@ public class PostCommentService {
     private final PostCommentRepository postCommentRepository;
     private final PostCommentValidator postCommentValidator;
     private final PostValidator postValidator;
+    private final UserRepository userRepository;
+    private final PostCommentMapper postCommentMapper;
 
     @Transactional
     public PostCommentDTO addComment(Long postCode, Long userCode, String content) {
         Post post = postValidator.validateActivePost(postCode);
-        PostComment comment = PostCommentMapper.toPostCommentEntity(post, userCode, content);
+        String nickname = userRepository.findNicknameByUserCode(userCode)
+                .orElseThrow(() -> new IllegalArgumentException(BOARD_EX_MSG.USER_NOT_FOUND.getMessage()));
+
+        PostComment comment = postCommentMapper.createPostCommentEntity(post, userCode, content, nickname);
         PostComment savedComment = postCommentRepository.save(comment);
-        return PostCommentMapper.toPostCommentDTO(savedComment);
+        return postCommentRepository.findCommentDTOById(savedComment.getCode());
     }
 
     @Transactional
@@ -32,7 +39,7 @@ public class PostCommentService {
         PostComment comment = postCommentValidator.validateOwnership(postCode, commentCode, userCode);
         comment.setterContent(newContent);
         PostComment updatedComment = postCommentRepository.save(comment);
-        return PostCommentMapper.toPostCommentDTO(updatedComment);
+        return postCommentRepository.findCommentDTOById(updatedComment.getCode());
     }
 
     @Transactional

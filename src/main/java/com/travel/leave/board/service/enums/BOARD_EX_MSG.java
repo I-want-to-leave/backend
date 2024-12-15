@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum BOARD_EX_MSG {
     POST_NOT_FOUND("해당 게시물을 찾을 수 없습니다."),
+    USER_NOT_FOUND("사용자를 찾을 수 없습니다"),
     COMMENT_NOT_FOUND("댓글을 찾을 수 없습니다."),
     IMAGE_NOT_FOUND("이미지를 찾을 수 없습니다."),
     POST_ALREADY_SHARED("이미 공유된 여행입니다."),

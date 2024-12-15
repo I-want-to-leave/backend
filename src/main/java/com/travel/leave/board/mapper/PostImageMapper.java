@@ -69,5 +69,5 @@ public class PostImageMapper {
                 .filePath(postImage.getFilePath())
                 .order(postImage.getOrder())
                 .build();
-    } // 수정 해야 됨, 위의 DTOs
+    }
 }

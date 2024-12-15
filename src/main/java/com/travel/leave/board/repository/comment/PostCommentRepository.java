@@ -18,14 +18,28 @@ public interface PostCommentRepository extends JpaRepository<PostComment, Long> 
         pc.code,
         pc.content,
         pc.createdAt,
-        pc.userCode,
-        pc.post.postCode
+        pc.post.postCode,
+        pc.nickname
     )
     FROM PostComment pc
     WHERE pc.post.postCode = :postCode
       AND pc.deletedAt IS NULL
     """)
     List<PostCommentDTO> findCommentsByPostCode(@Param("postCode") Long postCode);
+
+    @Query("""
+    SELECT new com.travel.leave.board.dto.response.postdetail.PostCommentDTO(
+        pc.code,
+        pc.content,
+        pc.createdAt,
+        pc.post.postCode,
+        pc.nickname
+    )
+    FROM PostComment pc
+    WHERE pc.code = :commentCode
+      AND pc.deletedAt IS NULL
+    """)
+    PostCommentDTO findCommentDTOById(@Param("commentCode") Long commentCode);
 
     @Query("SELECT pc FROM PostComment pc WHERE pc.code = :commentCode AND pc.deletedAt IS NULL")
     Optional<PostComment> findActiveCommentById(@Param("commentCode") Long commentCode);

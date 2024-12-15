@@ -12,14 +12,14 @@ public class PostCommentDTO {
     private Long code;
     private String content;
     private Timestamp createdAt;
-    private Long userCode;
     private Long postCode;
+    private String nickname;
 
-    public PostCommentDTO(Long code, String content, Timestamp createdAt, Long userCode, Long postCode) {
+    public PostCommentDTO(Long code, String content, Timestamp createdAt, Long postCode, String nickname) {
         this.code = code;
         this.content = content;
         this.createdAt = createdAt;
-        this.userCode = userCode;
         this.postCode = postCode;
+        this.nickname = nickname;
     }
 }

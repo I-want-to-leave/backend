@@ -34,6 +34,9 @@ public class PostComment {
     @Column(name = "user_code", nullable = false)
     private Long userCode;
 
+    @Column(name = "nickname", nullable = false)
+    private String nickname;
+
     @ManyToOne
     @JoinColumn(name = "post_code", nullable = false)
     private Post post;
