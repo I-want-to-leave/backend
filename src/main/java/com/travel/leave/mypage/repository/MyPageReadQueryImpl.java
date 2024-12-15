@@ -103,6 +103,9 @@ public class MyPageReadQueryImpl implements MyPageReadQuery{
                         qTravel.code, // 여행 코드
                         qTravel.name, // 여행 이름
                         qTravel.content, // 여행 내용
+                        qTravel.imageUrl,
+                        qTravel.startDate,
+                        qTravel.endDate,
                         qUser.nickname // 여행에 참여한 사용자 닉네임
                 )
                 .from(qUserTravel)
@@ -124,7 +127,10 @@ public class MyPageReadQueryImpl implements MyPageReadQuery{
                     tuple.get(qTravel.code),
                     tuple.get(qTravel.name),
                     tuple.get(qTravel.content),
-                    new ArrayList<>()
+                    new ArrayList<>(),
+                    tuple.get(qTravel.imageUrl),
+                    tuple.get(qTravel.startDate),
+                    tuple.get(qTravel.endDate)
             )).userNicknames().add(tuple.get(qUser.nickname));
         }
 

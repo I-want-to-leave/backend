@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public record TravelRequestDTO(
-        LocalDateTime startDate,
-        LocalDateTime endDate,
+        String startDate,
+        String endDate,
         String title,
         String information,
         List<String> image,

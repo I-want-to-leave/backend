@@ -55,6 +55,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
 
+
             if (hasJWTToken(jwtToken)) {
                 if (isExpired(jwtToken)) {
                     log.warn("JWT is expired");

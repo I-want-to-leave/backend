@@ -3,6 +3,8 @@ package com.travel.leave.schedule.service.model.mapper;
 import com.travel.leave.schedule.dto.get.TravelRequestDTO;
 import com.travel.leave.travel.entity.Travel;
 import com.travel.leave.utility.ImageProcessor;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,8 +19,8 @@ public class TravelFactory {
                     null,
                     travelRequestDTO.title(),
                     travelRequestDTO.information(),
-                    travelRequestDTO.startDate().toLocalDate(),
-                    travelRequestDTO.endDate().toLocalDate(),
+                    LocalDateTime.parse(travelRequestDTO.startDate()).toLocalDate(),
+                    LocalDateTime.parse(travelRequestDTO.endDate()).toLocalDate(),
                     null,
                     null,
                     ImageProcessor.saveImage(rawImage)
@@ -28,8 +30,8 @@ public class TravelFactory {
                 null,
             travelRequestDTO.title(),
             travelRequestDTO.information(),
-            travelRequestDTO.startDate().toLocalDate(),
-            travelRequestDTO.endDate().toLocalDate(),
+                LocalDateTime.parse(travelRequestDTO.startDate()).toLocalDate(),
+                LocalDateTime.parse(travelRequestDTO.endDate()).toLocalDate(),
             null,
             null,
             rawImage

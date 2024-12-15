@@ -120,7 +120,7 @@ public class TravelCacheHandlerImpl implements TravelCacheHandler {
     }
 
     private List<TravelLocation> getTravelLocationEntities(Long travelCode) {
-        return travelLocationRepository.findAllByTravelCode(travelCode);
+        return travelLocationRepository.findTravelLocations(travelCode);
     }
 
     private Travel getTravelEntity(Long travelCode) {
