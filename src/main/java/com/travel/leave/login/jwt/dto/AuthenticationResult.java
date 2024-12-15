@@ -36,7 +36,7 @@ public class AuthenticationResult implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return responseUserDetailsDTO;
+        return responseUserDetailsDTO.getCode();
     }
 
     @Override

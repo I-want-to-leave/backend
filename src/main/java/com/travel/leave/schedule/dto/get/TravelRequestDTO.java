@@ -11,4 +11,10 @@ public record TravelRequestDTO(
         List<String> image,
         List<MemberRequestDTO> member,
         List<TravelLocationRequestDTOs> schedule
-) {}
+) {
+
+    @Override
+    public String toString() {
+        return title + " - " + information + " - " + startDate + " - " + endDate + " - " + image.size() + " - " + member.size() + " - " + schedule.size();
+    }
+}

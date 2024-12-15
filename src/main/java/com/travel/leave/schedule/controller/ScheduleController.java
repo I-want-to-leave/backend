@@ -32,7 +32,8 @@ public class ScheduleController {
 
     @PostMapping("/schedule/initialize")
     public ResponseEntity<?> initializeSchedule(@AuthenticationPrincipal Long userCode, TravelRequestDTO travelRequestDTO) {
-        log.info(travelRequestDTO.toString());
+        System.out.println(userCode);
+        System.out.println(travelRequestDTO.toString());
         return ResponseEntity.ok(scheduleService.initializeTravel(userCode, travelRequestDTO));
     }
 

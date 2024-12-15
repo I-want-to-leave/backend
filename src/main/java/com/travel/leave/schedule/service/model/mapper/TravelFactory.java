@@ -4,8 +4,9 @@ import com.travel.leave.schedule.dto.get.TravelRequestDTO;
 import com.travel.leave.travel.entity.Travel;
 import com.travel.leave.utility.ImageProcessor;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
+@Slf4j
 @Component
 public class TravelFactory {
     public Travel generate(TravelRequestDTO travelRequestDTO) {
