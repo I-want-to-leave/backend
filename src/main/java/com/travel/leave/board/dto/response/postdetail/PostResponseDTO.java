@@ -20,8 +20,6 @@ public class PostResponseDTO {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Long views;
-    private Long userCode;
-    private Long travelCode;
     private Long likeCount;
     private List<PostImageDTO> images;
     private List<PostCommentDTO> comments;

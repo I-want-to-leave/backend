@@ -2,7 +2,7 @@ package com.travel.leave.board.mapper;
 
 import com.travel.leave.board.dto.response.postdetail.*;
 import com.travel.leave.board.entity.Post;
-import com.travel.leave.travel.entity.Travel;
+import com.travel.leave.ai_travel.entity.Travel;
 
 import java.util.List;
 
@@ -37,8 +37,6 @@ public class PostMapper {
                 .createdAt(post.getCreatedAt())
                 .updatedAt(post.getUpdatedAt())
                 .views(post.getViews())
-                .userCode(post.getUserCode())
-                .travelCode(post.getTravelCode())
                 .likeCount(likeCount)
                 .images(images)
                 .comments(comments)

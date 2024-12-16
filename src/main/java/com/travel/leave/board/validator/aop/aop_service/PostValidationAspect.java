@@ -1,6 +1,6 @@
 package com.travel.leave.board.validator.aop.aop_service;
 
-import com.travel.leave.board.validator.PostValidator;
+import com.travel.leave.board.validator.common_validator.PostValidator;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

@@ -6,7 +6,7 @@ import com.travel.leave.board.mapper.PostLikeMapper;
 import com.travel.leave.board.repository.post_like.PostLikeRepository;
 import com.travel.leave.board.service.enums.RedisField;
 import com.travel.leave.board.service.like_sync.util.PostRecentCheckerUtils;
-import com.travel.leave.board.validator.PostValidator;
+import com.travel.leave.board.validator.common_validator.PostValidator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;

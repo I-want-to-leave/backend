@@ -2,7 +2,7 @@ package com.travel.leave.board.mapper;
 
 import com.travel.leave.board.entity.Post;
 import com.travel.leave.board.entity.PostPreparation;
-import com.travel.leave.travel.entity.TravelPreparation;
+import com.travel.leave.ai_travel.entity.TravelPreparation;
 
 import java.util.Collections;
 import java.util.List;

@@ -14,13 +14,13 @@ import com.travel.leave.board.repository.travelroute.PostTravelRouteRepository;
 import com.travel.leave.board.service.enums.BOARD_EX_MSG;
 import com.travel.leave.board.service.like.PostLikeService;
 import com.travel.leave.board.service.post_image.PostImageService;
-import com.travel.leave.board.validator.PostValidator;
-import com.travel.leave.travel.entity.Travel;
-import com.travel.leave.travel.entity.TravelLocation;
-import com.travel.leave.travel.entity.TravelPreparation;
-import com.travel.leave.travel.repository.TravelLocationRepository;
-import com.travel.leave.travel.repository.TravelPreparationRepository;
-import com.travel.leave.travel.repository.TravelRepository;
+import com.travel.leave.board.validator.common_validator.PostValidator;
+import com.travel.leave.ai_travel.entity.Travel;
+import com.travel.leave.ai_travel.entity.TravelLocation;
+import com.travel.leave.ai_travel.entity.TravelPreparation;
+import com.travel.leave.ai_travel.repository.TravelLocationRepository;
+import com.travel.leave.ai_travel.repository.TravelPreparationRepository;
+import com.travel.leave.ai_travel.repository.TravelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,7 +72,6 @@ public class PostService {
         incrementPostViews(postCode);
         Post post = postValidator.validateActivePost(postCode);
         Long likeCount = postLikeService.getLikesCount(postCode);
-
         List<PostImageDTO> imageDTOs = postImageService.getImagesByPostCode(postCode);
         List<PostCommentDTO> commentDTOs = postCommentRepository.findCommentsByPostCode(postCode);
         List<PostPreparationDTO> preparationDTOS = postPreparationRepository.findPreparationsByPostCode(postCode);

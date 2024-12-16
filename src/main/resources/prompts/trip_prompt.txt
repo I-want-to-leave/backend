@@ -38,8 +38,6 @@ Add stopover points (e.g., tollgates, train stations) but do not count them towa
 Include the following details for each place:
 stepName: Name of the place.
 transportType: Transportation method used (DRIVING, WALKING, BICYCLING, TRANSIT, FERRY).
-startAt: The expected arrival time at the location (format: YYYY-MM-DD HH:mm:ss).
-endAt: The expected departure time from the location (format: YYYY-MM-DD HH:mm:ss).
 
 Transportation Settings:
 Car Ownership (carOwned):
@@ -69,8 +67,6 @@ JSON Output Format:
 {
   "tripName": "{Trip Title}",
   "tripExplanation": "{Brief description of the trip}",
-  "startDate": "{Start date of the trip}",
-  "endDate": "{End date of the trip}",
   "totalCost": {Total cost (in the currency of the departure location)},
   "recommendedItems": [
     { "itemName": "{Item name}", "quantity": {Quantity} }

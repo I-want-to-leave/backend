@@ -42,6 +42,9 @@ dependencies {
 	implementation 'io.projectreactor.netty:reactor-netty:1.1.6'
 	// 2024 - 11 - 30일 비동기 처리 타임아웃 기능 추가
 
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
+	// 2024-12-19일 localDateTime 시간 직렬화 문제 떄문에 의존성 추가
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'

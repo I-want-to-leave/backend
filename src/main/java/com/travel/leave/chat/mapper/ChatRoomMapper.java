@@ -13,7 +13,7 @@ import java.util.HashSet;
 @Component
 public class ChatRoomMapper {
 
-    public static ChatRoom createChatRoom(ChatRoomCreateDTO chatRoomCreateDTO, Long creatorId) {
+    public static ChatRoom createChatRoom(ChatRoomCreateDTO chatRoomCreateDTO, Long userCode) {
         ChatRoom chatRoom = ChatRoom.builder()
                 .name(chatRoomCreateDTO.getChatRoomName())
                 .createdAt(new Timestamp(System.currentTimeMillis()))
@@ -21,9 +21,8 @@ public class ChatRoomMapper {
                 .build();
 
         ChatRoomUser creator = ChatRoomUser.builder()
-                .id(new ChatRoomUserId(chatRoom.getId(), creatorId))
+                .id(new ChatRoomUserId(chatRoom.getId(), userCode))
                 .chatRoom(chatRoom)
-                .userCode(creatorId)
                 .role(ChatRole.CREATOR)
                 .joinedAt(new Timestamp(System.currentTimeMillis()))
                 .build();

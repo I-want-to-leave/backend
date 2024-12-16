@@ -43,7 +43,6 @@ public interface PostSortRepository extends JpaRepository<Post, Long> {
         FROM Post p
         WHERE p.deletedAt IS NULL
         AND LOWER(p.postTitle) LIKE LOWER(CONCAT('%', :keyword, '%'))
-        GROUP BY p.postCode
         ORDER BY p.createdAt DESC
     """)
     List<PostListDTO> searchPosts(@Param("keyword") String keyword, Pageable pageable);

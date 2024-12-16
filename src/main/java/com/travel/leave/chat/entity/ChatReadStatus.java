@@ -23,9 +23,6 @@ public class ChatReadStatus {
     @EmbeddedId
     private ChatReadStatusId id;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userCode;
-
     @ManyToOne
     @MapsId("roomId")
     @JoinColumn(name = "room_id", nullable = false)

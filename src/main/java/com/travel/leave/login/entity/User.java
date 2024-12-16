@@ -54,13 +54,4 @@ public class User {
 
     @Column(name = "profile_url")
     private String profileUrl;
-
-    @OneToMany(mappedBy = "userCode", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ChatRoomUser> chatRoomUsers;
-
-    @OneToMany(mappedBy = "userCode", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ChatMessage> messages;
-
-    @OneToMany(mappedBy = "userCode", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ChatReadStatus> readStatuses;
 }

@@ -4,7 +4,7 @@ import com.travel.leave.board.entity.Post;
 import com.travel.leave.board.entity.PostPreparation;
 import com.travel.leave.board.entity.PostTravelRoute;
 import com.travel.leave.login.entity.UserTravel;
-import com.travel.leave.travel.entity.*;
+import com.travel.leave.ai_travel.entity.*;
 
 public class SyncTripMapper {
 

@@ -24,9 +24,6 @@ public class ChatRoomUser {
     @JoinColumn(name = "room_id", nullable = false)
     private ChatRoom chatRoom;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userCode;
-
     @Column(name = "joined_at", nullable = false)
     @CreationTimestamp
     private Timestamp joinedAt;

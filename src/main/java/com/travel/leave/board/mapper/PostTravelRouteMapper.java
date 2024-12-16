@@ -2,8 +2,8 @@ package com.travel.leave.board.mapper;
 
 import com.travel.leave.board.entity.Post;
 import com.travel.leave.board.entity.PostTravelRoute;
-import com.travel.leave.travel.entity.ScheduleDetails;
-import com.travel.leave.travel.entity.TravelLocation;
+import com.travel.leave.ai_travel.entity.ScheduleDetails;
+import com.travel.leave.ai_travel.entity.TravelLocation;
 
 import java.util.Collections;
 import java.util.List;
