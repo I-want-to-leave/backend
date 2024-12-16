@@ -1,7 +1,6 @@
 package com.travel.leave.ai_travel.service;
 
 import com.travel.leave.login.entity.UserTravel;
-import com.travel.leave.login.entity.UserTravelRepository;
 import com.travel.leave.ai_travel.dto.ai_recommend.RecommendDTO;
 import com.travel.leave.ai_travel.entity.Travel;
 import com.travel.leave.ai_travel.entity.TravelLocation;
@@ -10,6 +9,7 @@ import com.travel.leave.ai_travel.mapper.AI_Mapper.AI_TripMapper;
 import com.travel.leave.ai_travel.repository.TravelLocationRepository;
 import com.travel.leave.ai_travel.repository.TravelPreparationRepository;
 import com.travel.leave.ai_travel.repository.TravelRepository;
+import com.travel.leave.schedule.repository.invite.UserTravelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

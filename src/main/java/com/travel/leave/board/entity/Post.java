@@ -55,19 +55,19 @@ public class Post {
     private Long travelCode;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private List<PostComment> comments = new ArrayList<>();
+    private List<PostComment> comments;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private List<PostImage> images = new ArrayList<>();
+    private List<PostImage> images;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private List<PostLike> likes = new ArrayList<>();
+    private List<PostLike> likes;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private List<PostPreparation> preparations = new ArrayList<>();
+    private List<PostPreparation> preparations;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private List<PostTravelRoute> travelRoutes = new ArrayList<>();
+    private List<PostTravelRoute> travelRoutes;
 
     public void deactivate(Timestamp timestamp) {
         this.deletedAt = timestamp;
