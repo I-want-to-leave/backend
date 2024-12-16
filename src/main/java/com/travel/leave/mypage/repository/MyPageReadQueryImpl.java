@@ -19,9 +19,11 @@ import com.travel.leave.mypage.dto.MyPageTravelResponseDTO;
 import com.travel.leave.mypage.dto.MyPageTravelsResponseDTO;
 import com.travel.leave.ai_travel.entity.QTravel;
 import com.travel.leave.utility.QueryDslUtils;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 
@@ -70,7 +72,7 @@ public class MyPageReadQueryImpl implements MyPageReadQuery{
                                 qPost.postTitle.as("postTitle")))
                         .from(qPost)
                         .where(qPost.userCode.eq(userCode))
-                        .leftJoin(qPostComment).on(qPostComment.postcode.eq(qPost.postCode))
+                        .leftJoin(qPostComment).on(qPostComment.post.postCode.eq(qPost.postCode))
                         .orderBy(QueryDslUtils.getOrderSpecifiers(pageable, qPostComment))
                         .offset(pageable.getOffset())
                         .limit(pageable.getPageSize())
@@ -129,8 +131,8 @@ public class MyPageReadQueryImpl implements MyPageReadQuery{
                     tuple.get(qTravel.content),
                     new ArrayList<>(),
                     tuple.get(qTravel.imageUrl),
-                    tuple.get(qTravel.startDate),
-                    tuple.get(qTravel.endDate)
+                    Objects.requireNonNull(tuple.get(qTravel.startDate)).toLocalDate(),
+                    Objects.requireNonNull(tuple.get(qTravel.endDate)).toLocalDate()
             )).userNicknames().add(tuple.get(qUser.nickname));
         }
 
@@ -142,7 +144,7 @@ public class MyPageReadQueryImpl implements MyPageReadQuery{
         return JPAExpressions
                 .select(qPostComment.count())
                 .from(qPostComment)
-                .join(qPost).on(qPostComment.postCode.eq(qPost.postCode))
+                .join(qPost).on(qPostComment.post.postCode.eq(qPost.postCode))
                 .where(qPost.userCode.eq(qUser.code));
     }
 

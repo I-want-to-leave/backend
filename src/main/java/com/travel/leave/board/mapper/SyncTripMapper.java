@@ -39,7 +39,7 @@ public class SyncTripMapper {
                 .travelCode(travelCode)
                 .name(postPreparation.getName())
                 .quantity(postPreparation.getQuantity())
-                .content("")
+                .isDeleted(false)
                 .build();
     }
 

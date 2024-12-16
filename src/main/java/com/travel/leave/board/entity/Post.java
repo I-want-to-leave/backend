@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
