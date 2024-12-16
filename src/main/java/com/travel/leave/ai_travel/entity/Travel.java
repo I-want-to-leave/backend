@@ -6,15 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
-import java.sql.Timestamp;
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "travel")
@@ -49,4 +48,8 @@ public class Travel {
 
     @Column(name = "travel_image_url")
     private String imageUrl;
+
+    public static Travel of(Long code, String name, String content, Date startDate, Date endDate, Timestamp createdAt, Timestamp deletedAt, String imageUrl) {
+        return new Travel(code, name, content, createdAt, deletedAt, startDate, endDate, imageUrl);
+    }
 }

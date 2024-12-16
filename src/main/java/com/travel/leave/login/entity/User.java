@@ -1,12 +1,8 @@
 package com.travel.leave.login.entity;
 
-import com.travel.leave.chat.entity.ChatMessage;
-import com.travel.leave.chat.entity.ChatReadStatus;
-import com.travel.leave.chat.entity.ChatRoomUser;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
-import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

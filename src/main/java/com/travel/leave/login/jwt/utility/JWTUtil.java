@@ -18,8 +18,8 @@ public class JWTUtil {
     private static final Logger log = LoggerFactory.getLogger(JWTUtil.class);
     private static SecretKey secretKey;
 
-    public JWTUtil(@Value("${spring.jwt.secret}")String secret){    //생성자가 yml 의 key를 받아와서 시크릿 키를 만들었다.
-        this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
+    public JWTUtil(@Value("${spring.jwt.secret}")String secret){    //생성자가 yml 의 key 를 받아와서 시크릿 키를 만들었다.
+        secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
     }
 
     public String createJWT(Long code, String username, String nickName, String email, String role, Long expiredMs){
@@ -64,7 +64,7 @@ public class JWTUtil {
     }
 
     private static Claims getInfo(String jwtToken){
-        jwtToken = jwtToken.substring(7);
+        jwtToken = jwtToken.substring(7).trim();
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(jwtToken).getPayload();
     }
 }

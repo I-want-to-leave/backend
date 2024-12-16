@@ -33,11 +33,6 @@ public class ImageProcessor {
         }
     }
 
-    public static String updateImage(String oldFilePath, String rawImage) {
-        deleteImage(oldFilePath);
-        return saveImage(rawImage);
-    }
-
     private static String getUUID() {
         return UUID.randomUUID().toString();
     }

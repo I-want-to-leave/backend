@@ -33,4 +33,8 @@ public class ScheduleDetails {
 
     @Embedded
     private GeographicDetails geographicDetails;
+
+    public static ScheduleDetails of(String name, String content, Timestamp startTime, Timestamp endTime, Integer step, GeographicDetails geographicDetails) {
+        return new ScheduleDetails(name, content, startTime, endTime, step, null);
+    }
 }

@@ -29,4 +29,8 @@ public class TravelLocation {
 
     @Column(name = "travel_code")
     private Long travelCode;
+
+    public static TravelLocation of(Long travelCode, ScheduleDetails scheduleDetails) {
+        return new TravelLocation(null, scheduleDetails, travelCode);
+    }
 }

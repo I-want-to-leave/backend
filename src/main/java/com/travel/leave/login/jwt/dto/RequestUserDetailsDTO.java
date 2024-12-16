@@ -13,6 +13,5 @@ public class RequestUserDetailsDTO {
     private String providerId;
     private String nickname;
     private String email;
-    private String telNum;
     private UserRole userRole;
 }

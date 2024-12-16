@@ -75,8 +75,8 @@ public class AI_TripMapper {
         return new TravelPreparation(
                 null,
                 itemDTO.getItemName(),
-                "",
                 itemDTO.getQuantity(),
+                false,
                 travelCode
         );
     }

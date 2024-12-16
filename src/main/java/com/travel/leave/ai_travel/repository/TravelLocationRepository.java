@@ -15,4 +15,5 @@ public interface TravelLocationRepository extends JpaRepository<TravelLocation, 
             "JOIN Travel t ON tl.travelCode = t.code " +
             "WHERE t.code = :travelCode AND t.deletedAt IS NULL")
     List<TravelLocation> findByTravelCode(@Param("travelCode") Long travelCode);
+    // 이따가 봐야 됨
 }

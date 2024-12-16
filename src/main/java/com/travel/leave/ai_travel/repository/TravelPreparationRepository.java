@@ -15,6 +15,8 @@ public interface TravelPreparationRepository extends JpaRepository<TravelPrepara
             "JOIN Travel t ON tp.travelCode = t.code " +
             "WHERE t.code = :travelCode AND t.deletedAt IS NULL")
     List<TravelPreparation> findByTravelCode(@Param("travelCode") Long travelCode);
+
+    List<TravelPreparation> findAllByTravelCodeAndIsDeletedIsFalse(Long travelCode);
 }
 
 
