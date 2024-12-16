@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface PostCommentRepository extends JpaRepository<PostComment, Long> {
 
     @Query("""
-    SELECT new com.travel.leave.board.dto.response.postdetail.PostCommentDTO(
+    SELECT new com.travel.leave.domain.board.dto.response.postdetail.PostCommentDTO(
         pc.code,
         pc.content,
         pc.createdAt,
@@ -28,7 +28,7 @@ public interface PostCommentRepository extends JpaRepository<PostComment, Long> 
     List<PostCommentDTO> findCommentsByPostCode(@Param("postCode") Long postCode);
 
     @Query("""
-    SELECT new com.travel.leave.board.dto.response.postdetail.PostCommentDTO(
+    SELECT new com.travel.leave.domain.board.dto.response.postdetail.PostCommentDTO(
         pc.code,
         pc.content,
         pc.createdAt,

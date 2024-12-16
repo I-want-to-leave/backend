@@ -11,7 +11,7 @@ import java.util.List;
 public interface PostPreparationRepository extends JpaRepository<PostPreparation, Long> {
 
     @Query("""
-        SELECT new com.travel.leave.board.dto.response.postdetail.PostPreparationDTO(
+        SELECT new com.travel.leave.domain.board.dto.response.postdetail.PostPreparationDTO(
             pp.name,
             pp.quantity
         )

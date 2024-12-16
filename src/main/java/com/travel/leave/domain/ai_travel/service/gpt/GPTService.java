@@ -1,7 +1,6 @@
 package com.travel.leave.domain.ai_travel.service.gpt;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.travel.leave.ai_travel.dto.ai_recommend.*;
 import com.travel.leave.domain.ai_travel.dto.gpt.GPTRequest;
 import com.travel.leave.domain.ai_travel.dto.gpt.GPTResponse;
 import com.travel.leave.domain.ai_travel.mapper.AI_Mapper.GPTResponseMapper;

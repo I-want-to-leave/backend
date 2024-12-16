@@ -13,7 +13,7 @@ import java.util.List;
 public interface PostTravelRouteRepository extends JpaRepository<PostTravelRoute, Long> {
 
     @Query("""
-    SELECT new com.travel.leave.board.dto.response.postdetail.PostTravelRouteDTO(
+    SELECT new com.travel.leave.domain.board.dto.response.postdetail.PostTravelRouteDTO(
         ptr.placeName,
         ptr.startAt,
         ptr.endAt,

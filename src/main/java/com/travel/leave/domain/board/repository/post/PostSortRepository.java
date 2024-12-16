@@ -14,7 +14,7 @@ import java.util.List;
 public interface PostSortRepository extends JpaRepository<Post, Long> {
 
     @Query("""
-        SELECT new com.travel.leave.board.dto.response.PostListDTO(
+        SELECT new com.travel.leave.domain.board.dto.response.PostListDTO(
             p.postCode,
             p.postTitle,
             SUBSTRING(p.postContent, 1, 10),
@@ -33,7 +33,7 @@ public interface PostSortRepository extends JpaRepository<Post, Long> {
     List<PostListDTO> findPostsBySort(@Param("sortField") SortField sortField, Pageable pageable);
 
     @Query("""
-        SELECT new com.travel.leave.board.dto.response.PostListDTO(
+        SELECT new com.travel.leave.domain.board.dto.response.PostListDTO(
             p.postCode,
             p.postTitle,
             SUBSTRING(p.postContent, 1, 10),

@@ -14,7 +14,6 @@ import com.travel.leave.subdomain.post.repository.PostRepository;
 import com.travel.leave.subdomain.postimage.entity.PostImage;
 import com.travel.leave.subdomain.postpreparation.entity.PostPreparation;
 import com.travel.leave.subdomain.posttravelroute.entity.PostTravelRoute;
-import com.travel.leave.board.mapper.*;
 import com.travel.leave.subdomain.postcomment.repository.PostCommentRepository;
 import com.travel.leave.subdomain.postimage.repository.PostImageRepository;
 import com.travel.leave.subdomain.postpreparation.repository.PostPreparationRepository;

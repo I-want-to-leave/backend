@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/posts/{postCode}/comments")
 @RequiredArgsConstructor
 public class PostCommentController {
-
     private final PostCommentService postCommentService;
 
     @PostMapping

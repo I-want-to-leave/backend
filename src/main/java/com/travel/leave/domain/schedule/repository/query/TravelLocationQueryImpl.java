@@ -1,7 +1,7 @@
 package com.travel.leave.domain.schedule.repository.query;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.travel.leave.ai_travel.entity.QTravelLocation;
+import com.travel.leave.subdomain.travellocaion.entity.QTravelLocation;
 import com.travel.leave.subdomain.travellocaion.entity.TravelLocation;
 import lombok.RequiredArgsConstructor;
 

@@ -2,9 +2,9 @@ package com.travel.leave.domain.schedule.repository.invite;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.travel.leave.login.entity.QUser;
 import com.travel.leave.domain.schedule.dto.get.invite.UserInviteDTO;
 import com.travel.leave.domain.schedule.dto.get.invite.UserInviteDTOs;
+import com.travel.leave.subdomain.user.entity.QUser;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

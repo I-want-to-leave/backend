@@ -1,8 +1,8 @@
 package com.travel.leave.domain.schedule.repository.query;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.travel.leave.login.entity.QUser;
-import com.travel.leave.login.entity.QUserTravel;
+import com.travel.leave.subdomain.user.entity.QUser;
+import com.travel.leave.subdomain.usertravel.entity.QUserTravel;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
