@@ -1,6 +1,6 @@
 package com.travel.leave.exception;
 
-import com.travel.leave.board.service.enums.SortField;
+import com.travel.leave.domain.board.service.enums.SortField;
 import com.travel.leave.exception.BadReqeust.BadRequest;
 import com.travel.leave.exception.BadReqeust.GPTResponseParsingException;
 import com.travel.leave.exception.message.ExceptionMessage;
