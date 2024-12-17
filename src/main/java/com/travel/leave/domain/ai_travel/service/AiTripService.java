@@ -1,6 +1,7 @@
 package com.travel.leave.domain.ai_travel.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.travel.leave.domain.ai_travel.service.trip_enum.RedisTripField;
 import com.travel.leave.exception.BadReqeust.TripCacheSaveException;
 import com.travel.leave.domain.ai_travel.dto.ai_recommend.LatLngDTO;
 import com.travel.leave.domain.ai_travel.dto.ai_recommend.RecommendDTO;
@@ -12,7 +13,6 @@ import com.travel.leave.domain.ai_travel.mapper.AI_Mapper.AI_TripMapper;
 import com.travel.leave.domain.ai_travel.service.gpt.GPTService;
 import com.travel.leave.domain.ai_travel.service.gpt.GoogleMapsService;
 import com.travel.leave.domain.ai_travel.service.gpt.UnsplashService;
-import com.travel.leave.domain.ai_travel.service.trip_enum.AI_ERR_MSG;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -68,7 +68,7 @@ public class AiTripService {
             return tripPlan;
         } catch (Exception e) {
             log.error("해당 유저코드에 관해 여행 캐싱이 실패하였습니다: {}, tripRequest: {}, error: {}", userCode, tripRequest, e.getMessage(), e);
-            throw new TripCacheSaveException(AI_ERR_MSG.REDIS_CACHE_FAIL.getMessage());
+            throw new TripCacheSaveException(RedisTripField.REDIS_CACHE_FAIL.getMessage());
         }
     }
 
@@ -76,7 +76,7 @@ public class AiTripService {
     public void saveTripPlan(Long userCode) {
         RecommendDTO recommendDTO = tripCacheService.getTripPlan(userCode);
         if (recommendDTO == null) {
-            throw new IllegalStateException(AI_ERR_MSG.REDIS_CACHE_FAIL.getMessage());
+            throw new IllegalStateException(RedisTripField.REDIS_CACHE_FAIL.getMessage());
         }
         AITripPersistenceService.saveAllTripData(recommendDTO, userCode);
     }

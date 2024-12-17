@@ -1,7 +1,6 @@
 package com.travel.leave.domain.ai_travel.service.gpt;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.travel.leave.domain.ai_travel.service.trip_enum.GOOGLE_MSG_ENUM;
 import com.travel.leave.domain.ai_travel.service.trip_enum.TransportType;
 import com.travel.leave.domain.ai_travel.dto.ai_recommend.LatLngDTO;
 import com.travel.leave.domain.ai_travel.mapper.AI_Mapper.GoogleMapsMapper;
@@ -37,8 +36,8 @@ public class GoogleMapsService {
     public CompletableFuture<JsonNode> fetchCoordinatesResponse(String placeName) {
         return googleGeocodingWebClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .queryParam(GOOGLE_MSG_ENUM.GEOCODING_PARAM_ADDRESS.getMessage(), placeName)
-                        .queryParam(GOOGLE_MSG_ENUM.GEOCODING_PARAM_KEY.getMessage(), apikey)
+                        .queryParam("address", placeName)
+                        .queryParam("key", apikey)
                         .build())
                 .retrieve()
                 .bodyToMono(JsonNode.class)

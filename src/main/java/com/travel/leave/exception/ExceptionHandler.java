@@ -1,12 +1,11 @@
 package com.travel.leave.exception;
 
-import com.travel.leave.domain.board.service.enums.SortField;
+import com.travel.leave.domain.board.board_enum.SortField;
 import com.travel.leave.exception.BadReqeust.BadRequest;
 import com.travel.leave.exception.BadReqeust.GPTResponseParsingException;
 import com.travel.leave.exception.message.ExceptionMessage;
 import java.util.HashMap;
 import java.util.Map;
-
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;

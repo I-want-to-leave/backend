@@ -1,5 +1,8 @@
 package com.travel.leave.exception.message;
 
+import lombok.Getter;
+
+@Getter
 public enum ExceptionMessage {
     DUPLICATE_USERNAME("이미 %s가 존재합니다."),
     CONVERT_EXCEPTION("DTO 혹은 엔티티로 변환 중 문제가 발생했습니다."),
@@ -12,10 +15,6 @@ public enum ExceptionMessage {
 
     ExceptionMessage(String message) {
         this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
     public String getMessageWithOneARG(String arg){

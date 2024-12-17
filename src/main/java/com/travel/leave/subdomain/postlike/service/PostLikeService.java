@@ -2,8 +2,8 @@ package com.travel.leave.subdomain.postlike.service;
 
 import com.travel.leave.subdomain.postlike.repository.PostLikeRepository;
 import com.travel.leave.domain.board.validator.aop.aop_annotation.EnsureRedisData;
-import com.travel.leave.domain.board.service.like.redis_like.RedisKeyManager;
-import com.travel.leave.domain.board.service.like.redis_like.RedisPostLikeManager;
+import com.travel.leave.domain.board.service.like.RedisKeyManager;
+import com.travel.leave.domain.board.service.like.RedisPostLikeManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.RedisConnectionFailureException;
@@ -20,8 +20,7 @@ public class PostLikeService {
     private final RedisKeyManager redisKeyManager;
     private final RedisPostLikeManager redisPostLikeManager;
 
-    @Transactional
-    @EnsureRedisData
+    @Transactional @EnsureRedisData
     public void toggleLike(Long postCode, Long userCode) {
         String redisKey = redisKeyManager.generateRedisKey(postCode);
         if (isLikedByUser(postCode, userCode)) {
@@ -31,15 +30,13 @@ public class PostLikeService {
         }
     }
 
-    @Transactional(readOnly = true)
-    @EnsureRedisData
+    @Transactional(readOnly = true) @EnsureRedisData
     public boolean isLikedByUser(Long postCode, Long userCode) {
         String redisKey = redisKeyManager.generateRedisKey(postCode);
         return redisPostLikeManager.isLiked(redisKey, userCode);
     }
 
-    @Transactional(readOnly = true)
-    @EnsureRedisData
+    @Transactional(readOnly = true) @EnsureRedisData
     public Long getLikesCount(Long postCode) {
         String redisKey = redisKeyManager.generateRedisKey(postCode);
         try {

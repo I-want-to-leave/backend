@@ -1,16 +1,18 @@
 package com.travel.leave.domain.board.service.post;
 
+import com.travel.leave.domain.board.mapper.SyncTripMapper;
+import com.travel.leave.domain.board.board_enum.SyncTravelExceptionMessage;
+import com.travel.leave.domain.board.validator.common_validator.BoardValidator;
+import com.travel.leave.exception.PostAuthorConflictException;
 import com.travel.leave.subdomain.post.entity.Post;
 import com.travel.leave.subdomain.postimage.entity.PostImage;
-import com.travel.leave.domain.board.mapper.SyncTripMapper;
-import com.travel.leave.domain.board.validator.common_validator.PostValidator;
-import com.travel.leave.subdomain.usertravel.entity.UserTravel;
 import com.travel.leave.subdomain.travel.entity.Travel;
-import com.travel.leave.subdomain.travellocaion.entity.TravelLocation;
-import com.travel.leave.subdomain.travelpreparation.entity.TravelPreparation;
-import com.travel.leave.subdomain.travellocaion.repository.TravelLocationRepository;
-import com.travel.leave.subdomain.travelpreparation.repository.TravelPreparationRepository;
 import com.travel.leave.subdomain.travel.repository.TravelRepository;
+import com.travel.leave.subdomain.travellocaion.entity.TravelLocation;
+import com.travel.leave.subdomain.travellocaion.repository.TravelLocationRepository;
+import com.travel.leave.subdomain.travelpreparation.entity.TravelPreparation;
+import com.travel.leave.subdomain.travelpreparation.repository.TravelPreparationRepository;
+import com.travel.leave.subdomain.usertravel.entity.UserTravel;
 import com.travel.leave.subdomain.usertravel.repository.UserTravelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,11 +29,16 @@ public class TravelSyncService {
     private final TravelLocationRepository travelLocationRepository;
     private final TravelPreparationRepository travelPreparationRepository;
     private final UserTravelRepository userTravelRepository;
-    private final PostValidator postValidator;
+    private final BoardValidator boardValidator;
 
     @Transactional
     public Long syncTravelFromPost(Long postCode, Long userCode) {
-        Post post = postValidator.validateActivePost(postCode);
+        Post post = boardValidator.validateActivePost(postCode);
+
+        if (post.getUserCode().equals(userCode)) {
+            throw new PostAuthorConflictException(SyncTravelExceptionMessage.CANNOT_ADD_OWN_POST.getMessage());
+        } // 게시글 작성자는, 내 여행목록으로 공유하지 못함
+
         String mainImageUrl = findRepresentativeImage(post);
         Travel savedTravel = travelRepository.save(SyncTripMapper.toTravelEntity(post, mainImageUrl));
 

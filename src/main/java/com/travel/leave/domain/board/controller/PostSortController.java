@@ -2,7 +2,7 @@ package com.travel.leave.domain.board.controller;
 
 import com.travel.leave.domain.board.dto.response.PostListDTO;
 import com.travel.leave.domain.board.service.post.PostSortService;
-import com.travel.leave.domain.board.service.enums.SortField;
+import com.travel.leave.domain.board.board_enum.SortField;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +21,10 @@ public class PostSortController {
 
     @GetMapping
     public ResponseEntity<List<PostListDTO>> getSortedPosts(
-            @RequestParam SortField sortField,
+            @RequestParam SortField SortField,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "15") int size) {
-        List<PostListDTO> postListDTO = postSortService.getSortedPosts(sortField, page, size);
+        List<PostListDTO> postListDTO = postSortService.getSortedPosts(SortField, page, size);
         return ResponseEntity.ok(postListDTO);
     }
 

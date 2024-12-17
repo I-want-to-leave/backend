@@ -1,7 +1,7 @@
 package com.travel.leave.domain.ai_travel.service;
 
 import com.travel.leave.domain.ai_travel.dto.ai_recommend.RecommendDTO;
-import com.travel.leave.domain.ai_travel.service.trip_enum.TRIP_CACHE_ENUM;
+import com.travel.leave.domain.ai_travel.service.trip_enum.RedisTripField;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -18,19 +18,17 @@ public class TripCacheService {
     }
 
     public void saveTripPlan(Long userCode, RecommendDTO tripPlan) {
-        String redisKey = TRIP_CACHE_ENUM.REDIS_AI_TRIP_KEY.getField() + userCode;
+        String redisKey = RedisTripField.REDIS_AI_TRIP_KEY.getMessage() + userCode;
         redisTemplate.opsForValue().set(redisKey, tripPlan, Duration.ofMinutes(30));
-        System.out.println("TripPlan saved with key: " + redisKey); // 디버깅 로그 추가
     }
 
     public RecommendDTO getTripPlan(Long userCode) {
-        String redisKey = TRIP_CACHE_ENUM.REDIS_AI_TRIP_KEY.getField() + userCode;
-        System.out.println("Fetching TripPlan with key: " + redisKey); // 디버깅 로그 추가
+        String redisKey = RedisTripField.REDIS_AI_TRIP_KEY.getMessage() + userCode;
         return (RecommendDTO) redisTemplate.opsForValue().get(redisKey);
     }
 
     public void deleteTripPlan(Long userCode) {
-        String redisKey = TRIP_CACHE_ENUM.REDIS_AI_TRIP_KEY.getField() + userCode;
+        String redisKey = RedisTripField.REDIS_AI_TRIP_KEY.getMessage() + userCode;
         redisTemplate.delete(redisKey);
     }
 }

@@ -1,14 +1,14 @@
 package com.travel.leave.domain.board.service.post_image;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.leave.domain.board.dto.response.postdetail.PostImageDTO;
-import com.travel.leave.domain.board.service.enums.BOARD_EX_MSG;
-import com.travel.leave.domain.board.service.enums.RedisField;
+import com.travel.leave.domain.board.board_enum.PostImageExceptionMessage;
+import com.travel.leave.domain.board.board_enum.RedisImageField;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +25,7 @@ public class CachePostImageManager {
     }
 
     private String getCacheKey(Long postCode) {
-        return RedisField.REDIS_POST_IMAGE_KEY.getValue() + postCode;
+        return RedisImageField.REDIS_POST_IMAGE_KEY.getValue() + postCode;
     }
 
     public List<PostImageDTO> getImages(Long postCode) {
@@ -49,7 +49,7 @@ public class CachePostImageManager {
         try {
             return objectMapper.writeValueAsString(images);
         } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException(BOARD_EX_MSG.REDIS_SERIALIZATION_ERROR.getMessage(), e);
+            throw new IllegalArgumentException(PostImageExceptionMessage.REDIS_SERIALIZATION_ERROR.getMessage(), e);
         }
     }
 
@@ -57,7 +57,7 @@ public class CachePostImageManager {
         try {
             return objectMapper.readValue(data, new TypeReference<>() {});
         } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException(BOARD_EX_MSG.REDIS_DESERIALIZATION_ERROR.getMessage(), e);
+            throw new IllegalArgumentException(PostImageExceptionMessage.REDIS_DESERIALIZATION_ERROR.getMessage(), e);
         }
     }
 }

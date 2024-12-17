@@ -21,42 +21,42 @@ public class PostImageController {
     @GetMapping
     public ResponseEntity<List<PostImageDTO>> getPostImages(@PathVariable Long postCode) {
         List<PostImageDTO> images = postImageService.getImagesByPostCode(postCode);
-        return ResponseEntity.ok(images);
+        return ResponseEntity.status(HttpStatus.OK).body(images);
     }
 
     @PostMapping
-    public ResponseEntity<Void> uploadImages(
+    public ResponseEntity<List<PostImageDTO>> uploadImages(
             @PathVariable Long postCode,
             @AuthenticationPrincipal Long userCode,
             @RequestBody List<String> imageUrls) {
-        postImageService.uploadPostImages(postCode, userCode, imageUrls);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        List<PostImageDTO> images = postImageService.uploadPostImages(postCode, userCode, imageUrls);
+        return ResponseEntity.status(HttpStatus.CREATED).body(images);
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteImage(
+    public ResponseEntity<List<PostImageDTO>> deleteImage(
             @PathVariable Long postCode,
             @AuthenticationPrincipal Long userCode,
             @RequestParam String filePath) {
-        postImageService.deleteImage(postCode, userCode, filePath);
-        return ResponseEntity.noContent().build();
+        List<PostImageDTO> images = postImageService.deleteImage(postCode, userCode, filePath);
+        return ResponseEntity.status(HttpStatus.OK).body(images);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Void> updateImage(
+    public ResponseEntity<List<PostImageDTO>> updateImage(
             @PathVariable Long postCode,
             @AuthenticationPrincipal Long userCode,
             @RequestBody PostImageUpdateRequestDTO updateRequestDTO) {
-        postImageService.updateImage(postCode, userCode, updateRequestDTO);
-        return ResponseEntity.noContent().build();
+        List<PostImageDTO> images = postImageService.updateImage(postCode, userCode, updateRequestDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(images);
     }
 
     @PatchMapping("/set-main")
-    public ResponseEntity<Void> setMainImage(
+    public ResponseEntity<List<PostImageDTO>> setMainImage(
             @PathVariable Long postCode,
             @AuthenticationPrincipal Long userCode,
             @RequestParam Long targetOrder) {
-        postImageService.setMainImage(postCode, userCode, targetOrder);
-        return ResponseEntity.ok().build();
+        List<PostImageDTO> images = postImageService.setMainImage(postCode, userCode, targetOrder);
+        return ResponseEntity.status(HttpStatus.OK).body(images);
     }
 }

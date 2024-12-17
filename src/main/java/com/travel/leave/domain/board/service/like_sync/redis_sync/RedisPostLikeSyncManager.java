@@ -1,7 +1,7 @@
 package com.travel.leave.domain.board.service.like_sync.redis_sync;
 
-import com.travel.leave.domain.board.service.enums.BOARD_EX_MSG;
-import com.travel.leave.domain.board.service.enums.RedisField;
+import com.travel.leave.domain.board.board_enum.RedisLikeField;
+import com.travel.leave.domain.board.board_enum.LikeSyncExceptionMessage;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class RedisPostLikeSyncManager {
     }
 
     public Set<String> getRedisKeys() {
-        return redisTemplate.keys(RedisField.REDIS_POST_KEYS.getValue());
+        return redisTemplate.keys(RedisLikeField.REDIS_POST_KEYS.getValue());
     }
 
     public Long extractPostCodeFromKey(String redisKey) {
@@ -27,13 +27,13 @@ public class RedisPostLikeSyncManager {
             String postCode = redisKey.split(":")[2];
             return Long.parseLong(postCode);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(BOARD_EX_MSG.REDIS_WRONG_POSTCODE_FORMAT.getMessage() + redisKey);
+            throw new IllegalArgumentException(LikeSyncExceptionMessage.REDIS_WRONG_POSTCODE_FORMAT.getMessage() + redisKey);
         }
     }
 
     public Set<Object> getRedisUserFields(String redisKey) {
         Set<Object> userFields = redisTemplate.opsForHash().keys(redisKey);
-        userFields.remove(RedisField.COUNT.getValue());
+        userFields.remove(RedisLikeField.COUNT.getValue());
         return userFields;
     }
 }

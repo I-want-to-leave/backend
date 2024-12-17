@@ -1,30 +1,30 @@
 package com.travel.leave.domain.board.service.scheduler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.leave.domain.board.dto.response.postdetail.PostImageDTO;
-import com.travel.leave.subdomain.postimage.entity.PostImage;
 import com.travel.leave.domain.board.mapper.PostImageMapper;
+import com.travel.leave.domain.board.board_enum.PostImageExceptionMessage;
+import com.travel.leave.domain.board.board_enum.RedisImageField;
+import com.travel.leave.subdomain.postimage.entity.PostImage;
 import com.travel.leave.subdomain.postimage.repository.PostImageRepository;
-import com.travel.leave.domain.board.service.enums.BOARD_EX_MSG;
-import com.travel.leave.domain.board.service.enums.RedisField;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.List;
 import java.util.Set;
 
 @Component
-public class CacheSyncScheduler {
+public class PostImageCacheSyncScheduler {
 
     private final RedisTemplate<String, String> redisTemplate;
     private final PostImageRepository postImageRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public CacheSyncScheduler(
+    public PostImageCacheSyncScheduler(
             @Qualifier("dtoRedisTemplate") RedisTemplate<String, String> redisTemplate,
             PostImageRepository postImageRepository) {
         this.redisTemplate = redisTemplate;
@@ -33,7 +33,7 @@ public class CacheSyncScheduler {
 
     @Scheduled(fixedRate = 300000)
     public void syncCacheToDB() {
-        Set<String> keys = redisTemplate.keys(RedisField.REDIS_POST_IMAGE_KEYS.getValue());
+        Set<String> keys = redisTemplate.keys(RedisImageField.REDIS_POST_IMAGE_KEYS.getValue());
         if (keys != null) {
             for (String key : keys) {
                 Long postCode = extractPostCodeFromKey(key);
@@ -57,7 +57,7 @@ public class CacheSyncScheduler {
         try {
             return objectMapper.readValue(data, new TypeReference<>() {});
         } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException(BOARD_EX_MSG.REDIS_DESERIALIZATION_ERROR.getMessage(), e);
+            throw new IllegalArgumentException(PostImageExceptionMessage.REDIS_DESERIALIZATION_ERROR.getMessage(), e);
         }
     }
 }

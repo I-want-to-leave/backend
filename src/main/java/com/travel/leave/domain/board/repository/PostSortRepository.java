@@ -1,8 +1,8 @@
-package com.travel.leave.domain.board.repository.post;
+package com.travel.leave.domain.board.repository;
 
 import com.travel.leave.domain.board.dto.response.PostListDTO;
+import com.travel.leave.domain.board.board_enum.SortField;
 import com.travel.leave.subdomain.post.entity.Post;
-import com.travel.leave.domain.board.service.enums.SortField;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,11 +26,11 @@ public interface PostSortRepository extends JpaRepository<Post, Long> {
         WHERE p.deletedAt IS NULL
         GROUP BY p.postCode
         ORDER BY
-            CASE WHEN :sortField = 'likes' THEN COUNT(pl) END DESC,
-            CASE WHEN :sortField = 'views' THEN p.views END DESC,
-            CASE WHEN :sortField = 'createdat' THEN p.createdAt END DESC
+            CASE WHEN :SortField = 'likes' THEN COUNT(pl) END DESC,
+            CASE WHEN :SortField = 'views' THEN p.views END DESC,
+            CASE WHEN :SortField = 'createdat' THEN p.createdAt END DESC
     """)
-    List<PostListDTO> findPostsBySort(@Param("sortField") SortField sortField, Pageable pageable);
+    List<PostListDTO> findPostsBySort(@Param("SortField") SortField SortField, Pageable pageable);
 
     @Query("""
         SELECT new com.travel.leave.domain.board.dto.response.PostListDTO(

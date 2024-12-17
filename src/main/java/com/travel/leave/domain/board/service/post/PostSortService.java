@@ -1,8 +1,8 @@
 package com.travel.leave.domain.board.service.post;
 
 import com.travel.leave.domain.board.dto.response.PostListDTO;
-import com.travel.leave.domain.board.repository.post.PostSortRepository;
-import com.travel.leave.domain.board.service.enums.SortField;
+import com.travel.leave.domain.board.repository.PostSortRepository;
+import com.travel.leave.domain.board.board_enum.SortField;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
@@ -15,9 +15,9 @@ public class PostSortService {
 
     private final PostSortRepository postSortRepository;
 
-    public List<PostListDTO> getSortedPosts(SortField sortField, int page, int size) {
+    public List<PostListDTO> getSortedPosts(SortField SortField, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return postSortRepository.findPostsBySort(sortField, pageable);
+        return postSortRepository.findPostsBySort(SortField, pageable);
     }
 
     public List<PostListDTO> searchPosts(String keyword, int page, int size) {
