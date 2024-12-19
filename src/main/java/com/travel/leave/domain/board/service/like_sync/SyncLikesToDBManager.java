@@ -1,6 +1,5 @@
 package com.travel.leave.domain.board.service.like_sync;
 
-import com.travel.leave.domain.board.service.like_sync.redis_sync.RedisUserFieldParser;
 import com.travel.leave.subdomain.postlike.entity.PostLike;
 import com.travel.leave.domain.board.mapper.PostLikeMapper;
 import com.travel.leave.subdomain.postlike.repository.PostLikeRepository;

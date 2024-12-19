@@ -39,7 +39,7 @@ public class PostImageController {
             @AuthenticationPrincipal Long userCode,
             @RequestParam String filePath) {
         List<PostImageDTO> images = postImageService.deleteImage(postCode, userCode, filePath);
-        return ResponseEntity.status(HttpStatus.OK).body(images);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(images);
     }
 
     @PutMapping("/update")

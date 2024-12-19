@@ -2,6 +2,7 @@ package com.travel.leave.domain.board.controller;
 
 import com.travel.leave.subdomain.postlike.service.PostLikeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,6 @@ public class PostLikeController {
     @PostMapping
     public ResponseEntity<Void> toggleLike(@PathVariable Long postCode, @AuthenticationPrincipal Long userCode) {
         postLikeService.toggleLike(postCode, userCode);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

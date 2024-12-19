@@ -5,10 +5,12 @@ import com.travel.leave.domain.ai_travel.service.trip_enum.TransportType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class LatLngDTO {
@@ -16,9 +18,12 @@ public class LatLngDTO {
     private double lat;
     private double lng;
     private int stepOrder;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     private Timestamp startAt;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     private Timestamp endAt;
+
     private TransportType transportType;
 }

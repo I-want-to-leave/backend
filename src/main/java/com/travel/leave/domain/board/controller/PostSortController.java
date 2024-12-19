@@ -2,8 +2,9 @@ package com.travel.leave.domain.board.controller;
 
 import com.travel.leave.domain.board.dto.response.PostListDTO;
 import com.travel.leave.domain.board.service.post.PostSortService;
-import com.travel.leave.domain.board.board_enum.SortField;
+import com.travel.leave.domain.board.service.post.SortField;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ public class PostSortController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "15") int size) {
         List<PostListDTO> postListDTO = postSortService.getSortedPosts(SortField, page, size);
-        return ResponseEntity.ok(postListDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(postListDTO);
     }
 
     @GetMapping("/search")
@@ -34,6 +35,6 @@ public class PostSortController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "15") int size) {
         List<PostListDTO> postListDTO = postSortService.searchPosts(keyword, page, size);
-        return ResponseEntity.ok(postListDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(postListDTO);
     }
 }

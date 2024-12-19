@@ -55,7 +55,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated());
 
 
-        http        //httpSession안 쓴다 선언 => stateless
+        http        //httpSession 안 쓴다 선언 => stateless
                 .sessionManagement((session)->session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

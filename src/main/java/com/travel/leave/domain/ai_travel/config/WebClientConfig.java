@@ -29,6 +29,19 @@ public class WebClientConfig {
     }
 
     @Bean
+    public WebClient googleTranslationWebClient(@Value("${google.translation.url}") String translationUrl) {
+        return WebClient.builder()
+                .baseUrl(translationUrl)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .clientConnector(new ReactorClientHttpConnector(
+                        HttpClient.create()
+                                .responseTimeout(Duration.ofSeconds(10))
+                                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
+                ))
+                .build();
+    }
+
+    @Bean
     public WebClient gptWebClient(
             @Value("${gpt.api.url}") String gptApiUrl,
             @Value("${gpt.api.key}") String gptApiKey) {
@@ -38,8 +51,8 @@ public class WebClientConfig {
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + gptApiKey)
                 .clientConnector(new ReactorClientHttpConnector(
                         HttpClient.create()
-                                .responseTimeout(Duration.ofSeconds(30))
-                                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 20000)
+                                .responseTimeout(Duration.ofSeconds(20))
+                                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 30000)
                 ))
                 .build();
     }

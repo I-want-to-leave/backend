@@ -29,9 +29,8 @@ public class PostCleanupScheduler {
             postsToDelete = postRepository.findAllByDeletedAtBefore(threeDaysAgo, pageRequest);
             if (!postsToDelete.isEmpty()) {
                 postRepository.deleteAllInBatch(postsToDelete.getContent());
-                log.info("3일 전에 삭제 된 게시글을 100개 씩 차례로 처리 중입니다. 처리 갯수: {}", postsToDelete.getNumberOfElements());
+                log.info("3일 전에 삭제 된 게시글을 100개 씩 차례로 처리 중 입니다. 처리 갯수: {}", postsToDelete.getNumberOfElements());
             }
         } while (postsToDelete.hasNext());
     }
-
 }

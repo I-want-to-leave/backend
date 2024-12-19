@@ -23,6 +23,7 @@ public class TripRequestDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
+
     private String keywords;
     private boolean carOwned;
 }

@@ -31,7 +31,7 @@ public class PostCommentCleanupScheduler {
 
             if (!commentsToDelete.isEmpty()) {
                 postCommentRepository.deleteAllInBatch(commentsToDelete.getContent());
-                log.info("3일 전 댓글들을 100개 씩 차례로 처리하였습니다 처리 갯수: {}", commentsToDelete.getNumberOfElements());
+                log.info("3일 전 댓글들을 100개 씩 차례로 처리 중 입니다, 처리 갯수: {}", commentsToDelete.getNumberOfElements());
             }
 
         } while (commentsToDelete.hasNext());

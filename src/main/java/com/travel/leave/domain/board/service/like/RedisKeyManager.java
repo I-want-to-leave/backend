@@ -1,6 +1,5 @@
 package com.travel.leave.domain.board.service.like;
 
-import com.travel.leave.domain.board.board_enum.RedisLikeField;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
