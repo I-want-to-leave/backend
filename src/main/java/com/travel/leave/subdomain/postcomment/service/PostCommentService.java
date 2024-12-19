@@ -1,5 +1,6 @@
 package com.travel.leave.subdomain.postcomment.service;
 
+import com.travel.leave.domain.board.dto.request.CommentRequestDTO;
 import com.travel.leave.domain.board.dto.response.postdetail.PostCommentDTO;
 import com.travel.leave.domain.board.exception.UserFieldNotFoundException;
 import com.travel.leave.domain.board.exception.enums.DefaultExceptionMessages;
@@ -26,21 +27,21 @@ public class PostCommentService {
     private final PostCommentMapper postCommentMapper;
 
     @Transactional
-    public PostCommentDTO addComment(Long postCode, Long userCode, String content) {
+    public PostCommentDTO addComment(Long postCode, Long userCode,  CommentRequestDTO commentRequest) {
         Post post = boardValidator.validateActivePost(postCode);
         String nickname = userRepository.findNicknameByUserCode(userCode)
                 .orElseThrow(() -> new UserFieldNotFoundException(PostExceptionMessage.NICKNAME_NOT_FOUND));
 
-        PostComment comment = postCommentMapper.createPostCommentEntity(post, userCode, content, nickname);
+        PostComment comment = postCommentMapper.createPostCommentEntity(post, userCode, commentRequest.getContent(), nickname);
         PostComment savedComment = postCommentRepository.save(comment);
         return postCommentRepository.findCommentDTOById(savedComment.getCode());
     }
 
     @Transactional @ValidateCommentMaster @SuppressWarnings("unused")
-    public PostCommentDTO updateComment(Long commentCode, Long userCode, String newContent) {
+    public PostCommentDTO updateComment(Long commentCode, Long userCode, CommentRequestDTO commentRequest) {
         PostComment comment = postCommentRepository.findActiveCommentById(commentCode)
                         .orElseThrow(() -> new EntityNotFoundException(DefaultExceptionMessages.COMMENT_NOT_FOUND.getMessage()));
-        comment.setterContent(newContent);
+        comment.setterContent(commentRequest.getContent());
         PostComment updatedComment = postCommentRepository.save(comment);
         return postCommentRepository.findCommentDTOById(updatedComment.getCode());
     } // aop 에서 사용자 검증

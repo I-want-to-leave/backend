@@ -1,5 +1,6 @@
 package com.travel.leave.domain.board.controller;
 
+import com.travel.leave.domain.board.dto.request.CommentRequestDTO;
 import com.travel.leave.domain.board.dto.response.postdetail.PostCommentDTO;
 import com.travel.leave.subdomain.postcomment.service.PostCommentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,8 +26,8 @@ public class PostCommentController {
     @PostMapping("/{postCode}")
     public ResponseEntity<PostCommentDTO> addComment(@PathVariable Long postCode,
                                                      @AuthenticationPrincipal Long userCode,
-                                                     @RequestBody String content) {
-        PostCommentDTO postCommentDTO = postCommentService.addComment(postCode, userCode, content);
+                                                     @RequestBody CommentRequestDTO commentRequest) {
+        PostCommentDTO postCommentDTO = postCommentService.addComment(postCode, userCode, commentRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(postCommentDTO);
     }
 
@@ -35,8 +36,8 @@ public class PostCommentController {
     @PutMapping("/{commentCode}")
     public ResponseEntity<PostCommentDTO> updateComment(@PathVariable Long commentCode,
                                                         @AuthenticationPrincipal Long userCode,
-                                                        @RequestBody String newContent) {
-        PostCommentDTO postCommentDTO = postCommentService.updateComment(commentCode, userCode, newContent);
+                                                        @RequestBody CommentRequestDTO commentRequest) {
+        PostCommentDTO postCommentDTO = postCommentService.updateComment(commentCode, userCode, commentRequest);
         return ResponseEntity.status(HttpStatus.OK).body(postCommentDTO);
     }
 

@@ -53,7 +53,7 @@ public class TravelCacheFactory {
     }
 
 
-    //엔티티를 캐시로 바꾸는 로직(loadTravel에 사용됨)
+    //엔티티를 캐시로 바꾸는 로직(loadTravel 사용됨)
     public TravelCache createTravelCache(Travel travel,
                                          List<TravelLocation> travelLocations,
                                          List<TravelPreparation> travelPreparations,
