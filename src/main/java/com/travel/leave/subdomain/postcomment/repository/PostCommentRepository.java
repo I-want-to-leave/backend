@@ -1,7 +1,6 @@
 package com.travel.leave.subdomain.postcomment.repository;
 
 import com.travel.leave.domain.board.dto.response.postdetail.PostCommentDTO;
-import com.travel.leave.subdomain.post.entity.Post;
 import com.travel.leave.subdomain.postcomment.entity.PostComment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

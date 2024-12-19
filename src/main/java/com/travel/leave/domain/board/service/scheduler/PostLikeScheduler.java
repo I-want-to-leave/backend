@@ -1,7 +1,7 @@
 package com.travel.leave.domain.board.service.scheduler;
 
 import com.travel.leave.domain.board.service.like_sync.SyncLikesToDBManager;
-import com.travel.leave.domain.board.service.like_sync.redis_sync.RedisPostLikeSyncManager;
+import com.travel.leave.domain.board.service.like_sync.RedisPostLikeSyncManager;
 import com.travel.leave.domain.board.service.like_sync.PostRecentCheckerUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,6 +1,5 @@
 package com.travel.leave.domain.board.service.like;
 
-import com.travel.leave.domain.board.board_enum.RedisLikeField;
 import com.travel.leave.subdomain.post.entity.Post;
 import com.travel.leave.subdomain.postlike.entity.PostLike;
 import com.travel.leave.domain.board.mapper.PostLikeMapper;

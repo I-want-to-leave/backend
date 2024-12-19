@@ -1,7 +1,8 @@
 package com.travel.leave.domain.ai_travel.mapper.AI_Mapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.travel.leave.exception.BadReqeust.GoogleMapsResponseException;
+import com.travel.leave.domain.ai_travel.exception.AiExceptionMessage;
+import com.travel.leave.domain.ai_travel.exception.GoogleMapsResponseException;
 import com.travel.leave.domain.ai_travel.service.trip_enum.TransportType;
 import com.travel.leave.domain.ai_travel.dto.ai_recommend.LatLngDTO;
 
@@ -22,6 +23,6 @@ public class GoogleMapsMapper {
                     transportType
             );
         }
-        throw new GoogleMapsResponseException("파악할 수 없는 장소");
+        throw new GoogleMapsResponseException(AiExceptionMessage.GOOGLE_MAPS_PLACE_NOT_FOUND);
     }
 }

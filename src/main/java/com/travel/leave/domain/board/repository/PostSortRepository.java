@@ -1,7 +1,7 @@
 package com.travel.leave.domain.board.repository;
 
 import com.travel.leave.domain.board.dto.response.PostListDTO;
-import com.travel.leave.domain.board.board_enum.SortField;
+import com.travel.leave.domain.board.service.post.SortField;
 import com.travel.leave.subdomain.post.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,14 +17,14 @@ public interface PostSortRepository extends JpaRepository<Post, Long> {
         SELECT new com.travel.leave.domain.board.dto.response.PostListDTO(
             p.postCode,
             p.postTitle,
-            SUBSTRING(p.postContent, 1, 10),
+            p.postContent,
             p.views,
             (SELECT pi.filePath FROM PostImage pi WHERE pi.post.postCode = p.postCode AND pi.order = 0)
         )
         FROM Post p
         LEFT JOIN p.likes pl
         WHERE p.deletedAt IS NULL
-        GROUP BY p.postCode
+        GROUP BY p.postCode, p.postTitle, p.postContent, p.views, p.createdAt
         ORDER BY
             CASE WHEN :SortField = 'likes' THEN COUNT(pl) END DESC,
             CASE WHEN :SortField = 'views' THEN p.views END DESC,
@@ -36,7 +36,7 @@ public interface PostSortRepository extends JpaRepository<Post, Long> {
         SELECT new com.travel.leave.domain.board.dto.response.PostListDTO(
             p.postCode,
             p.postTitle,
-            SUBSTRING(p.postContent, 1, 10),
+            p.postContent,
             p.views,
             (SELECT pi.filePath FROM PostImage pi WHERE pi.post.postCode = p.postCode AND pi.order = 0)
         )

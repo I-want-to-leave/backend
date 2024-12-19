@@ -4,11 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.leave.domain.ai_travel.dto.gpt.GPTResponse;
-import com.travel.leave.exception.BadReqeust.GPTResponseParsingException;
+import com.travel.leave.domain.ai_travel.exception.AiExceptionMessage;
+import com.travel.leave.domain.ai_travel.exception.GPTResponseParsingException;
 import com.travel.leave.domain.ai_travel.service.trip_enum.TransportType;
 import com.travel.leave.domain.ai_travel.dto.ai_recommend.LatLngDTO;
 import com.travel.leave.domain.ai_travel.dto.ai_recommend.RecommendedItemDTO;
-
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -26,7 +26,7 @@ public class GPTResponseMapper {
             String responseContent = gptResponse.getChoices().get(0).getMessage().getContent();
             return objectMapper.readTree(responseContent);
         } catch (JsonProcessingException e) {
-            throw new GPTResponseParsingException("AI 생성에 오류가 났습니다", e);
+            throw new GPTResponseParsingException(AiExceptionMessage.GPT_RESPONSE_PARSING_FAIL);
         }
     }
 
@@ -45,19 +45,22 @@ public class GPTResponseMapper {
 
     public static List<List<LatLngDTO>> toDailyRoutes(JsonNode rootNode) {
         List<List<LatLngDTO>> gptDailyRoutes = new ArrayList<>();
+
         for (JsonNode dayNode : rootNode.get("dailyRoutes")) {
             List<LatLngDTO> daySteps = new ArrayList<>();
+            int stepOrderCounter = 1;
             for (JsonNode stepNode : dayNode) {
                 String placeName = stepNode.get("stepName").asText();
-
                 TransportType transportType = TransportType.valueOf(stepNode.get("transportType").asText().toUpperCase());
-                ZonedDateTime startZoned = ZonedDateTime.of(LocalDateTime.parse(stepNode.get("startAt").asText(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), ZoneId.of("UTC"));
-                ZonedDateTime endZoned = ZonedDateTime.of(LocalDateTime.parse(stepNode.get("endAt").asText(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), ZoneId.of("UTC"));
+
+                ZonedDateTime startZoned = ZonedDateTime.of(LocalDateTime.parse(stepNode.get("startAt").asText(),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), ZoneId.of("UTC"));
+                ZonedDateTime endZoned = ZonedDateTime.of(LocalDateTime.parse(stepNode.get("endAt").asText(),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), ZoneId.of("UTC"));
+
                 Timestamp startAt = Timestamp.from(startZoned.toInstant());
                 Timestamp endAt = Timestamp.from(endZoned.toInstant());
-
-                int stepOrder = stepNode.get("stepOrder").asInt();
-                daySteps.add(new LatLngDTO(placeName, 0.0, 0.0, stepOrder, startAt, endAt, transportType));
+                daySteps.add(new LatLngDTO(placeName, 0.0, 0.0, stepOrderCounter++, startAt, endAt, transportType));
             }
             gptDailyRoutes.add(daySteps);
         }

@@ -2,8 +2,9 @@ package com.travel.leave.domain.board.service.post_image;
 
 import com.travel.leave.domain.board.dto.request.PostImageUpdateRequestDTO;
 import com.travel.leave.domain.board.dto.response.postdetail.PostImageDTO;
+import com.travel.leave.domain.board.exception.enums.PostImageExceptionMessage;
 import com.travel.leave.domain.board.mapper.PostImageMapper;
-import com.travel.leave.domain.board.board_enum.PostImageExceptionMessage;
+import com.travel.leave.domain.board.exception.PostImageRedisException;
 import com.travel.leave.subdomain.postimage.entity.PostImage;
 import com.travel.leave.subdomain.postimage.repository.PostImageRepository;
 import com.travel.leave.utility.ImageProcessor;
@@ -64,12 +65,12 @@ public class CachePostImageService {
         PostImageDTO zeroImage = cachedImages.stream()
                 .filter(img -> img.getOrder() == 0L)
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(PostImageExceptionMessage.CACHE_FIND_FAIL_MAIN_IMAGE.getMessage()));
+                .orElseThrow(() -> new PostImageRedisException(PostImageExceptionMessage.CACHE_FIND_FAIL_MAIN_IMAGE));
 
         PostImageDTO targetImage = cachedImages.stream()
                 .filter(img -> img.getOrder().equals(targetOrder))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(PostImageExceptionMessage.CACHE_FIND_FAIL_SORTED_IMAGE.getMessage()));
+                .orElseThrow(() -> new PostImageRedisException(PostImageExceptionMessage.CACHE_FIND_FAIL_SORTED_IMAGE));
 
         // 순서 교환
         Long tempOrder = zeroImage.getOrder();
