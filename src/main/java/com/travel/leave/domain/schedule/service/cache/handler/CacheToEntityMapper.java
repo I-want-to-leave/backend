@@ -60,7 +60,7 @@ public class CacheToEntityMapper {
                         .travelLocationCode(timeLineMessage.id())
                         .scheduleDetails(ScheduleDetails.builder()
                                 .name(timeLineMessage.title())
-                                .content(timeLineMessage.content())
+                                .content(timeLineMessage.description())
                                 .step(i)
                                 .startTime(timeLineMessage.time())
                                 .endTime(nextTimeLineMessage.time())

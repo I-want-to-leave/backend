@@ -68,7 +68,7 @@ public class TravelLocationFactory {
  *         Long code,
  *         Timestamp time,
  *         String title,
- *         String content
+ *         String description
  * )
  */
 

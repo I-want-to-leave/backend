@@ -47,7 +47,7 @@ public class MyPageReadQueryImpl implements MyPageReadQuery{
                                 qPost.createdAt.as("createdAt"),
                                 qTravel.startDate.as("startDate"),
                                 qTravel.endDate.as("endDate"),
-                                qPost.postContent.as("content")))
+                                qPost.postContent.as("description")))
                         .from(qUser)
                         .where(qUser.code.eq(userCode))
                         .leftJoin(qUserTravel).on(qUserTravel.userCode.eq(userCode))
@@ -65,7 +65,7 @@ public class MyPageReadQueryImpl implements MyPageReadQuery{
                 jpaQueryFactory.select(Projections.fields(
                                 MyPageCommentInfoResponseDTO.class,
                                 qPostComment.code.as("commentCode"),
-                                qPostComment.content.as("content"),
+                                qPostComment.content.as("description"),
                                 qPostComment.createdAt.as("createdAt"),
                                 qPost.postCode.as("postCode"),
                                 qPost.postTitle.as("postTitle")))
