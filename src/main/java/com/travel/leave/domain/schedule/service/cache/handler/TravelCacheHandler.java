@@ -1,10 +1,11 @@
-package com.travel.leave.domain.schedule.service.model.cache.handler;
+package com.travel.leave.domain.schedule.service.cache.handler;
 
-import com.travel.leave.domain.schedule.controller.socket.messageFormat.preparation.UpdateTravelPreparationMessage;
-import com.travel.leave.domain.schedule.controller.socket.messageFormat.timeline.UpdateTravelLocationMessage;
-import com.travel.leave.domain.schedule.controller.socket.messageFormat.travel.UpdateTravelContentMessage;
-import com.travel.leave.domain.schedule.controller.socket.messageFormat.travel.UpdateTravelNameMessage;
-import com.travel.leave.domain.schedule.service.model.cache.TravelCache;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.preparation.UpdateTravelPreparationMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.timeline.UpdateTravelLocationGeographicMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.timeline.UpdateTravelLocationMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.travel.UpdateTravelContentMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.travel.UpdateTravelNameMessage;
+import com.travel.leave.domain.schedule.service.cache.TravelCache;
 
 public interface TravelCacheHandler {
     void updateTravelContent(UpdateTravelContentMessage updateTravelContentMessage);
@@ -14,6 +15,8 @@ public interface TravelCacheHandler {
     void updateTravelLocation(UpdateTravelLocationMessage updateTravelLocationMessage);
 
     void updateTravelName(UpdateTravelNameMessage updateTravelNameMessage);
+
+    void updateTravelLocationGeographic(UpdateTravelLocationGeographicMessage updateTravelLocationGeographicMessage);
 
     boolean hasTravel(Long travelCode);
 

@@ -1,4 +1,4 @@
-package com.travel.leave.domain.schedule.service.model.mapper;
+package com.travel.leave.domain.schedule.service.mapper;
 
 import com.travel.leave.subdomain.usertravel.entity.UserTravel;
 import com.travel.leave.domain.schedule.dto.get.MemberRequestDTO;

@@ -1,4 +1,4 @@
-package com.travel.leave.domain.schedule.service.model.mapper;
+package com.travel.leave.domain.schedule.service.mapper;
 
 import com.travel.leave.subdomain.travellocaion.entity.ScheduleDetails;
 import com.travel.leave.subdomain.travellocaion.entity.TravelLocation;
@@ -68,7 +68,7 @@ public class TravelLocationFactory {
  *         Long code,
  *         Timestamp time,
  *         String title,
- *         String content
+ *         String description
  * )
  */
 

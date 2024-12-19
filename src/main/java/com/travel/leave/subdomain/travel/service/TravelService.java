@@ -3,7 +3,7 @@ package com.travel.leave.subdomain.travel.service;
 import com.travel.leave.subdomain.travel.entity.Travel;
 import com.travel.leave.subdomain.travel.repository.TravelRepository;
 import com.travel.leave.domain.schedule.dto.get.TravelRequestDTO;
-import com.travel.leave.domain.schedule.service.model.mapper.TravelFactory;
+import com.travel.leave.domain.schedule.service.mapper.TravelFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

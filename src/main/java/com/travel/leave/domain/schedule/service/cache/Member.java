@@ -1,4 +1,4 @@
-package com.travel.leave.domain.schedule.service.model.cache;
+package com.travel.leave.domain.schedule.service.cache;
 
 import lombok.Data;
 

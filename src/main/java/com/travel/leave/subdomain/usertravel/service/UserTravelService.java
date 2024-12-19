@@ -4,7 +4,7 @@ import com.travel.leave.subdomain.usertravel.entity.UserTravel;
 import com.travel.leave.domain.schedule.dto.get.MemberRequestDTO;
 import com.travel.leave.domain.schedule.dto.get.invite.UserInviteDTOs;
 import com.travel.leave.subdomain.usertravel.repository.UserTravelRepository;
-import com.travel.leave.domain.schedule.service.model.mapper.UserTravelFactory;
+import com.travel.leave.domain.schedule.service.mapper.UserTravelFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

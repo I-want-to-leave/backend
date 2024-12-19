@@ -1,18 +1,18 @@
-package com.travel.leave.domain.schedule.service.model.cache.handler;
+package com.travel.leave.domain.schedule.service.cache.handler;
 
-import com.travel.leave.domain.schedule.service.model.cache.TravelCache;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.timeline.UpdateTravelLocationGeographicMessage;
+import com.travel.leave.domain.schedule.service.cache.TravelCache;
 import com.travel.leave.subdomain.travel.entity.Travel;
 import com.travel.leave.subdomain.travellocaion.entity.TravelLocation;
 import com.travel.leave.subdomain.travelpreparation.entity.TravelPreparation;
 import com.travel.leave.subdomain.travellocaion.repository.TravelLocationRepository;
 import com.travel.leave.subdomain.travel.repository.TravelRepository;
-import com.travel.leave.domain.schedule.controller.socket.messageFormat.preparation.UpdateTravelPreparationMessage;
-import com.travel.leave.domain.schedule.controller.socket.messageFormat.timeline.UpdateTravelLocationMessage;
-import com.travel.leave.domain.schedule.controller.socket.messageFormat.travel.UpdateTravelContentMessage;
-import com.travel.leave.domain.schedule.controller.socket.messageFormat.travel.UpdateTravelNameMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.preparation.UpdateTravelPreparationMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.timeline.UpdateTravelLocationMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.travel.UpdateTravelContentMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.travel.UpdateTravelNameMessage;
 import com.travel.leave.subdomain.travelpreparation.repository.TravelPreparationRepository;
 import com.travel.leave.subdomain.usertravel.repository.UserTravelRepository;
-import com.travel.leave.domain.schedule.service.model.cache.factory.TravelCacheFactory;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -49,39 +49,43 @@ public class TravelCacheHandlerImpl implements TravelCacheHandler {
     }
 
     @Override
-    public void updateTravelContent(UpdateTravelContentMessage updateTravelContentMessage) {
-        TravelCache travelCache = getTravelCache(updateTravelContentMessage.travelCode());
-        TravelCache updatedTravelCache = travelCacheFactory
-                .createUpdatedTravelContent(travelCache, updateTravelContentMessage);
+    public void updateTravelContent(UpdateTravelContentMessage message) {
+        TravelCache travelCache = getTravelCache(message.travelCode());
+        TravelCache updatedTravelCache = travelCacheFactory.createUpdatedTravelContent(travelCache, message);
 
-        travelCaches.put(updateTravelContentMessage.travelCode(), updatedTravelCache);
+        travelCaches.put(message.travelCode(), updatedTravelCache);
     }
 
     @Override
-    public void updateTravelPreparation(UpdateTravelPreparationMessage updateTravelPreparationMessage) {
-        TravelCache travelCache = getTravelCache(updateTravelPreparationMessage.travelCode());
-        TravelCache updatedTravelCache = travelCacheFactory
-                .createUpdatedTravelPreparation(travelCache, updateTravelPreparationMessage);
+    public void updateTravelPreparation(UpdateTravelPreparationMessage message) {
+        TravelCache travelCache = getTravelCache(message.travelCode());
+        TravelCache updatedTravelCache = travelCacheFactory.createUpdatedTravelPreparation(travelCache, message);
 
-        travelCaches.put(updateTravelPreparationMessage.travelCode(), updatedTravelCache);
+        travelCaches.put(message.travelCode(), updatedTravelCache);
     }
 
     @Override
-    public void updateTravelLocation(UpdateTravelLocationMessage updateTravelLocationMessage) {
-        TravelCache travelCache = getTravelCache(updateTravelLocationMessage.travelCode());
-        TravelCache updatedTravelCache = travelCacheFactory
-                .createUpdatedTravelLocation(travelCache, updateTravelLocationMessage);
+    public void updateTravelLocation(UpdateTravelLocationMessage message) {
+        TravelCache travelCache = getTravelCache(message.travelCode());
+        TravelCache updatedTravelCache = travelCacheFactory.createUpdatedTravelLocation(travelCache, message);
 
-        travelCaches.put(updateTravelLocationMessage.travelCode(), updatedTravelCache);
+        travelCaches.put(message.travelCode(), updatedTravelCache);
     }
 
     @Override
-    public void updateTravelName(UpdateTravelNameMessage updateTravelNameMessage) {
-        TravelCache travelCache = getTravelCache(updateTravelNameMessage.travelCode());
-        TravelCache updatedTravelCache = travelCacheFactory
-                .createUpdatedTravelName(travelCache, updateTravelNameMessage);
+    public void updateTravelName(UpdateTravelNameMessage message) {
+        TravelCache travelCache = getTravelCache(message.travelCode());
+        TravelCache updatedTravelCache = travelCacheFactory.createUpdatedTravelName(travelCache, message);
 
-        travelCaches.put(updateTravelNameMessage.travelCode(), updatedTravelCache);
+        travelCaches.put(message.travelCode(), updatedTravelCache);
+    }
+
+    @Override
+    public void updateTravelLocationGeographic(UpdateTravelLocationGeographicMessage message) {
+        TravelCache travelCache = getTravelCache(message.travelCode());
+        TravelCache updatedTravelLocationCache = travelCacheFactory.createUpdatedTravelLocationGeograhpic(travelCache, message);
+
+        travelCaches.put(message.travelCode(), updatedTravelLocationCache);
     }
 
     @Override
@@ -99,7 +103,7 @@ public class TravelCacheHandlerImpl implements TravelCacheHandler {
         //업데이트 로직 + caches 비우기
         for(Entry<Long, TravelCache> travelCache : travelCaches.entrySet()){
             travelRepository.save(cacheToEntityMapper.mapToTravel(travelCache.getValue()));
-            travelLocationRepository.saveAll(cacheToEntityMapper.mapToTravelLocation(travelCache.getValue().getSchedule()));
+            travelLocationRepository.saveAll(cacheToEntityMapper.mapToTravelLocation(travelCache.getValue().getSchedule(), travelCache.getValue().getGeographicMessages(), travelCache.getValue().getTravelCode()));
             travelPreparationRepository.saveAll(cacheToEntityMapper.mapToTravelPreparation(travelCache.getValue().getTravelCode(), travelCache.getValue().getPreparation()));
         }
         travelCaches.clear();
@@ -138,3 +142,4 @@ public class TravelCacheHandlerImpl implements TravelCacheHandler {
         throw new IllegalArgumentException();
     }
 }
+
