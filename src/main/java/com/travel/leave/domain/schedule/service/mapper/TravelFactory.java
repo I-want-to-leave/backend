@@ -28,8 +28,8 @@ public class TravelFactory {
         return Travel.builder()
                 .name(travelRequestDTO.title())
                 .content(travelRequestDTO.information())
-                .startDate(Date.valueOf(travelRequestDTO.startDate()))
-                .endDate(Date.valueOf(travelRequestDTO.endDate()))
+                .startDate(Date.valueOf(travelRequestDTO.startDate().split("T")[0]))
+                .endDate(Date.valueOf(travelRequestDTO.endDate().split("T")[0]))
                 .imageUrl(rawImage)
                 .build();
     }

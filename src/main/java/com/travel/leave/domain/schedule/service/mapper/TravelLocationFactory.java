@@ -49,7 +49,7 @@ public class TravelLocationFactory {
     }
 
     private ScheduleDetails getScheduleDetails(TravelLocationRequestDTO tempTimeLine, String nextTime, int step) {
-        return ScheduleDetails.of(tempTimeLine.title(), tempTimeLine.description(), Timestamp.valueOf(tempTimeLine.startDate()), Timestamp.valueOf(nextTime), step, null);
+        return ScheduleDetails.of(tempTimeLine.title(), tempTimeLine.description(), Timestamp.valueOf(tempTimeLine.startDate().replace("T", " ")), Timestamp.valueOf(nextTime.replace("T", " ")), step, null);
     }
 
     private boolean isLastTimeLine(int step, int size){
