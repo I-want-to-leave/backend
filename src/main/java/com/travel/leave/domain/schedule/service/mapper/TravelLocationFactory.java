@@ -5,6 +5,7 @@ import com.travel.leave.subdomain.travellocaion.entity.TravelLocation;
 import com.travel.leave.domain.schedule.dto.get.TravelLocationRequestDTO;
 import com.travel.leave.domain.schedule.dto.get.TravelLocationRequestDTOs;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class TravelLocationFactory {
     }
 
     private ScheduleDetails getScheduleDetails(TravelLocationRequestDTO tempTimeLine, String nextTime, int step) {
-        return ScheduleDetails.of(tempTimeLine.title(), tempTimeLine.description(), Timestamp.valueOf(tempTimeLine.startDate().replace("T", " ")), Timestamp.valueOf(nextTime.replace("T", " ")), step, null);
+        return ScheduleDetails.of(tempTimeLine.title(), tempTimeLine.description(), Timestamp.from(Instant.parse(tempTimeLine.startDate())), Timestamp.from(Instant.parse(nextTime)), step, null);
     }
 
     private boolean isLastTimeLine(int step, int size){
