@@ -31,11 +31,11 @@ public class TravelLocationFactory {
         for(int i = 0; i < schedule.timelines().size(); i++){
             TravelLocationRequestDTO tempTimeLine = schedule.timelines().get(i);
             if(isLastTimeLine(i+1, schedule.timelines().size())){
-                oneDayTravelLocations.add(getOneDayOneTravelLocation(travelCode, tempTimeLine, tempTimeLine.time(),i+1));
+                oneDayTravelLocations.add(getOneDayOneTravelLocation(travelCode, tempTimeLine, tempTimeLine.startDate(),i+1));
                 continue;
             }
             TravelLocationRequestDTO nextTimeLine = schedule.timelines().get(i+1);
-            oneDayTravelLocations.add(getOneDayOneTravelLocation(travelCode, tempTimeLine, nextTimeLine.time(), i+1));
+            oneDayTravelLocations.add(getOneDayOneTravelLocation(travelCode, tempTimeLine, nextTimeLine.startDate(), i+1));
         }
 
         return oneDayTravelLocations;
@@ -43,13 +43,13 @@ public class TravelLocationFactory {
 
     private TravelLocation getOneDayOneTravelLocation(Long travelCode,
                                                       TravelLocationRequestDTO tempTimeLine,
-                                                      LocalDateTime nextTime,
+                                                      String nextTime,
                                                       int step) {
-        return TravelLocation.of(travelCode, getScheduleDetails(tempTimeLine, Timestamp.valueOf(nextTime), step));
+        return TravelLocation.of(travelCode, getScheduleDetails(tempTimeLine, nextTime, step));
     }
 
-    private ScheduleDetails getScheduleDetails(TravelLocationRequestDTO tempTimeLine, Timestamp nextTime, int step) {
-        return ScheduleDetails.of(tempTimeLine.title(), tempTimeLine.description(), Timestamp.valueOf(tempTimeLine.time()), nextTime, step, null);
+    private ScheduleDetails getScheduleDetails(TravelLocationRequestDTO tempTimeLine, String nextTime, int step) {
+        return ScheduleDetails.of(tempTimeLine.title(), tempTimeLine.description(), Timestamp.valueOf(tempTimeLine.startDate()), Timestamp.valueOf(nextTime), step, null);
     }
 
     private boolean isLastTimeLine(int step, int size){
@@ -66,7 +66,7 @@ public class TravelLocationFactory {
 /*
  * TravelLocationRequestDTO(
  *         Long code,
- *         Timestamp time,
+ *         Timestamp startDate,
  *         String title,
  *         String description
  * )

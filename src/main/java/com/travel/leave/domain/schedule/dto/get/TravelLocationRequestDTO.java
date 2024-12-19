@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public record TravelLocationRequestDTO(
         Long code,
-        LocalDateTime time,
+        String startDate,
         String title,
         String description
 ) {

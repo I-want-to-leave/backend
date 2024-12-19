@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record TravelLocationRequestDTOs(
-    LocalDate date,
+    String date,
     List<TravelLocationRequestDTO> timelines
 ) {
 
