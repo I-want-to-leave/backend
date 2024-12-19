@@ -48,8 +48,4 @@ public class Travel {
 
     @Column(name = "travel_image_url")
     private String imageUrl;
-
-    public static Travel of(Long code, String name, String content, Date startDate, Date endDate, Timestamp createdAt, Timestamp deletedAt, String imageUrl) {
-        return new Travel(code, name, content, createdAt, deletedAt, startDate, endDate, imageUrl);
-    }
 }

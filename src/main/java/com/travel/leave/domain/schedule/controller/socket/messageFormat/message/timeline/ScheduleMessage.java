@@ -1,4 +1,4 @@
-package com.travel.leave.domain.schedule.controller.socket.messageFormat.timeline;
+package com.travel.leave.domain.schedule.controller.socket.messageFormat.message.timeline;
 
 import java.time.LocalDate;
 import java.util.List;

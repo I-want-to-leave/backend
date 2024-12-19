@@ -1,4 +1,4 @@
-package com.travel.leave.domain.schedule.repository.invite;
+package com.travel.leave.domain.schedule.repository.query;
 
 import com.travel.leave.domain.schedule.dto.get.invite.UserInviteDTOs;
 

@@ -1,4 +1,4 @@
-package com.travel.leave.domain.schedule.repository.invite;
+package com.travel.leave.domain.schedule.repository.query;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;

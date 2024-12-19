@@ -3,10 +3,11 @@ package com.travel.leave.domain.schedule.controller.socket.messageFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.travel.leave.domain.schedule.controller.socket.messageFormat.preparation.UpdateTravelPreparationMessage;
-import com.travel.leave.domain.schedule.controller.socket.messageFormat.timeline.UpdateTravelLocationMessage;
-import com.travel.leave.domain.schedule.controller.socket.messageFormat.travel.UpdateTravelContentMessage;
-import com.travel.leave.domain.schedule.controller.socket.messageFormat.travel.UpdateTravelNameMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.preparation.UpdateTravelPreparationMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.timeline.UpdateTravelLocationMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.timeline.UpdateTravelLocationGeographicMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.travel.UpdateTravelContentMessage;
+import com.travel.leave.domain.schedule.controller.socket.messageFormat.message.travel.UpdateTravelNameMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -40,5 +41,9 @@ public class MessageFormatMapper {
 
     public UpdateTravelLocationMessage mapToUpdateTravelLocationMessage(String message){
         return objectMapper.convertValue(message, UpdateTravelLocationMessage.class);
+    }
+
+    public UpdateTravelLocationGeographicMessage mapToUpdateTravelLocationGeographic(String message) {
+        return objectMapper.convertValue(message, UpdateTravelLocationGeographicMessage.class);
     }
 }

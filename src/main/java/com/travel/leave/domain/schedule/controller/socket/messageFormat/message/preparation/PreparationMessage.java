@@ -1,4 +1,4 @@
-package com.travel.leave.domain.schedule.controller.socket.messageFormat.preparation;
+package com.travel.leave.domain.schedule.controller.socket.messageFormat.message.preparation;
 
 public record PreparationMessage(
         Long code,
