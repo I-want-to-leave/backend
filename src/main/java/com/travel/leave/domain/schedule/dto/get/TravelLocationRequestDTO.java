@@ -6,6 +6,6 @@ public record TravelLocationRequestDTO(
         Long code,
         LocalDateTime time,
         String title,
-        String content
+        String description
 ) {
 }
