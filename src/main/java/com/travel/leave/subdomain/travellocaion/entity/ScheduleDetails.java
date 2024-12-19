@@ -22,10 +22,10 @@ public class ScheduleDetails {
     @Column(name = "travel_location_content")
     private String content;
 
-    @Column(name = "travel_location_start_at")
+    @Column(name = "travel_location_start_time")
     private Timestamp startTime;
 
-    @Column(name = "travel_location_end_at")
+    @Column(name = "travel_location_end_time")
     private Timestamp endTime;
 
     @Column(name = "travel_location_step")

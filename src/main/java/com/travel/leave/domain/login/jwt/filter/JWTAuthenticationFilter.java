@@ -37,6 +37,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
+            if (shouldSkipFilter(request)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
             String jwtToken = request.getHeader("Authorization");
 
             if (request.getRequestURI().startsWith("/login") && request.getMethod().equals("POST")) {
@@ -97,5 +101,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean isExpired(String jwtToken) {
         return jwtUtil.isExpired(jwtToken);
+    }
+
+    private boolean shouldSkipFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return path.startsWith("/swagger-ui") || path.startsWith("/v3/api-docs");
     }
 }
