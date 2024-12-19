@@ -99,6 +99,9 @@ public class TravelCacheFactory {
     private List<GeoGraphicMessage> getGeographicMessages(List<TravelLocation> travelLocations) {
         List<GeoGraphicMessage> geoGraphicMessages = new ArrayList<>();
         for(TravelLocation travelLocation : travelLocations) {
+            if(travelLocation.getScheduleDetails().getGeographicDetails() == null){
+                continue;
+            }
             geoGraphicMessages.add(
                     new GeoGraphicMessage(
                             travelLocation.getTravelCode(),
