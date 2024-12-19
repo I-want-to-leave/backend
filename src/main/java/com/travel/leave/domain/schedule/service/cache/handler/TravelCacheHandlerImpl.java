@@ -103,7 +103,7 @@ public class TravelCacheHandlerImpl implements TravelCacheHandler {
         //업데이트 로직 + caches 비우기
         for(Entry<Long, TravelCache> travelCache : travelCaches.entrySet()){
             travelRepository.save(cacheToEntityMapper.mapToTravel(travelCache.getValue()));
-            travelLocationRepository.saveAll(cacheToEntityMapper.mapToTravelLocation(travelCache.getValue().getSchedule(), travelCache.getValue().getGeographicMessages()));
+            travelLocationRepository.saveAll(cacheToEntityMapper.mapToTravelLocation(travelCache.getValue().getSchedule(), travelCache.getValue().getGeographicMessages(), travelCache.getValue().getTravelCode()));
             travelPreparationRepository.saveAll(cacheToEntityMapper.mapToTravelPreparation(travelCache.getValue().getTravelCode(), travelCache.getValue().getPreparation()));
         }
         travelCaches.clear();
