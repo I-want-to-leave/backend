@@ -45,7 +45,7 @@ public class MyPageReadQueryImpl implements MyPageReadQuery{
                                 MyPagePostInfoResponseDTO.class,
                                 qPost.postCode.as("postCode"),
                                 qPost.createdAt.as("createdAt"),
-                                qTravel.startDate.as("startDate"),
+                                qTravel.startDate.as("time"),
                                 qTravel.endDate.as("endDate"),
                                 qPost.postContent.as("description")))
                         .from(qUser)
