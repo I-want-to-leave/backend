@@ -12,7 +12,8 @@ public class TravelLocationQueryImpl implements TravelLocationQuery{
     private final QTravelLocation qTravelLocation = QTravelLocation.travelLocation;
     @Override
     public List<TravelLocation> findTravelLocations(Long travelCode) {
-        return jpaQueryFactory.selectFrom(qTravelLocation)
+        return jpaQueryFactory.select(qTravelLocation)
+                .from(qTravelLocation)
                 .where(qTravelLocation.travelCode.eq(travelCode))
                 .orderBy(
                         qTravelLocation.scheduleDetails.startTime.asc(),

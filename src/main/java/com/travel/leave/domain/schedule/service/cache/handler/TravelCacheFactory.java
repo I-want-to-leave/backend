@@ -93,6 +93,7 @@ public class TravelCacheFactory {
                             travelLocation.getScheduleDetails().getName(),
                             travelLocation.getScheduleDetails().getContent()));
         }
+        scheduleMessages.add(new ScheduleMessage(tempLocationDate, timeLines));
         return scheduleMessages;
     }
 
