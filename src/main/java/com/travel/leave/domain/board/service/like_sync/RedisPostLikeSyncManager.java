@@ -1,8 +1,7 @@
 package com.travel.leave.domain.board.service.like_sync;
 
-import com.travel.leave.domain.board.exception.enums.LikeSyncExceptionMessage;
 import com.travel.leave.domain.board.service.like.RedisLikeField;
-import com.travel.leave.domain.board.exception.RedisPostCodeException;
+import com.travel.leave.exception.enums.custom.post.DefaultPostExceptionMsg;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class RedisPostLikeSyncManager {
             String postCode = redisKey.split(":")[2];
             return Long.parseLong(postCode);
         } catch (NumberFormatException e) {
-            throw new RedisPostCodeException(LikeSyncExceptionMessage.REDIS_WRONG_POSTCODE_FORMAT);
+            throw new IllegalArgumentException(DefaultPostExceptionMsg.POST_REDIS_PARSING_FAIL.getMessage());
         }
     }
 

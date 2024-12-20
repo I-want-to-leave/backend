@@ -6,15 +6,15 @@ import com.travel.leave.domain.ai_travel.dto.ai_recommend.RecommendDTO;
 import com.travel.leave.domain.ai_travel.dto.ai_recommend.RecommendedItemDTO;
 import com.travel.leave.domain.ai_travel.dto.ai_recommend.TripRequestDTO;
 import com.travel.leave.domain.ai_travel.dto.gpt.GPTResponse;
-import com.travel.leave.domain.ai_travel.exception.RedisCacheSaveFailException;
 import com.travel.leave.domain.ai_travel.mapper.AI_Mapper.AI_TripMapper;
 import com.travel.leave.domain.ai_travel.mapper.AI_Mapper.GPTResponseMapper;
 import com.travel.leave.domain.ai_travel.service.ai.GPTService;
 import com.travel.leave.domain.ai_travel.service.ai.GoogleMapsService;
 import com.travel.leave.domain.ai_travel.service.ai.GoogleTranslateService;
 import com.travel.leave.domain.ai_travel.service.ai.UnsplashService;
-import com.travel.leave.domain.ai_travel.exception.RedisCacheFailException;
-import com.travel.leave.domain.ai_travel.exception.AiExceptionMessage;
+import com.travel.leave.domain.ai_travel.service.recommend.travel_batch.AiTripPersistenceService;
+import com.travel.leave.exception.common_exception.base_runtime.redis_exception.RedisCacheException;
+import com.travel.leave.exception.enums.RedisExceptionMsg;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -75,7 +75,7 @@ public class AiTripService {
             return recommendDTO;
         } catch (Exception e) {
             log.error("해당 유저코드에 관해 여행 캐싱이 실패하였습니다: {}, tripRequest: {}, error: {}", userCode, tripRequest, e.getMessage(), e);
-            throw new RedisCacheFailException(AiExceptionMessage.REDIS_CACHE_FAIL);
+            throw new RedisCacheException(RedisExceptionMsg.CACHE_FIND_ERROR);
         }
     }
 
@@ -83,7 +83,7 @@ public class AiTripService {
     public void saveTripPlan(Long userCode) {
         RecommendDTO recommendDTO = tripCacheService.getTripPlan(userCode);
         if (recommendDTO == null) {
-            throw new RedisCacheSaveFailException(AiExceptionMessage.REDIS_CACHE_SAVE_FAIL);
+            throw new RedisCacheException(RedisExceptionMsg.CACHE_FIND_ERROR);
         }
         AITripPersistenceService.saveAllTripData(recommendDTO, userCode);
     }

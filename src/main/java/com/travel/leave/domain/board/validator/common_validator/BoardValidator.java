@@ -1,6 +1,6 @@
 package com.travel.leave.domain.board.validator.common_validator;
 
-import com.travel.leave.domain.board.exception.enums.DefaultExceptionMessages;
+import com.travel.leave.exception.enums.custom.post.DefaultPostExceptionMsg;
 import com.travel.leave.subdomain.post.entity.Post;
 import com.travel.leave.subdomain.post.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,13 +16,13 @@ public class BoardValidator {
 
     public Post validateActivePost(Long postCode) {
         return postRepository.findActivePostById(postCode)
-                .orElseThrow(() -> new EntityNotFoundException(DefaultExceptionMessages.POST_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new EntityNotFoundException(DefaultPostExceptionMsg.POST_NOT_FOUND.getMessage()));
     }
 
     public void validatePostMaster(Long postCode, Long userCode) {
         Post post = validateActivePost(postCode);
         if (!post.getUserCode().equals(userCode)) {
-            throw new AccessDeniedException(DefaultExceptionMessages.POST_CONTROL_ACCESS_DENIED.getMessage());
+            throw new AccessDeniedException(DefaultPostExceptionMsg.POST_CONTROL_ACCESS_DENIED.getMessage());
         }
     }
 }

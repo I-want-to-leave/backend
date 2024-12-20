@@ -1,6 +1,6 @@
 package com.travel.leave.domain.board.validator.common_validator;
 
-import com.travel.leave.domain.board.exception.enums.DefaultExceptionMessages;
+import com.travel.leave.exception.enums.custom.post.DefaultPostExceptionMsg;
 import com.travel.leave.subdomain.postcomment.entity.PostComment;
 import com.travel.leave.subdomain.postcomment.repository.PostCommentRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,10 +16,10 @@ public class BoardCommentValidator {
 
     public void validateOwnership(Long commentCode, Long userCode){
         PostComment comment = postCommentRepository.findActiveCommentById(commentCode)
-                .orElseThrow(() -> new EntityNotFoundException(DefaultExceptionMessages.COMMENT_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new EntityNotFoundException(DefaultPostExceptionMsg.COMMENT_NOT_FOUND.getMessage()));
 
         if (!comment.getUserCode().equals(userCode)) {
-            throw new AccessDeniedException(DefaultExceptionMessages.COMMENT_ACCESS_DENIED.getMessage());
+            throw new AccessDeniedException(DefaultPostExceptionMsg.COMMENT_ACCESS_DENIED.getMessage());
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.travel.leave.domain.board.service.like_sync;
+package com.travel.leave.domain.board.service.like_sync.utils;
 
 import com.travel.leave.subdomain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;

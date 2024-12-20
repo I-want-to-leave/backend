@@ -1,9 +1,9 @@
 package com.travel.leave.domain.board.service.post;
 
-import com.travel.leave.domain.board.exception.enums.SyncTravelExceptionMessage;
 import com.travel.leave.domain.board.mapper.SyncTripMapper;
-import com.travel.leave.domain.board.exception.PostAuthorConflictException;
+import com.travel.leave.exception.common_exception.base_runtime.custom_exception.PostAuthorConflictException;
 import com.travel.leave.domain.board.validator.common_validator.BoardValidator;
+import com.travel.leave.exception.enums.custom.post.PostExceptionMsg;
 import com.travel.leave.subdomain.post.entity.Post;
 import com.travel.leave.subdomain.postimage.entity.PostImage;
 import com.travel.leave.subdomain.travel.entity.Travel;
@@ -36,7 +36,7 @@ public class TravelSyncService {
         Post post = boardValidator.validateActivePost(postCode);
 
         if (post.getUserCode().equals(userCode)) {
-            throw new PostAuthorConflictException(SyncTravelExceptionMessage.CANNOT_ADD_OWN_POST);
+            throw new PostAuthorConflictException(PostExceptionMsg.CANNOT_ADD_OWN_POST);
         } // 게시글 작성자는, 내 여행목록으로 공유하지 못함
 
         String mainImageUrl = findRepresentativeImage(post);

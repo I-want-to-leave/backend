@@ -4,7 +4,7 @@ import com.travel.leave.subdomain.post.entity.Post;
 import com.travel.leave.subdomain.postlike.entity.PostLike;
 import com.travel.leave.domain.board.mapper.PostLikeMapper;
 import com.travel.leave.subdomain.postlike.repository.PostLikeRepository;
-import com.travel.leave.domain.board.service.like_sync.PostRecentCheckerUtils;
+import com.travel.leave.domain.board.service.like_sync.utils.PostRecentCheckerUtils;
 import com.travel.leave.domain.board.validator.common_validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisCallback;

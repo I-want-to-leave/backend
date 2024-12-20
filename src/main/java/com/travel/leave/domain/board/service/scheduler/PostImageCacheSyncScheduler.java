@@ -4,9 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.leave.domain.board.dto.response.postdetail.PostImageDTO;
+import com.travel.leave.exception.common_exception.base_runtime.redis_exception.RedisDeserializationException;
 import com.travel.leave.domain.board.mapper.PostImageMapper;
-import com.travel.leave.domain.board.exception.enums.PostImageExceptionMessage;
 import com.travel.leave.domain.board.service.post_image.RedisImageField;
+import com.travel.leave.exception.enums.RedisExceptionMsg;
 import com.travel.leave.subdomain.postimage.entity.PostImage;
 import com.travel.leave.subdomain.postimage.repository.PostImageRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -57,7 +58,7 @@ public class PostImageCacheSyncScheduler {
         try {
             return objectMapper.readValue(data, new TypeReference<>() {});
         } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException(PostImageExceptionMessage.REDIS_DESERIALIZATION_ERROR.getMessage(), e);
+            throw new RedisDeserializationException(RedisExceptionMsg.REDIS_DESERIALIZATION_ERROR);
         }
     }
 }

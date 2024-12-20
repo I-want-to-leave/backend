@@ -3,12 +3,13 @@ package com.travel.leave.domain.ai_travel.mapper.AI_Mapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.travel.leave.domain.ai_travel.dto.gpt.GPTResponse;
-import com.travel.leave.domain.ai_travel.exception.AiExceptionMessage;
-import com.travel.leave.domain.ai_travel.exception.GPTResponseParsingException;
-import com.travel.leave.domain.ai_travel.service.trip_enum.TransportType;
 import com.travel.leave.domain.ai_travel.dto.ai_recommend.LatLngDTO;
 import com.travel.leave.domain.ai_travel.dto.ai_recommend.RecommendedItemDTO;
+import com.travel.leave.domain.ai_travel.dto.gpt.GPTResponse;
+import com.travel.leave.domain.ai_travel.service.trip_enum.TransportType;
+import com.travel.leave.exception.common_exception.base_runtime.redis_exception.RedisParsingException;
+import com.travel.leave.exception.enums.RedisExceptionMsg;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -26,7 +27,7 @@ public class GPTResponseMapper {
             String responseContent = gptResponse.getChoices().get(0).getMessage().getContent();
             return objectMapper.readTree(responseContent);
         } catch (JsonProcessingException e) {
-            throw new GPTResponseParsingException(AiExceptionMessage.GPT_RESPONSE_PARSING_FAIL);
+            throw new RedisParsingException(RedisExceptionMsg.REDIS_PARSING_ERROR);
         }
     }
 

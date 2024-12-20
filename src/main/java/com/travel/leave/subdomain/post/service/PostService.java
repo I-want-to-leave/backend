@@ -1,14 +1,14 @@
 package com.travel.leave.subdomain.post.service;
 
 import com.travel.leave.domain.board.dto.response.postdetail.*;
-import com.travel.leave.domain.board.exception.PostAlreadySharedException;
-import com.travel.leave.domain.board.exception.enums.PostExceptionMessage;
+import com.travel.leave.exception.common_exception.base_runtime.custom_exception.PostAlreadySharedException;
+import com.travel.leave.exception.enums.custom.post.PostExceptionMsg;
 import com.travel.leave.domain.board.mapper.PostImageMapper;
 import com.travel.leave.domain.board.mapper.PostMapper;
 import com.travel.leave.domain.board.mapper.PostPreparationMapper;
 import com.travel.leave.domain.board.mapper.PostTravelRouteMapper;
 import com.travel.leave.domain.board.validator.aop.aop_annotation.ValidateBoardMaster;
-import com.travel.leave.domain.board.exception.enums.DefaultExceptionMessages;
+import com.travel.leave.exception.enums.custom.post.DefaultPostExceptionMsg;
 import com.travel.leave.domain.board.validator.common_validator.BoardValidator;
 import com.travel.leave.subdomain.post.entity.Post;
 import com.travel.leave.subdomain.post.repository.PostRepository;
@@ -53,11 +53,11 @@ public class PostService {
     @Transactional
     public Long createPost(Long userCode, Long travelCode) {
         if (postRepository.existsByTravelCode(travelCode)) {
-            throw new PostAlreadySharedException(PostExceptionMessage.POST_ALREADY_SHARED);
+            throw new PostAlreadySharedException(PostExceptionMsg.POST_ALREADY_SHARED);
         }
 
         Travel travel = travelRepository.findActiveTravelById(travelCode)
-                .orElseThrow(() -> new EntityNotFoundException(DefaultExceptionMessages.TRAVEL_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new EntityNotFoundException(DefaultPostExceptionMsg.TRAVEL_NOT_FOUND.getMessage()));
 
         List<TravelPreparation> travelPreparations = travelPreparationRepository.findByTravelCode(travelCode);
         List<TravelLocation> travelLocations = travelLocationRepository.findByTravelCode(travelCode);
