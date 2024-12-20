@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public record TimeLineMessage(
         Long id,
-        Timestamp time,
+        String time,
         String title,
         String description
 ) {

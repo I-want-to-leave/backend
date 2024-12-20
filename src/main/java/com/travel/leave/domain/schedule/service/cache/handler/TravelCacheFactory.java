@@ -89,7 +89,7 @@ public class TravelCacheFactory {
             timeLines.add(
                     new TimeLineMessage(
                             travelLocation.getTravelCode(),
-                            travelLocation.getScheduleDetails().getStartTime(),
+                            travelLocation.getScheduleDetails().getStartTime().toString().substring(11, 16),
                             travelLocation.getScheduleDetails().getName(),
                             travelLocation.getScheduleDetails().getContent()));
         }
