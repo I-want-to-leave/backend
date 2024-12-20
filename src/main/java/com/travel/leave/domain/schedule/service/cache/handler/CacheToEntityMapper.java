@@ -12,6 +12,7 @@ import com.travel.leave.subdomain.travellocaion.entity.ScheduleDetails;
 import com.travel.leave.subdomain.travellocaion.entity.TravelLocation;
 import com.travel.leave.subdomain.travelpreparation.entity.TravelPreparation;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -48,6 +49,7 @@ public class CacheToEntityMapper {
     private List<TravelLocation> getTravelLocations(List<ScheduleMessage> schedules, List<GeoGraphicMessage> geographicMessages, Long travelCode) {
         List<TravelLocation> travelLocations = new ArrayList<>();
         for(ScheduleMessage schedule : schedules){
+            String todayDate = schedule.date().toString();
             for(int i = 0; i < schedule.timeLines().size(); i++){
                 TimeLineMessage timeLineMessage = schedule.timeLines().get(i);
                 TimeLineMessage nextTimeLineMessage = schedule.timeLines().get(i);
@@ -62,8 +64,8 @@ public class CacheToEntityMapper {
                                 .name(timeLineMessage.title())
                                 .content(timeLineMessage.description())
                                 .step(i)
-                                .startTime(timeLineMessage.time())
-                                .endTime(nextTimeLineMessage.time())
+                                .startTime(Timestamp.valueOf(todayDate + "T" + timeLineMessage.time() + ":00.000"))
+                                .endTime(Timestamp.valueOf(todayDate + "T" + nextTimeLineMessage.time() + ":00.000"))
                                 .geographicDetails(GeographicDetails.builder()
                                         .latitude(geoGraphicMessage.latitude())
                                         .longitude(geoGraphicMessage.longitude())
