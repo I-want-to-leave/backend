@@ -67,6 +67,9 @@ dependencies {
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
 	implementation 'com.github.ben-manes.caffeine:caffeine:3.1.1'
+
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
+	//objectmapper localdateTime 직렬화 역직렬화 안된데 그래서 추가함 섹스
 }
 
 tasks.named('test') {

@@ -40,10 +40,14 @@ public class ScheduleController {
         return ResponseEntity.ok(scheduleService.loadTravel(travelCode));
     }
 
-
     @MessageMapping("/schedule/{travelCode}")
     public void buildSchedule(@PathVariable Long travelCode, String message) throws JsonProcessingException {
         String socketMessage = socketMessageHandler.progress(message);
         simpMessagingTemplate.convertAndSend("/topic/main-schedule/" + travelCode, socketMessage);
+    }
+
+    @GetMapping("/schedule/{travelCode}/ai-check")
+    public ResponseEntity<?> checkSchedule(@PathVariable Long travelCode) throws JsonProcessingException {
+        return ResponseEntity.ok(scheduleService.checkSchedule(travelCode));
     }
 }
