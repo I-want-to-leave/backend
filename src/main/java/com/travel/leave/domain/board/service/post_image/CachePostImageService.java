@@ -2,9 +2,9 @@ package com.travel.leave.domain.board.service.post_image;
 
 import com.travel.leave.domain.board.dto.request.PostImageUpdateRequestDTO;
 import com.travel.leave.domain.board.dto.response.postdetail.PostImageDTO;
-import com.travel.leave.domain.board.exception.enums.PostImageExceptionMessage;
 import com.travel.leave.domain.board.mapper.PostImageMapper;
-import com.travel.leave.domain.board.exception.PostImageRedisException;
+import com.travel.leave.exception.common_exception.base_runtime.redis_exception.RedisCacheException;
+import com.travel.leave.exception.enums.RedisExceptionMsg;
 import com.travel.leave.subdomain.postimage.entity.PostImage;
 import com.travel.leave.subdomain.postimage.repository.PostImageRepository;
 import com.travel.leave.utility.ImageProcessor;
@@ -65,19 +65,17 @@ public class CachePostImageService {
         PostImageDTO zeroImage = cachedImages.stream()
                 .filter(img -> img.getOrder() == 0L)
                 .findFirst()
-                .orElseThrow(() -> new PostImageRedisException(PostImageExceptionMessage.CACHE_FIND_FAIL_MAIN_IMAGE));
+                .orElseThrow(() -> new RedisCacheException(RedisExceptionMsg.CACHE_FIND_ERROR));
 
         PostImageDTO targetImage = cachedImages.stream()
                 .filter(img -> img.getOrder().equals(targetOrder))
                 .findFirst()
-                .orElseThrow(() -> new PostImageRedisException(PostImageExceptionMessage.CACHE_FIND_FAIL_SORTED_IMAGE));
+                .orElseThrow(() -> new RedisCacheException(RedisExceptionMsg.CACHE_FIND_ERROR));
 
-        // 순서 교환
         Long tempOrder = zeroImage.getOrder();
         zeroImage.setOrder(targetImage.getOrder());
         targetImage.setOrder(tempOrder);
 
-        // 캐시 갱신
         cachePostImageManager.putImages(postCode, cachedImages);
         return cachedImages;
     }

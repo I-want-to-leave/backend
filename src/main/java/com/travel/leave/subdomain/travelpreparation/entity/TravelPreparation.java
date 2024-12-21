@@ -35,6 +35,10 @@ public class TravelPreparation {
     @Column(name = "travel_code")
     private Long travelCode;
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
     public static TravelPreparation of(Long code, String name, Integer quantity, Boolean isDeleted, Long travelCode) {
         return new TravelPreparation(code, name, quantity, isDeleted, travelCode);
     }

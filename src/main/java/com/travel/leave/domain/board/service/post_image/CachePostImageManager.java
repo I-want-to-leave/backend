@@ -4,8 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.leave.domain.board.dto.response.postdetail.PostImageDTO;
-import com.travel.leave.domain.board.exception.JsonProcessingPostImageException;
-import com.travel.leave.domain.board.exception.enums.PostImageExceptionMessage;
+import com.travel.leave.exception.common_exception.base_runtime.redis_exception.RedisDeserializationException;
+import com.travel.leave.exception.common_exception.base_runtime.redis_exception.RedisSerializationException;
+import com.travel.leave.exception.enums.RedisExceptionMsg;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,7 @@ public class CachePostImageManager {
         try {
             return objectMapper.writeValueAsString(images);
         } catch (JsonProcessingException e) {
-            throw new JsonProcessingPostImageException(PostImageExceptionMessage.REDIS_SERIALIZATION_ERROR);
+            throw new RedisSerializationException(RedisExceptionMsg.REDIS_SERIALIZATION_ERROR);
         }
     }
 
@@ -57,7 +58,7 @@ public class CachePostImageManager {
         try {
             return objectMapper.readValue(data, new TypeReference<>() {});
         } catch (JsonProcessingException e) {
-            throw new JsonProcessingPostImageException(PostImageExceptionMessage.REDIS_DESERIALIZATION_ERROR);
+            throw new RedisDeserializationException(RedisExceptionMsg.REDIS_DESERIALIZATION_ERROR);
         }
     }
 }

@@ -1,8 +1,8 @@
 package com.travel.leave.domain.ai_travel.mapper.AI_Mapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.travel.leave.domain.ai_travel.exception.AiExceptionMessage;
-import com.travel.leave.domain.ai_travel.exception.GoogleMapsResponseException;
+import com.travel.leave.exception.enums.custom.ai_trip.AiExceptionMsg;
+import com.travel.leave.exception.common_exception.base_runtime.custom_exception.GoogleMapsResponseException;
 import com.travel.leave.domain.ai_travel.service.trip_enum.TransportType;
 import com.travel.leave.domain.ai_travel.dto.ai_recommend.LatLngDTO;
 
@@ -23,6 +23,6 @@ public class GoogleMapsMapper {
                     transportType
             );
         }
-        throw new GoogleMapsResponseException(AiExceptionMessage.GOOGLE_MAPS_PLACE_NOT_FOUND);
+        throw new GoogleMapsResponseException(AiExceptionMsg.GOOGLE_MAPS_PLACE_NOT_FOUND);
     }
 }
